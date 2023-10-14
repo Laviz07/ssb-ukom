@@ -13,6 +13,7 @@ class PemainController extends Controller
     public function index()
     {
         //
+        return view('Pemain.index');
     }
 
     /**

@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\PelatihController;
+use App\Http\Controllers\PemainController;
+use App\Http\Controllers\TimController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +23,11 @@ Route::get('/', function () {
 });
 
 Route::get('/berita', [BeritaController::class, 'index']);
+
+Route::get('/pelatih', [PelatihController::class, 'index']);
+
+Route::get('/pemain', [PemainController::class, 'index']);
+
+Route::get('/tim', [TimController::class, 'index']);
+
+Route::get('/jadwal', [JadwalController::class, 'index']);

@@ -84,7 +84,7 @@
     
         <ul class="navbar-nav  ">
           <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase active" aria-current="page" href="#">Beranda</a>
+            <a class="nav-link mx-2 text-uppercase active" aria-current="page" href="{{ url('berita', []) }}">Beranda</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2 text-uppercase" href="#">Tentang Kami</a>
@@ -93,16 +93,16 @@
             <a class="nav-link mx-2 text-uppercase" href="#">Galeri</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="#">Pelatih</a>
+            <a class="nav-link mx-2 text-uppercase" href="{{ url('pelatih', []) }}">Pelatih</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="#">Pemain</a>
+            <a class="nav-link mx-2 text-uppercase" href="{{ url('pemain', []) }}">Pemain</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="#">Tim</a>
+            <a class="nav-link mx-2 text-uppercase" href="{{ url('tim', []) }}">Tim</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="#">Jadwal</a>
+            <a class="nav-link mx-2 text-uppercase" href="{{ url('jadwal', []) }}">Jadwal</a>
           </li>
 
         </ul>

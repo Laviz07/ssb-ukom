@@ -13,6 +13,7 @@ class PelatihController extends Controller
     public function index()
     {
         //
+        return view('Pelatih.index');
     }
 
     /**

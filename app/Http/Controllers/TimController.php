@@ -13,6 +13,7 @@ class TimController extends Controller
     public function index()
     {
         //
+        return view('Tim.index');
     }
 
     /**

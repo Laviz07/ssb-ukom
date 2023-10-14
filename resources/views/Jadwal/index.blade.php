@@ -1,7 +1,7 @@
 @extends('layouts.layout')
-@section('title', 'Dashboard')
+@section('title', 'List Jadwal')
 @section('content')   
 
-Hello world
+Ini ceritanya jadwal
 
 @endsection
