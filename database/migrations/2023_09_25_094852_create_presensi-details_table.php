@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presensi-details', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('presensi-detail', function (Blueprint $table) {
+            $table->integer('id_presensi_detail')->autoIncrement()->primary();
+            $table->enum('keterangan', ['hadir', 'sakit', 'izin'])->nullable(false);
+
+
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('presensi-details');
+        Schema::dropIfExists('presensi-detail');
     }
 };

@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Berita;
+use App\Models\PresensiDetail;
 use Illuminate\Http\Request;
 
-class BeritaController extends Controller
+class PresensiDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $berita = Berita::all();
-
-        return view('', $berita);
+        //
     }
 
     /**
@@ -36,7 +34,7 @@ class BeritaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Berita $berita)
+    public function show(Presensi $presensi)
     {
         //
     }
@@ -44,7 +42,7 @@ class BeritaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Berita $berita)
+    public function edit(Presensi $presensi)
     {
         //
     }
@@ -52,7 +50,7 @@ class BeritaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Berita $berita)
+    public function update(Request $request, Presensi $presensi)
     {
         //
     }
@@ -60,7 +58,7 @@ class BeritaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Berita $berita)
+    public function destroy(Presensi $presensi)
     {
         //
     }

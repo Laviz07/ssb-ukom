@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tims', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('tim', function (Blueprint $table) {
+            $table->integer('id_tim')->autoIncrement()->primary();
+            $table->string('nama_tim', 50)->nullable(false);
+            $table->varchar('foto_tim', 255)->nullable(true);
+            $table->text('desk_tim')->nullable(true);
+            
+            // $table->foreign('nisn_pemain')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tims');
+        Schema::dropIfExists('tim');
     }
 };

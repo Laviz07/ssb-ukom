@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jadwals', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('jadwal', function (Blueprint $table) {
+            $table->integer('id_jadwal')->autoIncrement()->primary();
+            $table->string('judul_kegiatan', 255)->nullable(false);
+            $table->date('tanggal_kegiatan')->default('1960-01-01')->nullable(false);
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jadwals');
+        Schema::dropIfExists('jadwal');
     }
 };
