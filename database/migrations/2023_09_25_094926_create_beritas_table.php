@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('berita', function (Blueprint $table) {
             $table->integer('id_berita')->autoIncrement()->primary();
             $table->string('judul_berita', 255)->nullable(false);
-            $table->varchar('foto_berita', 255)->nullable(true);
+            $table->string('foto_berita', 255)->nullable(true);
             $table->text('isi_berita')->nullable(true);
-
         });
     }
 

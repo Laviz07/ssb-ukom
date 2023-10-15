@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('statistika', function (Blueprint $table) {
             $table->integer('id_statistika')->autoIncrement()->primary();
-            $table->varchar('detail_statistika', 50)->nullable(false);
-            
+            $table->string('detail_statistika', 50)->nullable(false);
         });
     }
 

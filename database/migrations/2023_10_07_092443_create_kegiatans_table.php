@@ -15,9 +15,9 @@ return new class extends Migration
             $table->integer('id_kegiatan')->autoIncrement()->primary();
             $table->enum('tipe_kegiatan', ['latihan', 'pertandingan'])->nullable(false);
             $table->time('jam_kegiatan')->nullable(false);
-            $table->varchar('foto_kegiatan', 255)->nullable(true);
+            $table->string('foto_kegiatan', 255)->nullable(true);
             $table->text('detail_kegiatan')->nullable(false);
-            $table->varchar('laporan_kegiatan', 255)->nullable(false);
+            $table->string('laporan_kegiatan', 255)->nullable(false);
         });
     }
 
