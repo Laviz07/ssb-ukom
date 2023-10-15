@@ -6,8 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- CSRF Token -->
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
 
     @vite(['resources/sass/app.scss','resources/js/app.js'])
     <title>@yield('title')</title>
@@ -21,6 +23,10 @@
     }
     .superNav {
       font-size:13px;
+    }
+
+    .navbar-nav a{
+        color: white;
     }
     .form-control {
       outline:none !important;
@@ -49,9 +55,9 @@
             <div class="dropdown" style="display: inline-block; vertical-align: middle;">
                 <i  class="bi bi-person-circle ms-4" 
                     id="navbarDropdownMenuLink" data-bs-toggle='dropdown'
-                    style="font-size: 40px; vertical-align: middle; ">
+                    style="font-size: 40px; vertical-align: middle; cursor: pointer;">
                 </i>
-                <div class="dropdown-menu" style="width: 200px" aria-labelledby="navbarDropdownMenuLink">
+                <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
                     <div class="col">
                         <div class="d-flex align-items-center">
                             <i class="bi bi-person-circle ms-2" style="font-size: 40px; vertical-align: middle;"></i>
@@ -79,12 +85,12 @@
     </div>
   </div>
 
-  <nav class="navbar navbar-expand-lg bg-white navbar-light p-2 shadow-sm">
+  <nav class="navbar navbar-expand-lg p-2 shadow-sm" style="background-color:#007EA7;">
     <div class="container">
     
-        <ul class="navbar-nav  ">
-          <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase active" aria-current="page" href="{{ url('berita', []) }}">Beranda</a>
+        <ul class="navbar-nav" >
+          <li class="nav-item ">
+            <a class="nav-link mx-2 text-uppercase" aria-current="page" href="{{ url('berita', []) }}">Beranda</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2 text-uppercase" href="#">Tentang Kami</a>

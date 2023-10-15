@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kegiatans', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('kegiatan', function (Blueprint $table) {
+            $table->integer('id_kegiatan')->autoIncrement()->primary();
+            $table->enum('tipe_kegiatan', ['latihan', 'pertandingan'])->nullable(false);
+            $table->time('jam_kegiatan')->nullable(false);
+            $table->varchar('foto_kegiatan', 255)->nullable(true);
+            $table->text('detail_kegiatan')->nullable(false);
+            $table->varchar('laporan_kegiatan', 255)->nullable(false);
         });
     }
 
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kegiatans');
+        Schema::dropIfExists('kegiatan');
     }
 };

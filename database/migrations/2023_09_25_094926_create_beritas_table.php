@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('beritas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('berita', function (Blueprint $table) {
+            $table->integer('id_berita')->autoIncrement()->primary();
+            $table->string('judul_berita', 255)->nullable(false);
+            $table->varchar('foto_berita', 255)->nullable(true);
+            $table->text('isi_berita')->nullable(true);
+
         });
     }
 
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('beritas');
+        Schema::dropIfExists('berita');
     }
 };

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presensis', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('presensi', function (Blueprint $table) {
+            $table->integer('id_presensi')->autoIncrement()->primary();
+            $table->date('hari_tanggal_hadir')->default('1960-01-01')->nullable(false);
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('presensis');
+        Schema::dropIfExists('presensi');
     }
 };

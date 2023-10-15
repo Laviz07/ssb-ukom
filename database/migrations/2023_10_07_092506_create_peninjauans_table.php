@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('peninjauans', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('peninjauan', function (Blueprint $table) {
+            $table->integer('id_peninjauan')->autoIncrement()->primary();
+            $table->date('tanggal_peninjauan')->default('1960-01-01')->nullable(false);
+            $table->text('evaluasi')->nullable(false);
+            $table->int('nilai', 3)->nullable(false);
+
         });
     }
 
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('peninjauans');
+        Schema::dropIfExists('peninjauan');
     }
 };
