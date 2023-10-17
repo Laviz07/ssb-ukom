@@ -54,3 +54,21 @@
     border: 1px solid var(--color-prussian-blue);
     border-radius: 4px;
 } */
+
+.judul1{
+    color: var(--color-prussian-blue);
+    font-family: 'Outfit', sans-serif;
+    font-size: 55px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.judul2{
+    color: var(--color-prussian-blue);
+    font-family: 'Outfit', sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}

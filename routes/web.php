@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PelatihController;
@@ -20,8 +21,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/berita');
+    return redirect('/beranda');
 });
+
+
+Route::get('/beranda', [DashboardController::class, 'indexHome']);
 
 Route::get('/berita', [BeritaController::class, 'index']);
 
