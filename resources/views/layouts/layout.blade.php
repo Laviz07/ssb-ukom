@@ -96,7 +96,7 @@
             <a class="nav-link mx-2 text-uppercase" href="#">Tentang Kami</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="#">Galeri</a>
+            <a class="nav-link mx-2 text-uppercase" href="{{ url('galeri', []) }}">Galeri</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2 text-uppercase" href="{{ url('pelatih', []) }}">Pelatih</a>
@@ -120,7 +120,7 @@
   <div class="container">
     @include('layouts.flashMessage')
     @yield('content')
-</div>
+  </div>
 
 
 </body>

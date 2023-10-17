@@ -4,10 +4,20 @@
 
 <div class="container mt-4 mb-4">
     <div>
-        <div class="card p-2 align-items-center" style="border: 2px solid #00171F;">
+        <div class="card  align-items-center" style="border: 2px solid #00171F;">
             <div class="card-body">
-                <span class="h2 text-uppercase "> <strong>Daftar Pemain</strong></span>
+                <span class="h3 text-uppercase "> <strong>Daftar Pemain</strong></span>
             </div>
+        </div>
+
+        <div class="col d-flex justify-content-between mb-2  mt-3">
+            <a href="{{ url('/', []) }}">
+                <btn class="btn btn-primary">Kembali</btn>
+            </a>
+
+            <a href="{{ url('pemain', ['tambah'])}}" class="justify-content-end">
+                <btn class="btn btn-success">Tambah </btn>
+            </a>
         </div>
 
         <div class=" mt-3">
@@ -26,11 +36,19 @@
                             $no = 1;
                         ?>
 
+                @foreach ($pemain as $pm)
+                    
                         <tr style="vertical-align: middle; font-size: 17px;">
                             <td class="col-1" style="text-align: center;"> {{$no++}} </td>
-                            <td class="col-1" style="text-align: center"> <i class="bi bi-person-circle"  style="font-size: 40px;"></i> </td>
-                            <td class="col-5">Muhammad Sumbul</td>
-                            <td class="col-3" style="text-align: center">12345678910</td>
+                            <td class="col-1" style="text-align: center"> 
+                                @if ($pm->user->foto_profil)
+                                    <img src="{{asset('storage/' . $pm->user->foto_profil) }}" alt="Foto Profil" width="80px" class="rounded">
+                                @else
+                                    <i class="bi bi-person-circle"  style="font-size: 40px;"></i> 
+                                @endif
+                            </td>
+                            <td class="col-5"> {{$pm->nama_pemain}} </td>
+                            <td class="col-3" style="text-align: center"> {{$pm->nisn_pemain}} </td>
                             <td style="text-align: center">
                                 {{-- <a href="#" class="text-decoration-none">
                                     <btn class="btn btn-primary">Edit</btn>
@@ -74,6 +92,8 @@
 
                             </td>
                         </tr>
+                @endforeach
+
                     </tbody>
                 </table>
         </div>
@@ -81,5 +101,10 @@
     </div>
 </div>
 
+@endsection
 
+@section('footer')
+    <script type="module">
+        $('.DataTable').DataTable();
+    </script>
 @endsection

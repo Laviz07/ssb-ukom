@@ -13,11 +13,11 @@ class Pelatih extends Model
     protected $fillable = [
         'nama_pelatih',
         'alamat',
-        'deskripsi_pelatih',
-        'foto_pelatih',
+        'deskripsi',
+        'email',
         'no_telp',
-        'tanggal_lahir_pelatih',
-        'tempat_lahir_pelatih'
+        'tanggal_lahir',
+        'tempat_lahir'
     ];
     public $timestamps = false;
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PemainController;
@@ -27,7 +28,12 @@ Route::get('/berita', [BeritaController::class, 'index']);
 Route::get('/pelatih', [PelatihController::class, 'index']);
 
 Route::get('/pemain', [PemainController::class, 'index']);
+Route::get('/pemain/tambah', [PemainController::class, 'indexCreate']);
+Route::post('/pemain/tambah', [PemainController::class, 'create']);
 
 Route::get('/tim', [TimController::class, 'index']);
 
 Route::get('/jadwal', [JadwalController::class, 'index']);
+
+Route::get("/galeri", [GaleriController::class, 'index']);
+Route::get("/galeri/tambah", [GaleriController::class, 'indexCreate']);

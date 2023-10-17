@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pelatih', function (Blueprint $table) {
-
-            $table->bigInteger('nik_pelatih')->primary();
+        Schema::create('admin', function (Blueprint $table) {
+            $table->bigInteger('nik_admin')->primary();
             $table->integer("id_user")->nullable(false);
-            $table->string('nama_pelatih', 50)->nullable(false);
-            $table->text('deskripsi_pelatih')->nullable(true);
-            $table->string('alamat', 255)->nullable(false);
+            $table->string('nama_admin', 50)->nullable(false);
             $table->integer('no_telp')->nullable(false);
             $table->string("email", 255)->nullable(false);
-            $table->string('tempat_lahir', 50)->nullable(false);
-            $table->date('tanggal_lahir')->default('1960-01-01')->nullable(false);
 
             $table->foreign("id_user")->references("id_user")->on("user")
                 ->onDelete("cascade")->onUpdate("cascade");
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pelatih');
+        Schema::dropIfExists('admin');
     }
 };

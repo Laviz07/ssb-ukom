@@ -12,11 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('peninjauan', function (Blueprint $table) {
-            $table->integer('id_peninjauan')->autoIncrement()->primary();
+            $table->integer('id_peninjauan')->autoIncrement();
             $table->date('tanggal_peninjauan')->default('1960-01-01')->nullable(false);
             $table->text('evaluasi')->nullable(false);
-            $table->int('nilai', 3)->nullable(false);
-
+            $table->integer('nilai')->nullable(false);
         });
     }
 

@@ -2,6 +2,6 @@
 @section('title', 'List Jadwal')
 @section('content')   
 
-Ini ceritanya jadwal
+Jadwal
 
 @endsection

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('presensi', function (Blueprint $table) {
-            $table->integer('id_presensi')->autoIncrement()->primary();
+            $table->integer('id_presensi')->autoIncrement();
             $table->date('hari_tanggal_hadir')->default('1960-01-01')->nullable(false);
         });
     }
