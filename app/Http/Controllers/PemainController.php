@@ -125,17 +125,26 @@ class PemainController extends Controller
     {
         //
 
-        // $pemain = Pemain::query()->find($request['nisn_pemain'])->delete();
-
         $nisn = $request->id;
 
-        // Hapus foto profil dari penyimpanan
-        // Storage::disk('public')->delete($pemain->user->foto_profil);
+        $pemain = Pemain::where('nisn_pemain', $nisn)->first();
 
-        // Hapus entri pemain dari database
-        $hapus = $pemain->where('nisn_pemain', $nisn)->delete();
+        if ($pemain) {
 
-        if ($hapus) {
+            //hapus foto profil
+            if ($pemain->user->foto_profil) {
+                Storage::disk('public')->delete($pemain->user->foto_profil);
+            }
+
+            //menghapus pemain
+            $pemain->delete();
+
+            //menghapus user
+            $user = User::where('id_user', $pemain->id_user)->first();
+            if ($user) {
+                $user->delete();
+            }
+
             $pesan = [
                 'success' => true,
                 'pesan' => 'Pemain Berhasil Dihapus'

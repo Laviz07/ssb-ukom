@@ -15,9 +15,12 @@
                 <btn class="btn btn-primary">Kembali</btn>
             </a>
 
-            <a href="{{ url('pelatih', ['tambah'])}}" class="justify-content-end">
-                <btn class="btn btn-success">Tambah </btn>
-            </a>
+            @if (Auth::user()['role']=='admin')
+                <a href="{{ url('pelatih', ['tambah'])}}" class="justify-content-end">
+                    <btn class="btn btn-success">Tambah </btn>
+                </a>
+            @endif
+            
         </div>
 
         <div class=" mt-3">
@@ -76,15 +79,17 @@
                                         <strong class="ms-1">Lihat Detail Pelatih</strong> 
                                        </a>
 
-                                       <a class="dropdown-item" href="#"> 
-                                        <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                        <strong class="ms-1" >Edit Data Pelatih</strong> 
-                                       </a>
+                                      
+                                        <a class="dropdown-item" href="#"> 
+                                            <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                            <strong class="ms-1" >Edit Data Pelatih</strong> 
+                                        </a>
 
-                                       <a class="dropdown-item" href="#"> 
-                                        <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                        <strong class="ms-1">Hapus Data Pelatih</strong> 
-                                       </a>
+                                        <a class="dropdown-item" href="#"> 
+                                            <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                            <strong class="ms-1">Hapus Data Pelatih</strong> 
+                                        </a>
+                                       
 
                                     </div>
 

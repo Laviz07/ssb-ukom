@@ -2,7 +2,7 @@
 @section('title', 'Beranda')
 @section('content')   
 
-<div class="container mt-4 mb-4">
+<div class="container mt-1 mb-4">
     <div>
         <div class="row">
             <div class="col-md-6 d-flex align-items-center" >

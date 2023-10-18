@@ -51,19 +51,24 @@
         </div>
         
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-none d-lg-block d-md-block-d-sm-block d-xs-none  text-end">
-            <a href="#" class="btn btn-success btn-lg">Login</a>
-            <div class="dropdown" style="display: inline-block; vertical-align: middle;">
-                <i  class="bi bi-person-circle ms-4" 
+          
+          @if (!Auth::check())
+               <a href="{{ url('login', []) }}" class="btn btn-success btn-lg mt-2" >Login</a>
+          @endif
+         
+          @if (Auth::check())
+               <div class="dropdown" style="display: inline-block; vertical-align: middle;">
+                <i  class="bi bi-person-circle" 
                     id="navbarDropdownMenuLink" data-bs-toggle='dropdown'
                     style="font-size: 40px; vertical-align: middle; cursor: pointer;">
                 </i>
                 <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
                     <div class="col">
                         <div class="d-flex align-items-center">
-                            <i class="bi bi-person-circle ms-2" style="font-size: 40px; vertical-align: middle;"></i>
-                            <div class="ms-2">
-                                <h6><strong> Username</strong></h6>
-                                <span style="">Role</span>
+                            <i class="bi bi-person-circle ms-3" style="font-size: 40px; vertical-align: middle;"></i>
+                            <div class="ms-0 row">
+                                <span class="text-capitalize"><strong> {{Auth::user()->username}} </strong></span>
+                                <span style="" class="text-capitalize">{{Auth::user()->role}}</span>
                             </div>
                         </div>
                     </div>
@@ -73,13 +78,15 @@
                     <i class="bi bi-person-circle"  style="font-size: 20px; vertical-align: middle; "></i> 
                     <strong class="ms-1">Profil Anda</strong> 
                    </a>
-                   <a class="dropdown-item" href="#"> 
+                   <a class="dropdown-item" href="{{ url('logout', []) }}"> 
                     <i class="bi bi-box-arrow-right"  style="font-size: 20px; vertical-align: middle; color: #DC3545;"></i> 
                     <strong class="ms-1" style="color: #DC3545;">Log Out</strong> 
                    </a>
                   </div>
                 </div>
-        </div>
+            </div>
+          @endif
+           
 
       </div>
     </div>
@@ -98,18 +105,25 @@
           <li class="nav-item">
             <a class="nav-link mx-2 text-uppercase" href="{{ url('galeri', []) }}">Galeri</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="{{ url('pelatih', []) }}">Pelatih</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="{{ url('pemain', []) }}">Pemain</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="{{ url('tim', []) }}">Tim</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="{{ url('jadwal', []) }}">Jadwal</a>
-          </li>
+
+          @if (Auth::check())
+            <li class="nav-item">
+              <a class="nav-link mx-2 text-uppercase" href="{{ url('pelatih', []) }}">Pelatih</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link mx-2 text-uppercase" href="{{ url('pemain', []) }}">Pemain</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link mx-2 text-uppercase" href="{{ url('tim', []) }}">Tim</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link mx-2 text-uppercase" href="{{ url('jadwal', []) }}">Jadwal</a>
+            </li>
+          @endif
+         
 
         </ul>
         

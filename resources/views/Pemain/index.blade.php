@@ -17,9 +17,11 @@
                 <btn class="btn btn-primary">Kembali</btn>
             </a>
 
-            <a href="{{ url('pemain', ['tambah'])}}" class="justify-content-end">
-                <btn class="btn btn-success">Tambah </btn>
-            </a>
+            @if (Auth::user()['role']=='admin')
+                <a href="{{ url('pemain', ['tambah'])}}" class="justify-content-end">
+                    <btn class="btn btn-success">Tambah </btn>
+                </a>
+            @endif
         </div>
 
         <div class=" mt-3">
@@ -70,16 +72,18 @@
                                         <strong class="ms-1">Lihat Detail Pemain</strong> 
                                        </a>
 
-                                       <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$pm->nisn_pemain}}" 
-                                        style="cursor: pointer" idPM = {{$pm->nisn_pemain}} > 
-                                        <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                        <strong class="ms-1" >Edit Data Pemain</strong> 
-                                       </a>
+                                    @if (Auth::user()['role']=='admin')
+                                        <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$pm->nisn_pemain}}" 
+                                            style="cursor: pointer" idPM = {{$pm->nisn_pemain}} > 
+                                            <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                            <strong class="ms-1" >Edit Data Pemain</strong> 
+                                        </a>
 
-                                       <a class="dropdown-item hapusBtn" idPM={{$pm->nisn_pemain}} style="cursor: pointer"> 
-                                        <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                        <strong class="ms-1">Hapus Data Pemain</strong> 
-                                       </a>
+                                        <a class="dropdown-item hapusBtn" idPM={{$pm->nisn_pemain}} style="cursor: pointer"> 
+                                            <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                            <strong class="ms-1">Hapus Data Pemain</strong> 
+                                        </a>
+                                    @endif
 
                                     </div>
 
