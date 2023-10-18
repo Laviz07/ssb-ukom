@@ -41,7 +41,7 @@
 
                     @foreach ($pelatih as $pl)
 
-                        <tr style="vertical-align: middle; font-size: 17px;" idPl={{$pl->nik_pelatih}}>
+                        <tr style="vertical-align: middle; font-size: 17px;" idPl{{$pl->nik_pelatih}}>
                             <td class="col-1" style="text-align: center;"> {{$no++}} </td>
                             <td class="col-1" style="text-align: center"> 
                                 @if ($pl->user->foto_profil)
