@@ -46,6 +46,8 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
             Route::get('/pelatih/tambah', [PelatihController::class, 'indexCreate']);
             Route::post('/pelatih/tambah', [PelatihController::class, 'create']);
+            Route::post('/pelatih/edit/{id}', [PelatihController::class, 'edit']);
+            Route::delete('/pelatih/hapus/{id}', [PelatihController::class, 'delete']);
 
             Route::get('/pemain/tambah', [PemainController::class, 'indexCreate']);
             Route::post('/pemain/tambah', [PemainController::class, 'create']);
