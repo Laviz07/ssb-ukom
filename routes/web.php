@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GaleriController;
@@ -20,6 +21,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/',function() {
+    return redirect()->to('/login');
+});
+
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 Route::get('/', function () {
     return redirect('/beranda');
 });
@@ -35,6 +44,11 @@ Route::get('/pemain', [PemainController::class, 'index']);
 Route::get('/pemain/tambah', [PemainController::class, 'indexCreate']);
 Route::post('/pemain/tambah', [PemainController::class, 'create']);
 Route::get('/pemain/detail/{id}', [PemainController::class, 'indexDetail']);
+
+Route::get('/pelatih', [PelatihController::class, 'index']);
+Route::get('/pelatih/tambah', [PelatihController::class, 'indexCreate']);
+Route::post('/pelatih/tambah', [PelatihController::class, 'create']);
+Route::get('/pelatih/detail/{id}', [PelatihController::class, 'indexDetail']);
 
 Route::get('/tim', [TimController::class, 'index']);
 

@@ -50,6 +50,7 @@ class PemainController extends Controller
     {
         //
         $data = $request->validate([
+            // Menambah ke tabel pemain
             'nisn_pemain' => ['required'],
             'nama_pemain' => ['required'],
             'no_telp' => ['required'],
@@ -62,6 +63,7 @@ class PemainController extends Controller
             'kategori_umur' => ['required'],
             'deskripsi_pemain' => ['nullable'],
 
+            // Menambah ke tabel user
             'username' => ['nullable'],
             'password' => ['required'],
             'role' => ['required'],

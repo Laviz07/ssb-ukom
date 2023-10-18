@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pelatih extends Model
 {
@@ -12,6 +14,7 @@ class Pelatih extends Model
     protected $primaryKey = "nik_pelatih";
     protected $fillable = [
         'nama_pelatih',
+        'nik_pelatih',
         'alamat',
         'deskripsi',
         'email',
@@ -21,8 +24,18 @@ class Pelatih extends Model
     ];
     public $timestamps = false;
 
-    public function presensi()
+    /**
+     * Undocumented function
+     *
+     * @return HasMany
+     */
+    public function presensi(): HasMany
     {
         return $this->hasMany(Presensi_detail::class, "id_presensi_detail");
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, "id_user");
     }
 }

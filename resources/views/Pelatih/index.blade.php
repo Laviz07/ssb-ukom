@@ -10,6 +10,16 @@
             </div>
         </div>
 
+        <div class="col d-flex justify-content-between mb-2  mt-3">
+            <a href="{{ url('/', []) }}">
+                <btn class="btn btn-primary">Kembali</btn>
+            </a>
+
+            <a href="{{ url('pelatih', ['tambah'])}}" class="justify-content-end">
+                <btn class="btn btn-success">Tambah </btn>
+            </a>
+        </div>
+
         <div class=" mt-3">
                 <table class="table table-hovered table-bordered DataTable  ">
                     <thead>
@@ -26,11 +36,19 @@
                             $no = 1;
                         ?>
 
+                    @foreach ($pelatih as $pl)
+
                         <tr style="vertical-align: middle; font-size: 17px;">
                             <td class="col-1" style="text-align: center;"> {{$no++}} </td>
-                            <td class="col-1" style="text-align: center"> <i class="bi bi-person-circle"  style="font-size: 40px;"></i> </td>
-                            <td class="col-5">Muhammad Sumbul</td>
-                            <td class="col-3" style="text-align: center">12345678910</td>
+                            <td class="col-1" style="text-align: center"> 
+                                @if ($pl->user->foto_profil)
+                                    <img src="{{asset('storage/' . $pl->user->foto_profil) }}" alt="Foto Profil" style="width: 90px; height: 90px;" class="rounded-circle">
+                                @else
+                                    <i class="bi bi-person-circle"  style="font-size: 40px;"></i> 
+                                @endif
+                            </td>
+                            <td class="col-5"> {{$pl->nama_pelatih}} </td>
+                            <td class="col-3" style="text-align: center"> {{$pl->nik_pelatih}} </td>
                             <td style="text-align: center">
                                 {{-- <a href="#" class="text-decoration-none">
                                     <btn class="btn btn-primary">Edit</btn>
@@ -74,6 +92,42 @@
 
                             </td>
                         </tr>
+
+                        {{-- EDIT PELATIH --}}
+                        <div class="modal fade" id="edit-modal-{{$pl->nisn_pelatih}}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Pelatih</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="edit-js-form-{{$pl->nisn_pelatih}}">
+                                            <div class="form-group">
+                                                <label>Nama Pelatih</label>
+                                                <input placeholder="example" type="text" class="form-control mb-3"
+                                                        name="jenis_surat"
+                                                        value="{{$pl->nama_pelatih}}"
+                                                        required/>
+                                                @csrf
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-primary edit-btn"
+                                                form="edit-js-form-{{$pl->nisn_pelatih}}">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
                     </tbody>
                 </table>
         </div>
@@ -82,6 +136,13 @@
 </div>
 
 @endsection
+
+@section('footer')
+    <script type="module">
+        $('.DataTable').DataTable();
+    </script>
+@endsection
+
 {{-- @section('footer')
 <script>
     function clearText() {
