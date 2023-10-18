@@ -82,3 +82,39 @@
 </div>
 
 @endsection
+{{-- @section('footer')
+<script>
+    function clearText() {
+        $(`.fileName`).text('');
+        $('#fileUpload').val('');
+    }
+</script>
+<script type="module">
+    $('.table').DataTable();
+
+    $('input[type=file]').on('change', function () {
+        const fileName = $(this).val().replace(/.*(\/|\\)/, '');
+        $(`.fileName`).text(fileName);
+    })
+
+    // TAMBAH DATA SWEETALERT
+    $('#tambah-surat-form').on('submit', function (e) {
+            e.preventDefault();
+            let data = new FormData(e.target);
+            console.log(Object.fromEntries(data))
+            axios.post('/dashboard/surat', data, {
+                'Content-Type': 'multipart/form-data'
+            })
+                .then((res) => {
+                    $('#tambah-surat-modal').css('display', 'none')
+                    swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+                        location.reload();
+                    })
+                })
+                .catch((err) => {
+                    swal.fire('Gagal tambah data!', '', 'warning');
+                    console.log(err)
+                });
+        })
+</script>
+@endsection --}}
