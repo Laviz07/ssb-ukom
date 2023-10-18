@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pelatih extends Model
 {
@@ -21,7 +22,7 @@ class Pelatih extends Model
     ];
     public $timestamps = false;
 
-    public function presensi()
+    public function presensi(): HasMany
     {
         return $this->hasMany(Presensi_detail::class, "id_presensi_detail");
     }

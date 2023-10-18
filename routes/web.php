@@ -35,6 +35,8 @@ Route::get('/pemain', [PemainController::class, 'index']);
 Route::get('/pemain/tambah', [PemainController::class, 'indexCreate']);
 Route::post('/pemain/tambah', [PemainController::class, 'create']);
 Route::get('/pemain/detail/{id}', [PemainController::class, 'indexDetail']);
+Route::post('/pemain/edit/{id}', [PemainController::class, 'edit']);
+Route::delete('/pemain/hapus/{id}', [PemainController::class, 'delete']);
 
 Route::get('/tim', [TimController::class, 'index']);
 
