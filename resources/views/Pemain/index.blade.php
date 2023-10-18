@@ -3,6 +3,8 @@
 @section('content')   
 
 <div class="container mt-4 mb-4">
+
+    {{-- TAMBAH PEMAIN --}}
     <div>
         <div class="card  align-items-center" style="border: 2px solid #00171F;">
             <div class="card-body">
@@ -42,7 +44,7 @@
                             <td class="col-1" style="text-align: center;"> {{$no++}} </td>
                             <td class="col-1" style="text-align: center"> 
                                 @if ($pm->user->foto_profil)
-                                    <img src="{{asset('storage/' . $pm->user->foto_profil) }}" alt="Foto Profil" width="80px" class="rounded">
+                                    <img src="{{asset('storage/' . $pm->user->foto_profil) }}" alt="Foto Profil" style="width: 90px; height: 90px;" class="rounded-circle">
                                 @else
                                     <i class="bi bi-person-circle"  style="font-size: 40px;"></i> 
                                 @endif
@@ -71,12 +73,12 @@
                                     <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
                                     
                                     <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
-                                       <a class="dropdown-item" href="#"> 
+                                       <a class="dropdown-item" href="{{ url('pemain', ['detail', $pm->nisn_pemain]) }}"> 
                                         <i class="bi bi-eye"  style="font-size: 20px; vertical-align: middle; "></i> 
                                         <strong class="ms-1">Lihat Detail Pemain</strong> 
                                        </a>
 
-                                       <a class="dropdown-item" href="#"> 
+                                       <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$pm->nisn_pemain}}"> 
                                         <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
                                         <strong class="ms-1" >Edit Data Pemain</strong> 
                                        </a>
@@ -92,6 +94,40 @@
 
                             </td>
                         </tr>
+
+                         {{-- EDIT PEMAIN --}}
+                        <div class="modal fade" id="edit-modal-{{$pm->nisn_pemain}}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Pemain</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="edit-js-form-{{$pm->nisn_pemain}}">
+                                            <div class="form-group">
+                                                <label>Nama Pemain</label>
+                                                <input placeholder="example" type="text" class="form-control mb-3"
+                                                        name="jenis_surat"
+                                                        value="{{$pm->nama_pemain}}"
+                                                        required/>
+                                                @csrf
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-primary edit-btn"
+                                                form="edit-js-form-{{$pm->nisn_pemain}}">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 @endforeach
 
                     </tbody>
@@ -99,6 +135,8 @@
         </div>
            
     </div>
+
+   
 </div>
 
 @endsection

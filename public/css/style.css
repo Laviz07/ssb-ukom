@@ -58,7 +58,7 @@
 .judul1{
     color: var(--color-prussian-blue);
     font-family: 'Outfit', sans-serif;
-    font-size: 55px;
+    font-size: 48px;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -69,6 +69,6 @@
     font-family: 'Outfit', sans-serif;
     font-size: 30px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: normal;
 }

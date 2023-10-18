@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer("id_user")->autoIncrement();
             $table->string('username')->nullable(false);
             $table->string('password')->nullable(false);
+            $table->enum("role", ['admin', 'pelatih', 'pemain'])->nullable(false);
             $table->string("foto_profil", 255)->nullable(true);
             $table->timestamps();
         });

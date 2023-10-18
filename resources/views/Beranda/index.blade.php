@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col-md-6 d-flex align-items-center" >
                 <div class="row" >
-                    <span class="text-uppercase h4 judul2">Website Managemen</span>
-                    <span class="text-uppercase h1 judul1">sekolah sepak bola</span>
+                    <span class="text-uppercase judul2">Website Managemen</span>
+                    <span class="text-uppercase  judul1">sekolah sepak bola</span>
 
                     <span class="mt-4 ">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
@@ -30,7 +30,7 @@
 
     <div id="tentangKami">
         <div class="row mt-5">
-            <span class="h1 judul1 text-uppercase judul1" style="text-align: center">Tentang Kami</span>
+            <span class=" judul1 text-uppercase judul2" style="text-align: center">Tentang Kami</span>
 
             <div class="col-md-6  mt-4">
                 <img 
@@ -50,12 +50,12 @@
 
         <div class="row mt-5 align-items-center" >
             <div class="card p-3" style="border: 2px solid #003459; text-align: center;" >
-                <span class="h1 text-uppercase judul1">VISI</span>
+                <span class=" text-uppercase judul2">VISI</span>
                 <span class="mt-4" style="font-size: 16px;">“MENJADI SMK YANG MENGHASILKAN SDM KOMPETEN, BERKARAKTER, DAN IHSAN”</span>
             </div>
 
             <div class="card p-3 mt-5" style="border: 2px solid #003459" >
-                <span class="h1 text-uppercase judul1" style="text-align: center">misi</span>
+                <span class=" text-uppercase judul2" style="text-align: center">misi</span>
                 <span class="mt-4 ps-4 ">
                     <ol class="" style="width:900px; padding-left: 10%; font-size: 16px;" >
                         <li>Melaksanakan Sistem Manajemen Mutu ISO 9001 : 2015</li>
@@ -72,7 +72,7 @@
 
     <div id="hubungiKami">
         <div class="row mt-5">
-            <span class="h1 judul1 text-uppercase judul1" style="text-align: center">Hubungi Kami</span>
+            <span class=" judul1 text-uppercase judul2" style="text-align: center">Hubungi Kami</span>
 
             <div class="col-md-6 card mt-4 align-items-center" style="width: 500px;">
                 
