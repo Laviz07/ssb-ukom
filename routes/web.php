@@ -5,6 +5,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\LogsController;
 use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PemainController;
 use App\Http\Controllers\TimController;
@@ -30,7 +31,7 @@ Route::get('/', function () {
     return redirect('/beranda');
 });
 
-Route::get('/beranda', [DashboardController::class, 'indexHome']);
+Route::get('/beranda', [DashboardController::class, 'index']);
 
 Route::get('/berita', [BeritaController::class, 'index']);
 
@@ -55,6 +56,8 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::delete('/pemain/hapus/{id}', [PemainController::class, 'delete']);
 
             Route::get("/galeri/tambah", [GaleriController::class, 'indexCreate']);
+
+            Route::get("/log", [LogsController::class, 'index']);
         });
 
         // Route::middleware(['isPelatih'])->group(function () { });

@@ -122,7 +122,16 @@
             <li class="nav-item">
               <a class="nav-link mx-2 text-uppercase" href="{{ url('jadwal', []) }}">Jadwal</a>
             </li>
+
+            @if (Auth::user()['role']=='admin')
+              <li class="nav-item">
+                <a class="nav-link mx-2 text-uppercase" href="{{ url('log', []) }}">Aktifitas</a>
+              </li>
+            @endif
+
           @endif
+
+          
          
 
         </ul>
