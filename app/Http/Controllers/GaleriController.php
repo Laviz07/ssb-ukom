@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Galeri;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class GaleriController extends Controller
