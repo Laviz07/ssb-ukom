@@ -31,6 +31,17 @@ class PemainController extends Controller
         return view('Pemain.tambah');
     }
 
+  /**
+     * Menampilkan halaman detail pemain
+     */
+    public function indexDetail(Request $request)
+    {
+        $data = [
+            'pemain' => Pemain::where('nisn_pemain', $request->id)->first()
+        ];
+
+        return view('Pemain.detail', $data);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -53,6 +64,7 @@ class PemainController extends Controller
 
             'username' => ['nullable'],
             'password' => ['required'],
+            'role' => ['required'],
             'foto_profil' => ['nullable', 'mimes:png,jpg,jpeg', 'max:2048']
         ]);
 
@@ -67,6 +79,7 @@ class PemainController extends Controller
             $user = new User([
                 'username' => $data['username'],
                 'password' => $data['password'],
+                'role' => $data['role'],
                 'foto_profil' => $data['foto_profil']
             ]);
 

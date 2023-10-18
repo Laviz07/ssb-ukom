@@ -22,7 +22,7 @@
                                 <div class="form-group mt-2">
                                     <label >NISN Pemain:</label>
                                     <input type="number" class="form-control" required name="nisn_pemain">
-                                    {{-- <input type="hidden" name="id_user"> --}}
+                                    <input type="hidden" name="role" value="pemain">
                                 </div>
 
                             <div class="row">
