@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelatih;
+use App\Models\Pemain;
 use Illuminate\Http\Request;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Storage;
 
 class PelatihController extends Controller
 {
@@ -59,8 +62,26 @@ class PelatihController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pelatih $pelatih)
+    public function delete(int $nik_pelatih)
     {
-        //
+        {
+            $pelatih = Pelatih::query()->find($nik_pelatih);
+    
+            if (!$pelatih){
+                throw new HttpResponseException(response()->json([
+                    'message' => 'Not found'
+                ])->setStatusCode(404));
+            }
+    
+            // Deleting file
+            Storage::delete("public/$pelatih->file");
+            // Deleting pelatih 
+            $pelatih->delete();
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Berhasil menghapus pelatih pelatih'
+            ], 200);
+        }
     }
 }
