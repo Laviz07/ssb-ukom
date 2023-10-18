@@ -51,6 +51,8 @@ Route::get('/pelatih', [PelatihController::class, 'index']);
 Route::get('/pelatih/tambah', [PelatihController::class, 'indexCreate']);
 Route::post('/pelatih/tambah', [PelatihController::class, 'create']);
 Route::get('/pelatih/detail/{id}', [PelatihController::class, 'indexDetail']);
+Route::post('/pelatih/edit/{id}', [PelatihController::class, 'edit']);
+Route::delete('/pelatih/hapus/{id}', [PelatihController::class, 'delete']);
 
 Route::get('/tim', [TimController::class, 'index']);
 

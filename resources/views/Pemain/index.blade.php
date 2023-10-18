@@ -6,7 +6,7 @@
 
     {{-- LIST PEMAIN --}}
     <div>
-        <div class="card  align-items-center" style="border: 2px solid #00171F;">
+        <div class="card align-items-center" style="border: 2px solid #00171F;">
             <div class="card-body">
                 <span class="h3 text-uppercase "> <strong>Daftar Pemain</strong></span>
             </div>
