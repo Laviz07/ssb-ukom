@@ -4,7 +4,9 @@
 
     <div class="mt-4">
 
-        <a href="{{ url('galeri', ['tambah']) }}" class="btn btn-success">Tambah Foto</a>
+        @if (Auth::check() && Auth::user()->role == 'admin')
+            <a href="{{ url('galeri', ['tambah']) }}" class="btn btn-success">Tambah Foto</a>
+        @endif
 
         <div class="row mt-4">
             <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
