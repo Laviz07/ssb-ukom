@@ -30,7 +30,7 @@
 
     <div id="tentangKami">
         <div class="row mt-5">
-            <span class=" judul1 text-uppercase judul2" style="text-align: center">Tentang Kami</span>
+            <span class=" judul1 text-uppercase judul2" style="text-align: center; padding: 20px">Tentang Kami</span>
 
             <div class="col-md-6  mt-4">
                 <img 

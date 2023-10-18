@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class PemainController extends Controller
 {
@@ -31,7 +32,7 @@ class PemainController extends Controller
         return view('Pemain.tambah');
     }
 
-  /**
+    /**
      * Menampilkan halaman detail pemain
      */
     public function indexDetail(Request $request)
@@ -97,6 +98,59 @@ class PemainController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Request $request)
+    {
+        //
+        $data = $request->validate([
+            'nama_pemain' => ['required'],
+            'alamat' => ['required'],
+            'no_telp' => ['required'],
+            'email' => ['required'],
+            'deskripsi_pemain' => ['nullable']
+        ]);
+
+        $pemain = Pemain::where('nisn_pemain', $request->input('nisn_pemain'))->first();
+        $pemain->fill($data);
+        $pemain->save();
+
+        return redirect()->to('/pemain')->with('success', 'Pemain Berhasil Diupdate');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function delete(Pemain $pemain, Request $request)
+    {
+        //
+
+        // $pemain = Pemain::query()->find($request['nisn_pemain'])->delete();
+
+        $nisn = $request->id;
+
+        // Hapus foto profil dari penyimpanan
+        // Storage::disk('public')->delete($pemain->user->foto_profil);
+
+        // Hapus entri pemain dari database
+        $hapus = $pemain->where('nisn_pemain', $nisn)->delete();
+
+        if ($hapus) {
+            $pesan = [
+                'success' => true,
+                'pesan' => 'Pemain Berhasil Dihapus'
+            ];
+        } else {
+            $pesan = [
+                'success' => false,
+                'pesan' => 'Pemain Gagal Dihapus'
+            ];
+        }
+
+        return response()->json($pesan);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -112,26 +166,11 @@ class PemainController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pemain $pemain)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Pemain $pemain)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pemain $pemain)
     {
         //
     }

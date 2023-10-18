@@ -24,12 +24,7 @@ class Pelatih extends Model
     ];
     public $timestamps = false;
 
-    /**
-     * Undocumented function
-     *
-     * @return HasMany
-     */
-    public function presensi(): HasMany
+    public function presensi()
     {
         return $this->hasMany(Presensi_detail::class, "id_presensi_detail");
     }
