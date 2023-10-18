@@ -123,32 +123,31 @@ class PelatihController extends Controller
      */
     public function update(Request $request, Pelatih $pelatih)
     {
-        //
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(int $nik_pelatih)
+    public function delete(Pelatih $pelatih, Request $request)
     {
+        $nik = $request->id;
         {
-            $pelatih = Pelatih::query()->find($nik_pelatih);
-    
-            if (!$pelatih){
-                throw new HttpResponseException(response()->json([
-                    'message' => 'Not found'
-                ])->setStatusCode(404));
-            }
-    
-            // Deleting file
-            Storage::delete("public/$pelatih->file");
-            // Deleting pelatih 
-            $pelatih->delete();
-    
-            return response()->json([
+            $hapus = $pelatih->where('nik_pelatih', $nik)->delete();
+
+        if ($hapus) {
+            $pesan = [
                 'success' => true,
-                'message' => 'Berhasil menghapus pelatih pelatih'
-            ], 200);
+                'pesan' => 'Pelatih Berhasil Dihapus'
+            ];
+        } else {
+            $pesan = [
+                'success' => false,
+                'pesan' => 'Pelatih Gagal Dihapus'
+            ];
         }
+
+        return response()->json($pesan);
+    }
     }
 }
