@@ -37,7 +37,6 @@ Route::get('/berita', [BeritaController::class, 'index']);
 Route::post('/berita/tambah', [BeritaController::class, 'create']);
 
 Route::get('/galeri', [GaleriController::class, 'index']);
-Route::post('/galeri/tambah', [GaleriController::class, 'create']);
 
 Route::prefix('/')->middleware('auth')->group(function () {
 
@@ -58,6 +57,9 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::delete('/pemain/hapus/{id}', [PemainController::class, 'delete']);
 
             Route::get("/galeri/tambah", [GaleriController::class, 'indexCreate']);
+            Route::post("/galeri/tambah", [GaleriController::class, 'create']);
+            Route::post('/galeri/edit/{id}', [GaleriController::class, 'edit']);
+            Route::delete("/galeri/hapus/{id}", [GaleriController::class, 'delete']);
 
             Route::get("/log", [LogsController::class, 'index']);
         });
