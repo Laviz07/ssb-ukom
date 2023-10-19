@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GaleriController;
@@ -72,6 +73,12 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::delete('/tim/hapus/{id}', [TimController::class, 'delete']);
 
             Route::get('/jadwal', [JadwalController::class, 'indexCreate']);
+
+            Route::get('/admin/tambah', [AdminController::class, 'indexCreate']);
+            Route::post('/admin/tambah', [AdminController::class, 'create']);
+            Route::post('/admin/edit/{id}', [AdminController::class, 'edit']);
+            Route::delete('/admin/hapus/{id}', [AdminController::class, 'delete']);
+            });
         });
 
         // Route::middleware(['isPelatih'])->group(function () { });
