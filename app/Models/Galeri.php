@@ -9,7 +9,7 @@ class Galeri extends Model
 {
     use HasFactory;
     protected $table = "galeri";
-    protected $primaryKey = "id_foto";
+    protected $primaryKey = "id_galeri";
     protected $fillable = [
         "nik_admin",
         "keterangan_foto",

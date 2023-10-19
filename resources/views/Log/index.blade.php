@@ -41,3 +41,8 @@
     </div>
 </div>
 @endsection
+@section('footer')
+    <script type="module">
+         $('.DataTable').DataTable();
+    </script>
+@endsection

@@ -44,6 +44,7 @@
 .image-container:hover .image {
     transform: scale(1.1);
     filter: brightness(70%);
+    border-radius: 100%;
 }
 
 .image-container:hover .overlay {
