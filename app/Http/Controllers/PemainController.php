@@ -16,7 +16,6 @@ class PemainController extends Controller
      */
     public function index()
     {
-        //
         $data = [
             'pemain' => Pemain::all(),
             'user' => User::all()

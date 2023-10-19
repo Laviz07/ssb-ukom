@@ -22,6 +22,12 @@ class Pelatih extends Model
         'tanggal_lahir',
         'tempat_lahir'
     ];
+
+    /**
+     * Undocumented variable
+     *
+     * @var boolean
+     */
     public $timestamps = false;
 
     public function presensi()
@@ -29,6 +35,11 @@ class Pelatih extends Model
         return $this->hasMany(Presensi_detail::class, "id_presensi_detail");
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, "id_user");
