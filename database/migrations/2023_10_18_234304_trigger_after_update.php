@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    private $triggerName = 'trigger_update_insert_pelatih';
+    private $triggerName = 'trigger_after_update_pelatih';
     /**
      * Run the migrations.
      */

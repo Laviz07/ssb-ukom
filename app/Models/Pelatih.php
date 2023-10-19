@@ -16,7 +16,7 @@ class Pelatih extends Model
         'nama_pelatih',
         'nik_pelatih',
         'alamat',
-        'deskripsi',
+        'deskripsi_pelatih',
         'email',
         'no_telp',
         'tanggal_lahir',
