@@ -46,8 +46,10 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centerOnMobile">
+          <a href="{{ url('dashboard', []) }}" style="text-decoration: none;" class="logo" >
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80px">
             <span class="h4"><strong>Sekolah  Sepak Bola</strong></span>
+          </a>
         </div>
         
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-none d-lg-block d-md-block-d-sm-block d-xs-none  text-end">
