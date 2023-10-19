@@ -92,7 +92,6 @@ Route::prefix('/')->middleware('auth')->group(function () {
         Route::get('/tim', [TimController::class, 'index']);
 
         Route::get('/jadwal', [JadwalController::class, 'index']);
- 
 
     });
-});
+
