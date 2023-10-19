@@ -3,6 +3,8 @@
 @section('content')   
 
 <div class="container mt-4 mb-4">
+
+    {{-- LIST PELATIH --}}
     <div>
         <div class="card align-items-center" style="border: 2px solid #00171F;">
             <div class="card-body">
