@@ -36,7 +36,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group mt-2">
                                             <label >Nama Pelatih:</label>
-                                            <input type="text" class="form-control" required name="nama_tim">
+                                            <input type="text" class="form-control" required name="nama_pelatih">
                                     </div>
                                 </div>
                             </div>
