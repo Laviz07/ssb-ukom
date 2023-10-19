@@ -52,7 +52,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::post('/pelatih/edit/{id}', [PelatihController::class, 'edit']);
             Route::delete('/pelatih/hapus/{id}', [PelatihController::class, 'delete']);
 
-            Route::get('/pemain/tambah', [PemainController::class, 'indexCreate']);
+            Route::get('/tim/tambah', [PemainController::class, 'indexCreate']);
             Route::post('/pemain/tambah', [PemainController::class, 'create']);
             Route::post('/pemain/edit/{id}', [PemainController::class, 'edit']);
             Route::delete('/pemain/hapus/{id}', [PemainController::class, 'delete']);
@@ -60,6 +60,10 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::get("/galeri/tambah", [GaleriController::class, 'indexCreate']);
 
             Route::get("/log", [LogsController::class, 'index']);
+            Route::get('/tim/tambah', [TimController::class, 'indexCreate']);
+Route::post('/tim/tambah', [TimController::class, 'create']);
+            Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
+            Route::delete('/tim/hapus/{id}', [TimController::class, 'delete']);
         });
 
         // Route::middleware(['isPelatih'])->group(function () { });
