@@ -16,7 +16,7 @@
 
     <!-- Custom CSS -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
-    <link rel="icon" href="{{ asset('email.png') }}">
+    <link rel="icon" href="{{ asset('/images/logo1.png') }}">
 
     <style>
         .bg-image-vertical {
@@ -55,19 +55,19 @@
         
                 <div class="d-flex align-items-center h-custom-1 px-5 ms-xl-4  pt-xl-0 mt-xl-n5">
         
-                    <form style="width: 32rem;">
+                    <form style="width: 32rem;" action="">
         
                     <h2 class="fw-bold mb-3 pb-1.5 h2 text-uppercase" style="color: #003459">Login</h2>
         
                     <div class="form-outline mb-2">
                         <label class="form-label" for="username" style="font-size: 16px">Username</label>
-                        <input type="text" id="username" placeholder="Masukkan Username" class="form-control form-control-lg" />
+                        <input type="text" id="username" name="username" placeholder="Masukkan Username" class="form-control form-control-lg" />
                         
                     </div>
         
                     <div class="form-outline mb-2" style="position: relative;">
                         <label class="form-label" for="password" style="font-size: 16px">Password</label>
-                        <input type="password" id="password" placeholder="Masukkan Password" class="form-control form-control-lg" style="width: 100%; padding-right: 30px;">
+                        <input type="password" id="password" name="password" placeholder="Masukkan Password" class="form-control form-control-lg" style="width: 100%; padding-right: 30px;">
                         <input type="checkbox" onclick="myFunction()" style="margin-top: 10px"> Show Password
                     </div>
                     <script>
@@ -97,20 +97,38 @@
             </div>
         </div>
     </section>
+    <script type="module">
+        $('form').submit(async function (e) {
+            e.preventDefault();
+            let username = $('#username').val();
+            let password = $('#password').val();
+
+            await axios({
+                method: 'post',
+                url: 'http://localhost:8000/login',
+                data: {
+                    username,
+                    password
+                }
+            }).then(async (res) => {
+
+                await swal.fire({
+                    title: 'Login berhasil!',
+                    text: 'Redirecting to dashboard...',
+                    icon: 'success',
+                    timer: 1000,
+                    showConfirmButton: false
+                })
+                window.location = '/beranda'
+                console.log(res)
+            }).catch(({response}) => {
+                swal.fire('Gagal Login!', '',
+                        'warning');
+                        console.log(response);
+            })
+
+        })
+    </script>
 </body>
 
-<!-- Section: Design Block -->
-<script type="module">
-    $('form').submit(function(e) {
-        e.preventDefault();
-        let username = $('#username').val();
-        let password = $('#password').val();
-
-        axios.post('/login', {
-                username,
-                password
-            })
-            .then(() => window.location.href = '/beranda')
-            .catch((err) => console.log(err))
-        })
-</script>
+</html>
