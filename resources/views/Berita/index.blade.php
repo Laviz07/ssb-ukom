@@ -14,7 +14,7 @@
             @if (Auth::check() && Auth::user()->role == 'admin')
         <a href="{{ url('berita', ['tambah']) }}" class="btn btn-success">Tambah Berita</a>
         </a>
-            @endif
+        @endif
         </div>
     
         <div class="col-md-3 card mt-4 align-items-center" style="width: 340px;">

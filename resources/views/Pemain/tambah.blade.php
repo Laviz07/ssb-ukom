@@ -126,8 +126,8 @@
 
                                 <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
-                                        <label for="fileUpload" class="">Upload Foto:</label>
-                                        <input type="file" name="foto_profil" id="fileUpload" class="btn w-auto btn-outline-primary form-control">
+                                        <label for="fileUpload" class="">Upload Foto (masukkan frame 1:1) :</label>
+                                        <input type="file" name="foto_profil" id="fileUpload"  class="btn w-auto btn-outline-primary form-control">
                                     </div>
                                 </div>
                             </div>

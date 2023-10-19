@@ -12,8 +12,11 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        //
-        return view('Jadwal.index');
+        $data = [
+            'jadwal' => Jadwal::all()
+        ];
+
+        return view("Jadwal.index", $data);
     }
 
     /**
@@ -21,7 +24,7 @@ class JadwalController extends Controller
      */
     public function create()
     {
-        //
+        return view("Jadwal.index");
     }
 
     /**
