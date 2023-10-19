@@ -34,6 +34,7 @@ Route::get('/', function () {
 Route::get('/beranda', [DashboardController::class, 'index']);
 
 Route::get('/berita', [BeritaController::class, 'index']);
+Route::post('/berita/tambah', [BeritaController::class, 'create']);
 
 Route::get("/galeri", [GaleriController::class, 'index']);
 

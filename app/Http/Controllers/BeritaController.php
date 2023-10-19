@@ -23,9 +23,9 @@ class BeritaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function indexCreate()
     {
-        //
+        return view('Galeri.tambah');
     }
 
     /**

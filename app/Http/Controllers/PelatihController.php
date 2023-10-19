@@ -113,11 +113,23 @@ class PelatihController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pelatih $pelatih)
+    public function edit(Request $request)
     {
         //
-    }
+        $data = $request->validate([
+            'nama_pelatih' => ['required'],
+            'alamat' => ['required'],
+            'no_telp' => ['required'],
+            'email' => ['required'],
+            'deskripsi_pelatih' => ['nullable']
+        ]);
 
+        $pelatih = Pelatih::where('nik_pelatih', $request->input('nik_pelatih'))->first();
+        $pelatih->fill($data);
+        $pelatih->save();
+
+        return redirect()->to('/pelatih')->with('success', 'Pelatih Berhasil Diupdate');
+    }
     /**
      * Update the specified resource in storage.
      */
@@ -131,11 +143,28 @@ class PelatihController extends Controller
      */
     public function delete(Pelatih $pelatih, Request $request)
     {
-        $nik = $request->id;
-        {
-            $hapus = $pelatih->where('nik_pelatih', $nik)->delete();
+        //
 
-        if ($hapus) {
+        $nik = $request->id;
+
+        $pelatih = Pelatih::where('nik_pelatih', $nik)->first();
+
+        if ($pelatih) {
+
+            //hapus foto profil
+            if ($pelatih->user->foto_profil) {
+                Storage::disk('public')->delete($pelatih->user->foto_profil);
+            }
+
+            //menghapus pelatih
+            $pelatih->delete();
+
+            //menghapus user
+            $user = User::where('id_user', $pelatih->id_user)->first();
+            if ($user) {
+                $user->delete();
+            }
+
             $pesan = [
                 'success' => true,
                 'pesan' => 'Pelatih Berhasil Dihapus'
@@ -148,6 +177,5 @@ class PelatihController extends Controller
         }
 
         return response()->json($pesan);
-    }
     }
 }

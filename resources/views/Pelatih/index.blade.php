@@ -98,7 +98,7 @@
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Pelatih</h1>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="edit-js-form-{{$pl->nik_pelatih}}">
+                                        <form id="edit-pl-form-{{$pl->nik_pelatih}}">
                                             <div class="form-group">
                                                 <label>Nama Pelatih</label>
                                                 <input placeholder="example" type="text" class="form-control mb-3"
@@ -147,7 +147,7 @@
                                             Cancel
                                         </button>
                                         <button type="submit" class="btn btn-primary edit-btn"
-                                                form="edit-js-form-{{$pl->nik_pelatih}}">
+                                                form="edit-pl-form-{{$pl->nik_pelatih}}">
                                             Edit
                                         </button>
                                     </div>

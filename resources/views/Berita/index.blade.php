@@ -9,6 +9,13 @@
                 <span class="h3 text-uppercase "> <strong>Berita Sekolah</strong></span>
             </div>
         </div>
+
+        <div class=" mt-3">
+            @if (Auth::check() && Auth::user()->role == 'admin')
+        <a href="{{ url('berita', ['tambah']) }}" class="btn btn-success">Tambah Berita</a>
+        </a>
+        @endif
+        </div>
     
         <div class="col-md-3 card mt-4 align-items-center" style="width: 340px;">
                     
