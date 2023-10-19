@@ -33,14 +33,14 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($data)) {
-            $request->session()->regenerate();
 
             if (Auth::user()->role == 'admin') :
-                return redirect()->to('/dashboard');
+                return Auth::user();
             else :
                 return redirect()->to('/beranda');
             endif;
-        }
+        } else
+            return response()->json('failed', 401);
     }
 
     public function logout()
