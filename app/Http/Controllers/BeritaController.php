@@ -17,7 +17,7 @@ class BeritaController extends Controller
             'berita' => Berita::all(),
             'user' => User::all()
         ];
-        return view('berita.index', $data);
+        return view('Berita.index', $data);
     }
 
     /**
@@ -25,7 +25,7 @@ class BeritaController extends Controller
      */
     public function indexCreate()
     {
-        return view('Galeri.tambah');
+        return view('Berita.tambah');
     }
 
     /**

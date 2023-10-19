@@ -36,7 +36,8 @@ Route::get('/beranda', [DashboardController::class, 'index']);
 Route::get('/berita', [BeritaController::class, 'index']);
 Route::post('/berita/tambah', [BeritaController::class, 'create']);
 
-Route::get("/galeri", [GaleriController::class, 'index']);
+Route::get('/galeri', [GaleriController::class, 'index']);
+Route::post('/galeri/tambah', [GaleriController::class, 'create']);
 
 Route::prefix('/')->middleware('auth')->group(function () {
 
