@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pelatih;
 use App\Models\Pemain;
 use App\Models\Tim;
 use Illuminate\Support\Facades\DB;
@@ -18,13 +19,30 @@ class TimController extends Controller
     {
         $data = [
             'tim' => Tim::all(),
+            'pelatih' => Pelatih::all(),
         ];
         return view('Tim.index', $data);
     }
 
     public function indexCreate()
     {
-        return view('Tim.tambah');
+        $data = [
+            'pelatih' => Pelatih::all(),
+        ];
+        return view('Tim.tambah', $data);
+    }
+
+    /**
+     * Menampilkan halaman detail tim
+     */
+    public function indexDetail(Request $request)
+    {
+        $data = [
+            'tim' => Tim::where('id_tim', $request->id)->first(),
+            'pelatih' => Pelatih::all()
+        ];
+
+        return view('Tim.detail', $data);
     }
 
     /**
@@ -33,44 +51,76 @@ class TimController extends Controller
     public function create(Request $request)
     {
         $data = $request->validate([
-            // Menambah ke tabel pelatih
-            'id_tim' => ['required'],
             'nik_pelatih' => ['required'],
             'nama_tim' => ['required'],
-            'deskripsi_tim' => ['nullable'],
+            'deskripsi_tim' => ['required'],
 
-
-            // Menambah ke tabel user
-            'role' => ['required'],
-            'foto_tim' => ['nullable', 'mimes:png,jpg,jpeg', 'max:2048']
+            'foto_tim' => ['required'],
         ]);
 
-            //Upload foto tim
-            $path = $request->file("foto_tim")->storePublicly("foto_tim", "public");
-            $data['foto_tim'] = $path;
+        $path = $request->file('foto_tim')->storePublicly('foto_tim', 'public');
+        $data['foto_tim'] = $path;
 
-            //hash password
-            $data['password'] = Hash::make($data['password']);
-
-        // DB::transaction(function () use ($data) {
-        //     $user = new User([
-        //         'username' => $data['username'],
-        //         'password' => $data['password'],
-        //         'role' => $data['role'],
-        //         'foto_profil' => $data['foto_profil']
-        //     ]);
-
-        //     $user->save();
-
-        //     $pelatih = new Pelatih($data);
-        //     $pelatih->id_user = $user->id_user;
-        //     $pelatih->save();
-        // });
+        $tim = new Tim($data);
+        $tim->save();
 
         return redirect('/tim')
-            ->with('success', 'User baru berhasil ditambahkan!');
+            ->with('success', 'Tim berhasil ditambahkan');
     }
 
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Request $request)
+    {
+        //
+        $data = $request->validate([
+            'nama_tim' => ['required'],
+            'nik_pelatih' => ['required'],
+            'deskripsi_tim' => ['required']
+        ]);
+
+        $tim = Tim::query()->find($request->input('id_tim'));
+        $tim->fill($data);
+        $tim->save();
+
+        return redirect()->to('/tim')->with('success', 'Tim Berhasil Diupdate');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function delete(Tim $tim, Request $request)
+    {
+        //
+        $idTim = $request->id;
+
+        $tim = Tim::where('id_tim', $idTim)->first();
+
+        if ($tim) {
+
+            //hapus foto tim
+            if ($tim->foto_tim) {
+                Storage::disk('public')->delete($tim->foto_tim);
+            }
+
+            //menghapus tim
+            $tim->delete();
+
+            $pesan = [
+                'success' => true,
+                'pesan' => 'Tim berhasil dihapus'
+            ];
+        } else {
+            $pesan = [
+                'success' => false,
+                'pesan' => 'tim gagal dihapus'
+            ];
+        }
+
+        return response()->json($pesan);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -89,25 +139,9 @@ class TimController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tim $tim)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Tim $tim)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Tim $tim)
     {
         //
     }

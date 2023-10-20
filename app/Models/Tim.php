@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Tim
@@ -38,13 +40,14 @@ class Tim extends Model
         "deskripsi_tim",
         "foto_tim"
     ];
+    public $timestamps = false;
 
-    public function pelatih()
+    public function pelatih(): BelongsTo
     {
         return $this->belongsTo(Pelatih::class, "nik_pelatih");
     }
 
-    public function pemain()
+    public function pemain(): HasMany
     {
         return $this->hasMany(Pemain::class, "nisn_pemain");
     }

@@ -57,9 +57,15 @@ class Pemain extends Model
         "kategori_umur",
         "no_punggung",
         "no_telp",
-        "email"
+        "email",
+        "id_tim"
     ];
     public $timestamps = false;
+
+    public function tim(): BelongsTo
+    {
+        return $this->belongsTo(Tim::class, 'id_tim');
+    }
 
     /**
      * Undocumented function
