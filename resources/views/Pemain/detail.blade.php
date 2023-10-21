@@ -45,15 +45,31 @@
 
     <div class="row mt-4 mb-4 align-items-center text-center ms-4" style="text-align: center;">
         <div class="row p-4 col-md-4" style="background-color: #7FDEFF">
-            <span class="text-uppercase" style="font-size:40px; font-weight:700;"> {{$pemain->no_punggung}} </span>
+            <span class="text-uppercase" style="font-size:40px; font-weight:700;"> 
+                {{$pemain->no_punggung}} 
+            </span>
             <span style="font-size:16px; font-weight:700;">No Punggung</span>
         </div>
+
         <div class="row p-4 col-md-4" style="background-color: #DFFFFD">
-            <span class="text-uppercase" style="font-size:40px; font-weight:700;"> Nama Tim </span>
+            <span class="text-uppercase" style="font-size:40px; font-weight:700;">
+                @if ($pemain->tim)
+                    @if ($pemain->tim->id_tim)
+                        {{ $pemain->tim->nama_tim }}
+                    @else
+                        No Team
+                    @endif
+                    @else
+                    No Team
+                @endif
+            </span>
             <span class="mt-2" style="font-size:16px; font-weight:700;">Nama Tim</span>
         </div>
+
         <div class="row p-4 col-md-4" style="background-color: #7FDEFF">
-            <span class="text-uppercase" style="font-size:40px; font-weight:700;"> {{$pemain->posisi}} </span>
+            <span class="text-uppercase" style="font-size:40px; font-weight:700;"> 
+                {{$pemain->posisi}} 
+            </span>
             <span  class="mt-2" style="font-size:16px; font-weight:700;">Posisi</span>
         </div>
     </div>

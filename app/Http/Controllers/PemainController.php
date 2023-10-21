@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pemain;
+use App\Models\Tim;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,8 @@ class PemainController extends Controller
     public function indexDetail(Request $request)
     {
         $data = [
-            'pemain' => Pemain::where('nisn_pemain', $request->id)->first()
+            'pemain' => Pemain::where('nisn_pemain', $request->id)->first(),
+            'tim' => Tim::all()
         ];
 
         return view('Pemain.detail', $data);

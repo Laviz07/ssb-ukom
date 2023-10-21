@@ -49,6 +49,6 @@ class Tim extends Model
 
     public function pemain(): HasMany
     {
-        return $this->hasMany(Pemain::class, "nisn_pemain");
+        return $this->hasMany(Pemain::class, "id_tim");
     }
 }

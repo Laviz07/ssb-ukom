@@ -93,5 +93,9 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/tim/detail/{id}', [TimController::class, 'indexDetail']);
     Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
 
+    Route::post('/tim/tambah/anggota', [TimController::class, 'createAnggota']);
+    Route::delete('/tim/hapus/anggota/{id}', [TimController::class, 'deleteAnggota']);
+
+
     Route::get('/jadwal', [JadwalController::class, 'index']);
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pelatih;
 use App\Models\Pemain;
 use App\Models\Tim;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -39,7 +40,9 @@ class TimController extends Controller
     {
         $data = [
             'tim' => Tim::where('id_tim', $request->id)->first(),
-            'pelatih' => Pelatih::all()
+            'pelatih' => Pelatih::all(),
+            'pemain' => Pemain::all(),
+            'user' => User::all(),
         ];
 
         return view('Tim.detail', $data);
@@ -66,6 +69,21 @@ class TimController extends Controller
 
         return redirect('/tim')
             ->with('success', 'Tim berhasil ditambahkan');
+    }
+
+    public function createAnggota(Request $request)
+    {
+        $data = $request->validate([
+            'nisn_pemain' => ['required'],
+            'id_tim' => ['required'],
+        ]);
+
+        $tim = Tim::find($data['id_tim']);
+        $pemain = Pemain::find($data['nisn_pemain']);
+
+        $tim->pemain()->save($pemain);
+
+        return redirect('/tim/detail/{id}')->with('success', 'Anggota tim berhasil ditambahkan');
     }
 
 
@@ -120,6 +138,22 @@ class TimController extends Controller
         }
 
         return response()->json($pesan);
+    }
+
+    public function deleteAnggota(Tim $tim, Request $request)
+    {
+        $this->validate($request, [
+            'nisn_pemain' => 'required'
+        ]);
+
+        $pemain = Pemain::find($request->nisn_pemain);
+
+        if ($pemain) {
+            $pemain->update(['id_tim' => null]); // Dissociate the Pemain from Tim
+            return response()->json(['success' => true, 'pesan' => 'Pemain berhasil dihapus dari anggota tim']);
+        } else {
+            return response()->json(['success' => false, 'pesan' => 'Gagal menghapus pemain dari anggota tim']);
+        }
     }
 
     /**

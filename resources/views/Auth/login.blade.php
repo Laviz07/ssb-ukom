@@ -16,7 +16,7 @@
 
     <!-- Custom CSS -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
-    <link rel="icon" href="{{ asset('/images/logo1.png') }}">
+    <link rel="icon" href="{{ asset('/images/logo.png') }}">
 
     <style>
         .bg-image-vertical {
