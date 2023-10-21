@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JadwalController extends Controller
 {
@@ -22,9 +23,25 @@ class JadwalController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+
+     public function indexCreate()
+     {
+         return view('Jadwal.tambah');
+     }
+
+    public function create(Request $request)
     {
-        return view("Jadwal.index");
+        $data = $request->validate([
+            // Menambah ke tabel jadwal
+            'tanggal_kegiatan' => ['required'],
+            'judul_kegiatan' => ['required']
+        ]);
+
+        $dataInsert = Jadwal::create($data);
+        if ($dataInsert) {
+            return redirect()->to('/jadwal')->with('success', 'Jadwal berhasil ditambah');
+        }
+
     }
 
     /**
@@ -46,9 +63,19 @@ class JadwalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Jadwal $jadwal)
+    public function edit(Request $request)
     {
-        //
+        $data = $request->validate([
+            'id_jadwal' => ['required'],
+            'tanggal_kegiatan' => ['required'],
+            'judul_kegiatan' => ['required']
+        ]);
+
+        $jadwal = Jadwal::where('id_jadwal', $request->input('id_jadwal'))->first();
+        $jadwal->fill($data);
+        $jadwal->save();
+
+        return redirect()->to('/jadwal')->with('success', 'jadwal Berhasil Diupdate');
     }
 
     /**
@@ -62,8 +89,39 @@ class JadwalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Jadwal $jadwal)
+    public function delete(Jadwal $jadwal, Request $request)
     {
-        //
+        
+        $id = $request->id;
+
+        $jadwal = Jadwal::where('id_jadwal', $id)->first();
+
+        if ($jadwal) {
+
+            // //hapus foto profil
+            // if ($admin->user->foto_profil) {
+            //     Storage::disk('public')->delete($admin->user->foto_profil);
+            // }
+
+            
+
+            //menghapus user
+            $jadwal = Jadwal::where('id_jadwal', $jadwal->id_jadwal)->first();
+            if ($jadwal) {
+                $jadwal->delete();
+            }
+
+            $pesan = [
+                'success' => true,
+                'pesan' => 'Admin Berhasil Dihapus'
+            ];
+        } else {
+            $pesan = [
+                'success' => false,
+                'pesan' => 'Admin Gagal Dihapus'
+            ];
+        }
+
+        return response()->json($pesan);
     }
 }

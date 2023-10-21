@@ -11,6 +11,7 @@ class Admin extends Model
     protected $table = "admin";
     protected $primaryKey = "nik_admin";
     protected $fillable = [
+        'nik_admin',
         'nama_admin',
         'no_telp',
         'email'

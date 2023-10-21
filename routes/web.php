@@ -72,19 +72,30 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
             Route::delete('/tim/hapus/{id}', [TimController::class, 'delete']);
 
-            Route::get('/jadwal', [JadwalController::class, 'indexCreate']);
+            Route::get('/jadwal/tambah', [JadwalController::class, 'indexCreate']);
+            Route::post('/jadwal/tambah', [JadwalController::class, 'create']);
+            Route::post('/jadwal/edit/{id}', [JadwalController::class, 'edit']);
+            Route::delete('/jadwal/hapus/{id}', [JadwalController::class, 'delete']);
 
             Route::get('/admin/tambah', [AdminController::class, 'indexCreate']);
             Route::post('/admin/tambah', [AdminController::class, 'create']);
             Route::post('/admin/edit/{id}', [AdminController::class, 'edit']);
             Route::delete('/admin/hapus/{id}', [AdminController::class, 'delete']);
-            });
+
+            Route::get('/jadwal/tambah', [JadwalController::class, 'indexCreate']);
+            Route::post('/jadwal/tambah', [JadwalController::class, 'create']);
+            Route::post('/jadwal/edit/{id}', [JadwalController::class, 'edit']);
+            Route::delete('/jadwal/hapus/{id}', [JadwalController::class, 'delete']);
+            
         });
 
         // Route::middleware(['isPelatih'])->group(function () { });
 
         Route::get('/pelatih', [PelatihController::class, 'index']);
         Route::get('/pelatih/detail/{id}', [PelatihController::class, 'indexDetail']);
+
+        Route::get('/admin', [AdminController::class, 'index']);
+        Route::get('/admin/detail/{id}', [AdminController::class, 'indexDetail']);
 
         Route::get('/pemain', [PemainController::class, 'index']);
         Route::get('/pemain/detail/{id}', [PemainController::class, 'indexDetail']);

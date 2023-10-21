@@ -1,203 +1,218 @@
 @extends('layouts.layout')
-@section('title', 'Manajemen Admin')
-@section('content')
-    <div class="row">
-        <div class="col d-flex justify-content-between mb-2">
-            <a class="btn btn-primary" href="{{url('/dashboard')}}"><i class="bi-arrow-left-circle"></i>
-                Kembali</a>
-            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                    data-bs-target="#tambah-user-modal"><i
-                    class="bi bi-person-fill-add"></i> Tambah
-            </button>
-            <!-- Tambah User Modal -->
-            <div class="modal fade" id="tambah-user-modal" tabindex="-1"
-                 aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah User</h1>
-                        </div>
-                        <div class="modal-body">
-                            <form id="tambah-user-form">
-                                <div class="form-group">
-                                    <label>Username</label>
-                                    <input placeholder="Username" type="text" class="form-control mb-3" name="username"
-                                           required/>
-                                    <label>Password</label>
-                                    <input placeholder="Password" type="text" name="password" class="form-control mb-3"
-                                           required autocomplete="off">
-                                    <label>Role</label>
-                                    <select name="role" class="form-select mb-3" required>
-                                        <option selected value="operator">Operator</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                    @csrf
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Cancel
-                            </button>
-                            <button type="submit" class="btn btn-primary" form="tambah-user-form">Tambah</button>
-                        </div>
-                    </div>
-                </div>
+@section('title', 'List Admin')
+@section('content')   
+
+<div class="container mt-4 mb-4">
+
+    {{-- LIST PELATIH --}}
+    <div>
+        <div class="card align-items-center" style="border: 2px solid #00171F;">
+            <div class="card-body">
+                <span class="h3 text-uppercase "> <strong>Daftar Admin</strong></span>
             </div>
         </div>
-    </div>
-    <div class="row justify-content-center ">
-        <div class="col-md">
-            <div class="card">
-                <div class="card-body">
-                    <table class="table table-bordered table-hovered DataTable">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Role</th>
-                            <th>Action</th>
+
+        <div class="col d-flex justify-content-between mb-2  mt-3">
+            <a href="{{ url('/', []) }}">
+                <btn class="btn btn-primary">Kembali</btn>
+            </a>
+
+            @if (Auth::user()['role']=='admin')
+                <a href="{{ url('admin', ['tambah'])}}" class="justify-content-end">
+                    <btn class="btn btn-success">Tambah </btn>
+                </a>
+            @endif
+            
+        </div>
+
+        <div class=" mt-3">
+                <table class="table table-hovered table-bordered DataTable  ">
+                    <thead>
+                        <tr style="text-align: center; font-size: 17px; font-weight: 600;">
+                            <td>No</td>
+                            <td>Foto</td>
+                            <td>Nama</td>
+                            <td>NIK</td>
+                            <td>Email</td>
+                            <td>Action</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($user as $u)
-                            <tr idUser="{{$u->id}}">
-                                <td class="col-1">{{$u->id}}</td>
-                                <td>{{$u->username}}</td>
-                                <td class="text-capitalize">{{$u->role}}</td>
-                                <td class="col-2">
-                                    <!-- Button trigger edit modal -->
-                                    <button type="button" class="editBtn btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#edit-modal-{{$u->id}}" idUser="{{$u->id}}">
-                                        Edit
+                    </thead>
+                    <tbody>
+                        <?php 
+                            $no = 1;
+                        ?>
+
+                    @foreach ($admin as $ad)
+
+                        <tr style="vertical-align: middle; font-size: 17px;" idAD{{$ad->nik_admin}}>
+                            <td class="col-1" style="text-align: center;"> {{$no++}} </td>
+                            <td class="col-1" style="text-align: center"> 
+                                @if ($ad->user && $ad->user->foto_profil)
+                                    <img src="{{asset('storage/' . $ad->user->foto_profil) }}" alt="Foto Profil" style="width: 90px; height: 90px;" class="rounded-circle">
+                                @else
+                                    <i class="bi bi-person-circle"  style="font-size: 40px;"></i> 
+                                @endif
+                            </td>
+                            <td class="col-3 text-capitalize text-center"> {{$ad->nama_admin}} </td>
+                            <td class="col-2" style="text-align: center"> {{$ad->nik_admin}} </td>
+                            <td class="col-3" style="text-align: center"> {{$ad->email}} </td>
+                            <td style="text-align: center">
+                                
+                                <div class="dropdown dropend" style="display: inline-block; vertical-align: middle;">
+                                    <button class="btn btn-primary" id="navbarDropdownMenuLink" data-bs-toggle='dropdown' data-bs-offset="-10,20">
+                                        Action
+                                        <i  class="bi bi-three-dots-vertical " 
+                                            style="font-size: 26; vertical-align: middle; cursor: pointer;">
+                                        </i>
                                     </button>
-                                    <button class="hap usBtn btn btn-danger">Hapus</button>
-                                </td>
-                            </tr>
-                            <!-- Edit User Modal -->
-                            <div class="modal fade" id="edit-modal-{{$u->id}}" tabindex="-1"
-                                 aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form id="edit-user-form-{{$u->id}}">
-                                                <div class="form-group">
-                                                    <label>Username</label>
-                                                    <input placeholder="Username" type="text" class="form-control mb-3"
-                                                           name="username"
-                                                           value="{{$u->username}}"
-                                                           required/>
-                                                    <label>Role</label>
-                                                    <select name="role" class="form-select mb-3" required>
-                                                        <option @if($u->role == 'operator') selected
-                                                                @endif value="operator">Operator
-                                                        </option>
-                                                        <option @if($u->role == 'admin') selected @endif value="admin">
-                                                            Admin
-                                                        </option>
-                                                    </select>
-                                                    @csrf
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Cancel
-                                            </button>
-                                            <button type="submit" class="btn btn-primary edit-btn"
-                                                    form="edit-user-form-{{$u->id}}">
-                                                Edit
-                                            </button>
-                                        </div>
+
+                                    <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
+                                    
+                                    <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
+                                        
+
+                                       <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$ad->nik_admin}}" 
+                                        style="cursor: pointer" idAD = {{$ad->nik_admin}} > 
+                                        <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                        <strong class="ms-1" >Edit Data Admin</strong> 
+                                       </a>
+
+                                       <a class="dropdown-item hapusBtn" idAD={{$ad->nik_admin}} style="cursor: pointer"> 
+                                        <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                        <strong class="ms-1">Hapus Data Admin</strong> 
+                                       </a>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+                        </tr>
+
+                        {{-- EDIT ADMIN --}}
+                        <div class="modal fade" id="edit-modal-{{$ad->nik_admin}}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Admin</h1>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="edit-ad-form-{{$ad->nik_admin}}">
+                                            <div class="form-group">
+                                                <label>Nama Admin</label>
+                                                <input placeholder="example" type="text" class="form-control mb-3"
+                                                        name="nama_admin"
+                                                        value="{{$ad->nama_admin}}"
+                                                        required/>
+                                                @csrf
+                                            </div>
+
+                                            
+
+                                            <div class="form-group">
+                                                <label>NIK Admin:</label>
+                                                <input placeholder="example" type="number" class="form-control mb-3"
+                                                        name="no_telp"
+                                                        value="{{$ad->nik_admin}}"
+                                                        required/>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Email:</label>
+                                                <input placeholder="example" type="email" class="form-control mb-3"
+                                                        name="email"
+                                                        value="{{$ad->email}}"
+                                                        required/>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                        <button type="submit" class="btn btn-primary edit-btn"
+                                                form="edit-ad-form-{{$ad->nik_admin}}">
+                                            Edit
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        </div>
+                    @endforeach
 
+                    </tbody>
+                </table>
         </div>
+           
     </div>
+</div>
+
 @endsection
+
 @section('footer')
     <script type="module">
-        $('.table').DataTable();
-        /*-------------------------- TAMBAH USER -------------------------- */
-        $('#tambah-user-form').on('submit', function (e) {
-            e.preventDefault();
-            let data = new FormData(e.target);
-            axios.post('/dashboard/user/tambah', Object.fromEntries(data))
-                .then(() => {
-                    $('#tambah-user-modal').css('display', 'none')
-                    swal.fire('Berhasil tambah data!', '', 'success').then(function () {
-                        location.reload();
-                    })
-                })
-                .catch(() => {
-                    swal.fire('Gagal tambah data!', '', 'warning');
-                });
-        })
 
-        /*-------------------------- EDIT USER -------------------------- */
+        // edit pop up
         $('.editBtn').on('click', function (e) {
             e.preventDefault();
-            let idUser = $(this).attr('idUser');
-            $(`#edit-user-form-${idUser}`).on('submit', function (e) {
+            let idAD = $(this).attr('idAD');
+            $(`#edit-ad-form-${idAD}`).on('submit', function (e) {
                 e.preventDefault();
-                let data = new FormData(e.target);
-                axios.post(`/dashboard/user/${idUser}/edit`, Object.fromEntries(data))
+                let data = Object.fromEntries(new FormData(e.target));
+                data['nik_admin'] = idAD;
+                axios.post(`/admin/edit/${idAD}`, data)
                     .then(() => {
-                        $(`#edit-modal-${idUser}`).css('display', 'none')
+                        $(`#edit-modal-${idAD}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal tambah data!', '', 'warning');
+                        swal.fire('Gagal edit data!', '', 'warning');
                     })
             })
         })
-
-        /*-------------------------- HAPUS USER -------------------------- */
-        $('.table').on('click', '.hapusBtn', function () {
-            let idUser = $(this).closest('tr').attr('idUser');
-            swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
+        
+        //delete pop up
+        $('.DataTable tbody').on('click','.hapusBtn',function(a){
+        a.preventDefault();
+        let idAD = $(this).closest('.hapusBtn').attr('idAD');
+        swal.fire({
+                title : "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,
                 confirmButtonColor: 'red'
-            }).then((result) => {
-                if (result.isConfirmed) {
+    
+            }).then((result)=>{
+                if(result.isConfirmed){
                     //dilakukan proses hapus
-                    axios.delete(`/dashboard/user/${idUser}/delete`).then(function (response) {
+                    axios.delete('/admin/hapus/' + idAD).then(function(response){
                         console.log(response);
-                        if (response.data.success) {
-                            swal.fire('Berhasil di hapus!', '', 'success').then(function () {
-                                //Refresh Halaman
-                                location.reload();
-                            });
-                        } else {
-                            swal.fire('Gagal di hapus!', '', 'warning').then(function () {
-                                //Refresh Halaman
-                                location.reload();
-                            });
+                        if(response.data.success){
+                            swal.fire('Berhasil di hapus!', '', 'success').then(function(){
+                                    //Refresh Halaman
+                                    location.reload();
+                                });
+                        }else{
+                            swal.fire('Gagal di hapus!', '', 'warning').then(function(){
+                                    //Refresh Halaman
+                                    location.reload();
+                                });
                         }
-                    }).catch(function (error) {
-                        swal.fire('Data gagal di hapus!', '', 'error').then(function () {
-                            //Refresh Halaman
-                            location.reload();
-                        });
+                    }).catch(function(error){
+                        swal.fire('Data gagal di hapus!', '', 'error').then(function(){
+                                    //Refresh Halaman
+                                   
+                                });
                     });
                 }
             });
-        })
+    });
+
+        $('.DataTable').DataTable();
     </script>
 @endsection

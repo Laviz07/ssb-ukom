@@ -2,64 +2,178 @@
 
 namespace App\Http\Controllers;
 
-// use App\Http\Requests\AdminRequest;
-// use App\Http\Requests\AdminUpdateRequest;
 use App\Models\Admin;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-// use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
-    public function index(): View
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
         $data = [
-            'admin' => Admin::all()
+            'admin' => Admin::all(),
+            'user' => User::all()
         ];
-
         return view('Admin.index', $data);
     }
 
-    public function store(AdminRequest $request): RedirectResponse
+    /**
+     * Menampilkan halaman tambah pelatih
+     */
+    public function indexCreate()
     {
-        $data = $request->validated();
-        $admin = new Admin($data);
-        $admin->password = Hash::make($data['password']);
-        $admin->save();
-
-        return redirect()->to('/dashboard/Admin')->with('success', 'Admin successfully created');
+        return view('Admin.tambah');
     }
 
-    public function update(int $id, AdminUpdateRequest $request): RedirectResponse
+    /**
+     * Menampilkan halaman detail pelatih
+     */
+    public function indexDetail(Request $request)
     {
-        $data = $request->validated();
-        $admin = Admin::query()->find($id);
+        // $data = [
+        //     'admin' => Admin::where('nik_admin', $request->id)->first()
+        // ];
 
+        // return view('Admin.detail', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Request $request)
+    {
+        //
+        $data = $request->validate([
+            // Menambah ke tabel pelatih
+            'nik_admin' => ['required'],
+            'nama_admin' => ['required'],
+            'no_telp' => ['required'],
+            'email' => ['required'],
+
+
+            // Menambah ke tabel user
+            'username' => ['nullable'],
+            'password' => ['required'],
+            'role' => ['required'],
+            'foto_profil' => ['nullable', 'mimes:png,jpg,jpeg', 'max:2048']
+        ]);
+
+        //Upload foto profil
+        $path = $request->file("foto_profil")->storePublicly("foto_profil", "public");
+        $data['foto_profil'] = $path;
+
+        //hash password
+        $data['password'] = Hash::make($data['password']);
+
+        DB::transaction(function () use ($data) {
+            $user = new User([
+                'username' => $data['username'],
+                'nama_admin' => $data['nama_admin'],
+                'nik_admin' => $data['nik_admin'],
+                'password' => $data['password'],
+                'role' => $data['role'],
+                'foto_profil' => $data['foto_profil']
+            ]);
+
+            $user->save();
+
+            $admin = new Admin($data);
+            $admin->id_user = $user->id_user;
+            $admin->save();
+        });
+
+        return redirect('/admin')
+            ->with('success', 'User baru berhasil ditambahkan!');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Admin $pelatih)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Request $request)
+    {
+        //
+        $data = $request->validate([
+            'nama_admin' => ['required'],
+            'nik_admin' => ['required'],
+            'no_telp' => ['required'],
+            'email' => ['required'],
+            'deskripsi_pelatih' => ['nullable']
+        ]);
+
+        $admin = Admin::where('nik_admin', $request->input('nik_admin'))->first();
         $admin->fill($data);
         $admin->save();
 
-        return redirect()->to('/dashboard/Admin')->with('success', 'Update success');
+        return redirect()->to('/admin')->with('success', 'Admin Berhasil Diupdate');
+    }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Admin $pelatih)
+    {
+        //
     }
 
-    public function delete(int $id): JsonResponse
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function delete(Admin $admin, Request $request)
     {
-        $admin = Admin::query()->find($id)->delete();
+        //
 
-        if($admin):
-            //Pesan Berhasil
+        $nik = $request->id;
+
+        $admin = Admin::where('nik_admin', $nik)->first();
+
+        if ($admin) {
+
+            // //hapus foto profil
+            // if ($admin->user->foto_profil) {
+            //     Storage::disk('public')->delete($admin->user->foto_profil);
+            // }
+
+            //menghapus admin
+            $admin->delete();
+
+            //menghapus user
+            $admin = Admin::where('id_user', $admin->id_user)->first();
+            if ($admin) {
+                $admin->delete();
+            }
+
             $pesan = [
-                'success'   => true,
-                'pesan'     => 'Data Admin berhasil dihapus'
+                'success' => true,
+                'pesan' => 'Admin Berhasil Dihapus'
             ];
-        else:
-            //Pesan Gagal
+        } else {
             $pesan = [
                 'success' => false,
-                'pesan'     => 'Data gagal dihapus'
+                'pesan' => 'Admin Gagal Dihapus'
             ];
-        endif;
+        }
+
         return response()->json($pesan);
     }
 }

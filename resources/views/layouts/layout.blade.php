@@ -111,7 +111,11 @@
           <li class="nav-item">
             <a class="nav-link mx-2 text-uppercase" href="{{ url('galeri', []) }}">Galeri</a>
           </li>
-
+          @if (Auth::check() && Auth::user()->role == 'admin')
+          <li class="nav-item ">
+            <a class="nav-link mx-2 text-uppercase" aria-current="page" href="{{ url('admin', []) }}">Admin</a>
+          </li>
+          @endif
           @if (Auth::check())
             <li class="nav-item">
               <a class="nav-link mx-2 text-uppercase" href="{{ url('pelatih', []) }}">Pelatih</a>

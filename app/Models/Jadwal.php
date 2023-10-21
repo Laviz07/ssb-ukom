@@ -11,7 +11,7 @@ class Jadwal extends Model
     protected $table = "jadwal";
     protected $primaryKey = "id_jadwal";
     protected $fillable = [
-        "judul_materi",
+        "judul_kegiatan",
         "tanggal_kegiatan"
     ];
     public $timestamps = false;

@@ -29,7 +29,7 @@
                 </div>
             @endif
             <div class="col-2">
-                <a href="{{url('pemain')}}" class="text-decoration-none">
+                <a href="{{url('jadwal')}}" class="text-decoration-none">
                     <div class="card bg-c-blue ">
                         <div class="card-body text-white">
                             <h1 class="text-right"><i class="bi bi-calendar-fill"></i><span
