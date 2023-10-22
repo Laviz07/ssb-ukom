@@ -16,6 +16,7 @@ class PelatihController extends Controller
      */
     public function index()
     {
+        // mengirim variabel data ke view dalam isi array data pelatih dan user
         $data = [
             'pelatih' => Pelatih::all(),
             'user' => User::all()
