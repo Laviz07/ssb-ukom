@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nama_pelatih', 50)->nullable(false);
             $table->text('deskripsi_pelatih')->nullable(true);
             $table->string('alamat', 255)->nullable(false);
-            $table->integer('no_telp')->nullable(false);
+            $table->bigInteger('no_telp')->nullable(false);
             $table->string("email", 255)->nullable(false);
             $table->string('tempat_lahir', 50)->nullable(false);
             $table->date('tanggal_lahir')->default('1960-01-01')->nullable(false);

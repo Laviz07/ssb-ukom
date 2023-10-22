@@ -25,6 +25,10 @@
                                     <input type="hidden" name="role" value="pemain">
                                 </div>
 
+                                {{-- @auth
+                                <input type="hidden" name="nik_admin" value="{{ Auth::user()->nik_admin }}">
+                                @endauth --}}
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group mt-2">

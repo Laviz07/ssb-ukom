@@ -207,11 +207,6 @@
     });
 });
 
-
-//     $('.hapusBtn').on('click', function(e) {
-//     e.preventDefault();
-//     let idTM = $(this).attr('idTM');
-//     $(`#delete-form-${idTM}`).submit();
-// });
+    $('.DataTable').DataTable();
     </script>
 @endsection
