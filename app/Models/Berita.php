@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Berita
@@ -33,4 +34,9 @@ class Berita extends Model
         "foto_berita"
     ];
     public $timestamps = false;
+
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, 'nik_admin');
+    }
 }

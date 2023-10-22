@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pemain;
+use App\Models\Tim;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -16,6 +18,7 @@ class PemainController extends Controller
      */
     public function index()
     {
+        //mengirimkan data ke view dengan isi array data user dan pemain
         $data = [
             'pemain' => Pemain::all(),
             'user' => User::all()
@@ -33,11 +36,13 @@ class PemainController extends Controller
 
     /**
      * Menampilkan halaman detail pemain
+     * mengirimkan data ke view dengan isi array data user dan pemain
      */
     public function indexDetail(Request $request)
     {
         $data = [
-            'pemain' => Pemain::where('nisn_pemain', $request->id)->first()
+            'pemain' => Pemain::where('nisn_pemain', $request->id)->first(),
+            'tim' => Tim::all()
         ];
 
         return view('Pemain.detail', $data);
@@ -64,7 +69,7 @@ class PemainController extends Controller
             'deskripsi_pemain' => ['nullable'],
 
             // Menambah ke tabel user
-            'username' => ['nullable'],
+            'username' => ['required'],
             'password' => ['required'],
             'role' => ['required'],
             'foto_profil' => ['nullable', 'mimes:png,jpg,jpeg', 'max:2048']
@@ -77,6 +82,17 @@ class PemainController extends Controller
         //hash password
         $data['password'] = Hash::make($data['password']);
 
+        // Get the current user
+        $user = Auth::user();
+
+        if ($user) {
+            // Check if the user has a nik_admin
+            if ($user->nik_admin) {
+                $data['nik_admin'] = $user->nik_admin;
+            }
+        }
+
+        //menggabungkan data pemain dan user
         DB::transaction(function () use ($data) {
             $user = new User([
                 'username' => $data['username'],
@@ -97,7 +113,7 @@ class PemainController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * edit the specified resource.
      */
     public function edit(Request $request)
     {

@@ -57,19 +57,10 @@ class Pemain extends Model
         "kategori_umur",
         "no_punggung",
         "no_telp",
-        "email"
+        "email",
+        "id_tim"
     ];
     public $timestamps = false;
-
-    /**
-     * Undocumented function
-     *
-     * @return HasMany
-     */
-    public function presensi(): HasMany
-    {
-        return $this->hasMany(Presensi_detail::class, "id_presensi_detail");
-    }
 
     /**
      * Mengembalikan pemain ke user
@@ -79,5 +70,20 @@ class Pemain extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function tim(): BelongsTo
+    {
+        return $this->belongsTo(Tim::class, 'id_tim');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return HasMany
+     */
+    public function presensi(): HasMany
+    {
+        return $this->hasMany(Presensi_detail::class, "id_presensi_detail");
     }
 }

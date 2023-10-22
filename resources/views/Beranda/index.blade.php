@@ -49,7 +49,7 @@
         </div>
 
         <div class="row mt-5 align-items-center" >
-            <div class="card p-3" style="border: 2px solid #003459; text-align: center;" >
+            <div class="card col-md-12 p-3" style="border: 2px solid #003459; text-align: center;" >
                 <span class=" text-uppercase judul2">VISI</span>
                 <span class="mt-4" style="font-size: 16px;">“MENJADI SMK YANG MENGHASILKAN SDM KOMPETEN, BERKARAKTER, DAN IHSAN”</span>
             </div>

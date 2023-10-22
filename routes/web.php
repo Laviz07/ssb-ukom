@@ -67,8 +67,6 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
             Route::post('/berita/tambah', [BeritaController::class, 'create']);
 
-            Route::get('/tim/tambah', [TimController::class, 'indexCreate']);
-            Route::post('/tim/tambah', [TimController::class, 'create']);
             Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
             Route::delete('/tim/hapus/{id}', [TimController::class, 'delete']);
 
@@ -78,21 +76,26 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::post('/admin/tambah', [AdminController::class, 'create']);
             Route::post('/admin/edit/{id}', [AdminController::class, 'edit']);
             Route::delete('/admin/hapus/{id}', [AdminController::class, 'delete']);
-            });
         });
-
-        // Route::middleware(['isPelatih'])->group(function () { });
-
-        Route::get('/pelatih', [PelatihController::class, 'index']);
-        Route::get('/pelatih/detail/{id}', [PelatihController::class, 'indexDetail']);
-
-        Route::get('/pemain', [PemainController::class, 'index']);
-        Route::get('/pemain/detail/{id}', [PemainController::class, 'indexDetail']);
-
-        Route::get('/tim', [TimController::class, 'index']);
-
-        Route::get('/jadwal', [JadwalController::class, 'index']);
- 
-
     });
+
+    // Route::middleware(['isPelatih'])->group(function () { });
+
+    Route::get('/pelatih', [PelatihController::class, 'index']);
+    Route::get('/pelatih/detail/{id}', [PelatihController::class, 'indexDetail']);
+
+    Route::get('/pemain', [PemainController::class, 'index']);
+    Route::get('/pemain/detail/{id}', [PemainController::class, 'indexDetail']);
+
+    Route::get('/tim', [TimController::class, 'index']);
+    Route::get('/tim/tambah', [TimController::class, 'indexCreate']);
+    Route::post('/tim/tambah', [TimController::class, 'create']);
+    Route::get('/tim/detail/{id}', [TimController::class, 'indexDetail']);
+    Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
+
+    Route::post('/tim/tambah/anggota', [TimController::class, 'createAnggota']);
+    Route::delete('/tim/hapus/anggota/{id}', [TimController::class, 'deleteAnggota']);
+
+
+    Route::get('/jadwal', [JadwalController::class, 'index']);
 });

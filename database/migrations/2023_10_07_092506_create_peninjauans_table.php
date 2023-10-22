@@ -13,9 +13,17 @@ return new class extends Migration
     {
         Schema::create('peninjauan', function (Blueprint $table) {
             $table->integer('id_peninjauan')->autoIncrement();
+            $table->bigInteger('nisn_pemain')->nullable(false);
+            $table->integer('id_kegiatan')->nullable(false);
             $table->date('tanggal_peninjauan')->default('1960-01-01')->nullable(false);
             $table->text('evaluasi')->nullable(false);
             $table->integer('nilai')->nullable(false);
+
+            $table->foreign('nisn_pemain')->references('nisn_pemain')->on('pemain')
+                ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreign('id_kegiatan')->references('id_kegiatan')->on('kegiatan')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

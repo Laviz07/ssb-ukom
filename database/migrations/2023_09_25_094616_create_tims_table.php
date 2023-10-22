@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('tim', function (Blueprint $table) {
             $table->integer("id_tim")->autoIncrement();
-            $table->bigInteger("nisn_pemain")->nullable(false);
+            $table->bigInteger("nik_pelatih")->nullable(false);
             $table->string("nama_tim", 50)->nullable(false);
             $table->text("deskripsi_tim")->nullable(true);
             $table->string("foto_tim", 255)->nullable(true);
 
-            $table->foreign("nisn_pemain")->on("pemain")->references("nisn_pemain");
+            $table->foreign("nik_pelatih")->on("pelatih")->references("nik_pelatih")
+                ->onDelete("cascade")->onUpdate("cascade");
         });
     }
 

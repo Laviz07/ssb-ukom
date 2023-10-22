@@ -23,8 +23,8 @@ class AdminUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', 'max:200'],
-            'password' => ['required'],
+            'nik_admin' => ['required', 'max:200'],
+            'id_user' => ['required', 'max:200'],
             'role' => ['required', ('admin')]
         ];
     }
