@@ -5,6 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Tim
+ *
+ * @property int $id_tim
+ * @property int $nisn_pemain
+ * @property string $nama_tim
+ * @property string|null $deskripsi_tim
+ * @property string|null $foto_tim
+ * @property-read \App\Models\Pelatih|null $pelatih
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Pemain> $pemain
+ * @property-read int|null $pemain_count
+ * @method static \Database\Factories\TimFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Tim newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tim newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tim query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tim whereDeskripsiTim($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tim whereFotoTim($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tim whereIdTim($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tim whereNamaTim($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tim whereNisnPemain($value)
+ * @mixin \Eloquent
+ */
 class Tim extends Model
 {
     use HasFactory;

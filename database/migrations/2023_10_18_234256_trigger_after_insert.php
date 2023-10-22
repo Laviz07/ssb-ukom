@@ -14,8 +14,8 @@ return new class extends Migration
     {
         //
         DB::unprepared(
-            "CREATE TRIGGER $this->triggerName
-            AFTER INSERT ON pelatih for each row
+            "CREATE OR REPLACE TRIGGER $this->triggerName
+            AFTER INSERT ON pelatih FOR EACH ROW
 
             BEGIN 
                 DECLARE t_username varchar(50);
@@ -30,22 +30,9 @@ return new class extends Migration
 
                 SET @deskripsi_pelatih := IFNULL(New.deskripsi_pelatih, '[NULL]');
                 
-                CALL logger(t_username, 'INSERT',
-                    CONCAT(
-                        'id_user: ', New.id_user,
-                        -- ',  password: ', t_password,
-                        ', role: ', t_role,
-                        ', nik_pelatih: ', New.nik_pelatih,
-                        ', nama_pelatih: ', New.nama_pelatih,
-                        ', no_telp: ', New.no_telp,
-                        ', email: ', New.email,
-                        ', tempat_lahir: ', New.tempat_lahir,
-                        ', tanggal_lahir: ', New.tanggal_lahir,
-                        ', alamat: ', New.alamat,
-                        ', deskripsi_pelatih: ', @deskripsi_pelatih,
-                        ', foto_profil: ', @foto_profil
-                    ));
-            END"
+                CALL Logger(t_username, 'INSERT',
+                    'ini log');
+            END;"
         );
     }
 

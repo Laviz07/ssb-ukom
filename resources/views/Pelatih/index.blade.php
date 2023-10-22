@@ -72,6 +72,7 @@
                                         <strong class="ms-1">Lihat Detail Pelatih</strong> 
                                        </a>
 
+                                       @if (Auth::user()['role']=='admin')
                                        <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$pl->nik_pelatih}}" 
                                         style="cursor: pointer" idPL = {{$pl->nik_pelatih}} > 
                                         <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
@@ -82,7 +83,7 @@
                                         <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
                                         <strong class="ms-1">Hapus Data Pelatih</strong> 
                                        </a>
-
+                                       @endif
                                     </div>
 
                                 </div>
