@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Pemain wherePosisi($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pemain whereTanggalLahir($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pemain whereTempatLahir($value)
+ * @property-read \App\Models\Tim|null $tim
  * @mixin \Eloquent
  */
 class Pemain extends Model

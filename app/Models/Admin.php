@@ -24,6 +24,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereNamaAdmin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereNikAdmin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereNoTelp($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Berita> $berita
+ * @property-read int|null $berita_count
+ * @property-read \App\Models\User $user
  * @mixin \Eloquent
  */
 class Admin extends Model

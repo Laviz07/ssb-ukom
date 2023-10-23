@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Berita whereIdBerita($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Berita whereIsiBerita($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Berita whereJudulBerita($value)
+ * @property-read \App\Models\Admin|null $admin
  * @mixin \Eloquent
  */
 class Berita extends Model
