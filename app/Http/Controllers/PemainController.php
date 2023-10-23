@@ -83,14 +83,7 @@ class PemainController extends Controller
         $data['password'] = Hash::make($data['password']);
 
         // Get the current user
-        $user = Auth::user();
-
-        if ($user) {
-            // Check if the user has a nik_admin
-            if ($user->nik_admin) {
-                $data['nik_admin'] = $user->nik_admin;
-            }
-        }
+        // $user = Auth::user();
 
         //menggabungkan data pemain dan user
         DB::transaction(function () use ($data) {

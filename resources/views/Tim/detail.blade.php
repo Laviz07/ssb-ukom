@@ -185,19 +185,20 @@
     }).then((result) => {
         if (result.isConfirmed) {
             // Include nisn_pemain in the DELETE request
-            axios.delete(`/tim/hapus/anggota/${idTM}`, { data: { nisn_pemain: nisnPemain } }).then(function (response) {
+            axios.delete(`/tim/hapus/anggota/${idTM}`, { data: { nisn_pemain: nisnPemain } })
+            .then(function (response) {
                 console.log(response);
-                if (response.data.success) {
+                // if (response.data.success) {
                     swal.fire('Berhasil di hapus!', '', 'success').then(function () {
                         // Refresh Halaman
                         location.reload();
                     });
-                } else {
-                    swal.fire('Gagal di hapus!', '', 'warning').then(function () {
+                // } else {
+                    // swal.fire('Gagal di hapus!', '', 'warning').then(function () {
                         // Refresh Halaman
-                        location.reload();
-                    });
-                }
+                        // location.reload();
+                    // });
+                // }
             }).catch(function (error) {
                 swal.fire('Data gagal di hapus!', '', 'error').then(function () {
                     // Refresh Halaman

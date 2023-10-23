@@ -83,7 +83,7 @@ class TimController extends Controller
 
         $tim->pemain()->save($pemain);
 
-        return redirect('/tim/detail/{id}')->with('success', 'Anggota tim berhasil ditambahkan');
+        return response()->json(['message'=>$tim->pemain()]);
     }
 
 

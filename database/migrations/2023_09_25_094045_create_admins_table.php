@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigInteger('nik_admin')->primary();
             $table->integer("id_user")->nullable(false);
             $table->string('nama_admin', 50)->nullable(false);
-            $table->integer('no_telp')->nullable(false);
+            $table->bigInteger('no_telp')->nullable(false);
             $table->string("email", 255)->nullable(false);
 
             $table->foreign("id_user")->references("id_user")->on("user")

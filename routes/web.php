@@ -75,17 +75,18 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::post('/jadwal/edit/{id}', [JadwalController::class, 'edit']);
             Route::delete('/jadwal/hapus/{id}', [JadwalController::class, 'delete']);
 
+            Route::get('admin', [AdminController::class, 'index']);
             Route::get('/admin/tambah', [AdminController::class, 'indexCreate']);
             Route::post('/admin/tambah', [AdminController::class, 'create']);
             Route::post('/admin/edit/{id}', [AdminController::class, 'edit']);
             Route::delete('/admin/hapus/{id}', [AdminController::class, 'delete']);
-            });
         });
+    });
 
     // Route::middleware(['isPelatih'])->group(function () { });
 
-        Route::get('/pelatih', [PelatihController::class, 'index']);
-        Route::get('/pelatih/detail/{id}', [PelatihController::class, 'indexDetail']);
+    Route::get('/pelatih', [PelatihController::class, 'index']);
+    Route::get('/pelatih/detail/{id}', [PelatihController::class, 'indexDetail']);
 
     Route::get('/pemain', [PemainController::class, 'index']);
     Route::get('/pemain/detail/{id}', [PemainController::class, 'indexDetail']);
