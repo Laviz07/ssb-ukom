@@ -7,7 +7,7 @@
             <div class="card ">
                 <div class="card-body d-flex">
                     <div class="p-2">
-                        <img src="{{ asset('storage/' . $tim->foto_tim) }}" alt="{{$tim->nama_pemain}}" 
+                        <img src="{{ asset('storage/' . $tim['foto_tim']) }}" alt="{{$tim->nama_tim}}" 
                         class="rounded card-img-top" style="width: 550px; height: 300px;">
                     </div>
                     <div class="ms-4">
@@ -96,7 +96,7 @@
 
                                             <a class="dropdown-item hapusBtn" idTM="{{ $pm->nisn_pemain }}" data-nisn-pemain="{{ $pm->nisn_pemain }}" style="cursor: pointer">
                                                 <i class="bi bi-trash" style="font-size: 20px; vertical-align: middle;"></i>
-                                                <strong class="ms-1">Hapus Data Anggota Tim</strong>
+                                                <strong class="ms-1">Keluarkan Anggota Tim</strong>
                                             </a>
                                         </div> 
                                     </div>
@@ -136,8 +136,7 @@
                     <input type="hidden" name="id_tim" value="{{$tim->id_tim}}">
 
                 </form> 
-                <span style="font-weight: 200"><i>Pop Up Masih Error, refresh setelah menambahkan</i></span>
-            </div>
+             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cancel
@@ -159,15 +158,16 @@
         $('.addBtn').on('click', function (e) {
         e.preventDefault();
         let data = new FormData(e.target.form);
+
         axios.post(`/tim/tambah/anggota/`, data)
-        .then((res) => {
-            swal.fire('Berhasil tambah data!', '', 'success').then(function () {
-                window.location.href = '/tim/detail/{id}'; 
+            .then((res) => {
+                swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+                    location.reload();
+                });
             })
-        })
-        .catch((err) => {
-            swal.fire('Gagal tambah data!', '', 'warning');
-        });
+            .catch((err) => {
+                swal.fire('Gagal tambah data!', '', 'warning');
+            });
     });
 
       //delete pop up

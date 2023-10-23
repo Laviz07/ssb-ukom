@@ -58,7 +58,7 @@ class TimController extends Controller
             'nama_tim' => ['required'],
             'deskripsi_tim' => ['required'],
 
-            'foto_tim' => ['required'],
+            'foto_tim' => ['nullable'],
         ]);
 
         $path = $request->file('foto_tim')->storePublicly('foto_tim', 'public');
@@ -83,7 +83,9 @@ class TimController extends Controller
 
         $tim->pemain()->save($pemain);
 
-        return response()->json(['message'=>$tim->pemain()]);
+        // return redirect('/tim/detail/{id}')->with('success', 'Anggota tim berhasil ditambahkan');
+
+        return response()->json(['message' => $tim->pemain()]);
     }
 
 
