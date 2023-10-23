@@ -63,6 +63,16 @@ class Pemain extends Model
     ];
     public $timestamps = false;
 
+    /**
+     * Mengembalikan pemain ke user
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
     public function tim(): BelongsTo
     {
         return $this->belongsTo(Tim::class, 'id_tim');
@@ -76,15 +86,5 @@ class Pemain extends Model
     public function presensi(): HasMany
     {
         return $this->hasMany(Presensi_detail::class, "id_presensi_detail");
-    }
-
-    /**
-     * Mengembalikan pemain ke user
-     *
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'id_user');
     }
 }

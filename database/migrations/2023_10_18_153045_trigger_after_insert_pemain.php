@@ -14,7 +14,7 @@ return new class extends Migration
     {
         //
         DB::unprepared(
-            "CREATE TRIGGER $this->triggerName
+            "CREATE OR REPLACE TRIGGER $this->triggerName
             AFTER INSERT ON pemain for each row
 
             BEGIN 
@@ -30,7 +30,7 @@ return new class extends Migration
 
                 SET @deskripsi_pemain := IFNULL(New.deskripsi_pemain, '[NULL]');
                 
-                CALL logger(t_username, 'INSERT',
+                CALL Logger(t_username, 'INSERT',
                     CONCAT(
                         'id_user: ', New.id_user,
                         -- ',  password: ', t_password,

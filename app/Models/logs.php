@@ -30,5 +30,6 @@ class logs extends Model
     protected $table = "logs";
     protected $primaryKey = "id_log";
     protected $fillable = ['logs'];
+    protected $guarded = ['id'];
     public $timestamps = false;
 }

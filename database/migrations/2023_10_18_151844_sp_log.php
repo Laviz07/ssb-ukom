@@ -17,7 +17,7 @@ return new class extends Migration
         DB::unprepared(
             "DROP PROCEDURE IF EXISTS $this->sp;
              
-            CREATE PROCEDURE $this->sp
+            CREATE OR REPLACE PROCEDURE $this->sp
             (
                 Username Varchar(50),
                 Action ENUM('INSERT', 'UPDATE', 'DELETE'),
