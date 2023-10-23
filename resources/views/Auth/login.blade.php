@@ -105,7 +105,7 @@
 
             await axios({
                 method: 'post',
-                url: 'http://localhost:8000/login',
+                url: '/login',
                 data: {
                     username,
                     password
