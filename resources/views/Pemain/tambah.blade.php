@@ -14,8 +14,8 @@
         <div class="col-md-12 mt-4">
             <div class="card ">
              
-                <div class="card-body" >
-                    <form action="{{ url('pemain', ['tambah'])}}" method="POST" enctype="multipart/form-data">
+                <div class="card-body"  >
+                    <form action="{{ url('pemain', ['tambah'])}}" method="POST" id="tambah-pemain-form" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="">
@@ -136,13 +136,34 @@
                             <hr>
                         <div class="row">
                             <div class="col-md-4">
-                                <button class="btn btn-primary" type="submit">Simpan</button>
+                                <button class="btn btn-primary addBtn" type="button">Simpan</button>
                             </div>
                         </div>
                     </form>
                 </div>
+                
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('footer')
+    <script type="module" >
+        // add pop up
+        $('.addBtn').on('click', function (e) {
+        e.preventDefault();
+        let data = new FormData(e.target.form);
+        axios.post(`/pemain/tambah`, data, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        .then((res) => {
+            swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+                window.location.href = '/pemain'; 
+            })
+        })
+        .catch((err) => {
+            swal.fire('Gagal tambah data!', '', 'warning');
+        });
+    });
+    </script>
 @endsection

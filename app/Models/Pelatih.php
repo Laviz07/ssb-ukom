@@ -7,6 +7,34 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * App\Models\Pelatih
+ *
+ * @property int $nik_pelatih
+ * @property int $id_user
+ * @property string $nama_pelatih
+ * @property string|null $deskripsi_pelatih
+ * @property string $alamat
+ * @property int $no_telp
+ * @property string $email
+ * @property string $tempat_lahir
+ * @property string $tanggal_lahir
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\PelatihFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih whereAlamat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih whereDeskripsiPelatih($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih whereIdUser($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih whereNamaPelatih($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih whereNikPelatih($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih whereNoTelp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih whereTanggalLahir($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Pelatih whereTempatLahir($value)
+ * @mixin \Eloquent
+ */
 class Pelatih extends Model
 {
     use HasFactory;

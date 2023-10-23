@@ -19,11 +19,6 @@
                         @csrf
                         <div class="row">
                             <div class="">
-                                {{-- <div class="form-group mt-2">
-                                    <label >NISN Pemain:</label>
-                                    <input type="number" class="form-control" required name="id_tim">
-                                    <input type="hidden" name="role" value="tim">
-                                </div> --}}
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -35,8 +30,15 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group mt-2">
-                                            <label >Nama Pelatih:</label>
-                                            <input type="text" class="form-control" required name="nama_pelatih">
+                                            <label for="pilihPelatih">Nama Pelatih:</label>
+                                            {{-- <input type="text" class="form-control" required name="nama_pelatih"> --}}
+                                            <select name="nik_pelatih" id="pilihPelatih" class="form-select mb-3">
+                                                <option value="" selected>Pilih Pelatih Tim</option>
+                                                @foreach ($pelatih as $pl)
+                                                    <option value="{{$pl->nik_pelatih}}">{{$pl->nama_pelatih}}</option>
+                                                @endforeach
+                                                
+                                            </select>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +60,7 @@
                             <hr>
                         <div class="row">
                             <div class="col-md-4">
-                                <button class="btn btn-primary" type="submit">Simpan</button>
+                                <button class="btn btn-primary addBtn" type="button">Simpan</button>
                             </div>
                         </div>
                     </form>
@@ -67,4 +69,24 @@
         </div>
     </div>
 </div>
+@endsection
+@section('footer')
+    <script type="module" >
+        // add pop up
+        $('.addBtn').on('click', function (e) {
+        e.preventDefault();
+        let data = new FormData(e.target.form);
+        axios.post(`/tim/tambah`, data, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        .then((res) => {
+            swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+                window.location.href = '/tim'; 
+            })
+        })
+        .catch((err) => {
+            swal.fire('Gagal tambah data!', '', 'warning');
+        });
+    });
+    </script>
 @endsection

@@ -10,7 +10,7 @@
 
     {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
-    <link rel="icon" href="{{ asset('/images/logo1.png') }}">
+    <link rel="icon" href="{{ asset('/images/logo.png') }}">
 
     @vite(['resources/sass/app.scss','resources/js/app.js'])
     <title>@yield('title')</title>

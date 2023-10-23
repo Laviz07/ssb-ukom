@@ -45,14 +45,14 @@
                         <tr style="vertical-align: middle; font-size: 17px;" idTm={{$tm->id_tim}}>
                             <td class="col-1" style="text-align: center;"> {{$no++}} </td>
                             <td class="col-1" style="text-align: center"> 
-                                @if ($tm->user->foto_profil)
-                                    <img src="{{asset('storage/' . $tm->user->foto_profil) }}" alt="Foto Profil" style="width: 90px; height: 90px;" class="rounded-circle">
+                                @if ($tm->foto_tim)
+                                    <img src="{{asset('storage/' . $tm->foto_tim) }}" alt="Foto Profil" style="width: 150px; height: 90px;" class="rounded">
                                 @else
                                     <i class="bi bi-person-circle"  style="font-size: 40px;"></i> 
                                 @endif
                             </td>
                             <td class="col-5 text-capitalize text-center "> {{$tm->nama_tim}} </td>
-                            <td class="col-3" style="text-align: center"> {{$tm->id_tim}} </td>
+                            <td class="col-3" style="text-align: center"> {{$tm->pelatih->nama_pelatih}} </td>
                             <td style="text-align: center">
                                
 
@@ -81,71 +81,58 @@
 
                                         <a class="dropdown-item hapusBtn" idTM={{$tm->id_tim}} style="cursor: pointer"> 
                                             <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                            <strong class="ms-1">Hapus Data Pemain</strong> 
+                                            <strong class="ms-1">Hapus Data Tim</strong> 
                                         </a>
                                     @endif
 
-                                    </div>
+                                    </div> 
 
                                 </div>
 
                             </td>
                         </tr>
 
-                         {{-- EDIT PEMAIN --}}
-                        {{-- <div class="modal fade" id="edit-modal-{{$pm->id_tim}}" tabindex="-1"
+                         {{-- EDIT TIM --}}
+                        <div class="modal fade" id="edit-modal-{{$tm->id_tim}}" tabindex="-1"
                                 aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Pemain</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Tim</h1>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="edit-pm-form-{{$pm->nisn_pemain}}">
+                                        <form id="edit-tm-form-{{$tm->id_tim}}">
                                             <div class="form-group">
-                                                <label>Nama Pemain:</label>
+                                                <label>Nama Tim:</label>
                                                 <input placeholder="example" type="text" class="form-control mb-3"
-                                                        name="nama_pemain"
-                                                        value="{{$pm->nama_pemain}}"
+                                                        name="nama_tim"
+                                                        value="{{$tm->nama_tim}}"
                                                         required/>
                                                 @csrf
                                             </div>
 
-                                            <div class="form-group">
-                                                <label>Alamat:</label>
-                                                <textarea required name="alamat" id="" class="form-control" rows="3" 
-                                                placeholder="Deskripsi Diri" style="resize: none">{{$pm->alamat}}</textarea>
-                                
-                                            </div>
+                                            <select name="nik_pelatih" id="pilihPelatih" class="form-select mb-3">
+                                                <option value="" selected>Pilih Pelatih Tim</option>
+                                                @foreach ($pelatih as $pl)
+                                                    <option value="{{$pl->nik_pelatih}}" {{ $tm->nik_pelatih === $pl->nik_pelatih ? 'selected' : '' }}>
+                                                        {{$pl->nama_pelatih}}
+                                                    </option>
+                                                @endforeach
+                                                
+                                            </select>
 
                                             <div class="form-group">
-                                                <label>No. Telepon:</label>
-                                                <input placeholder="example" type="number" class="form-control mb-3"
-                                                        name="no_telp"
-                                                        value="{{$pm->no_telp}}"
-                                                        required/>
-                                               
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Email:</label>
-                                                <input placeholder="example" type="email" class="form-control mb-3"
-                                                        name="email"
-                                                        value="{{$pm->email}}"
-                                                        required/>
-                                               
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Deskripsi Diri:</label>
-                                                <textarea required name="deskripsi_pemain" id="" 
-                                                    class="form-control" rows="5" placeholder="Deskripsi Diri" 
-                                                    style="resize: none">{{$pm->deskripsi_pemain}}
+                                                <label>Deskripsi Tim:</label>
+                                                <textarea required name="deskripsi_tim" id="" 
+                                                    class="form-control" rows="5" placeholder="Deskripsi Tim" 
+                                                    style="resize: none">{{$tm->deskripsi_tim}}
                                                 </textarea>
-                                
-                                               
                                             </div>
+
+                                            <input type="hidden" name="id_tim" value="{{$tm->id_tim}}">
+
+
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -153,13 +140,13 @@
                                             Cancel
                                         </button>
                                         <button type="submit" class="btn btn-primary edit-btn"
-                                                form="edit-pm-form-{{$pm->nisn_pemain}}" >
+                                                form="edit-tm-form-{{$tm->id_tim}}" >
                                             Edit
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                 @endforeach
 
                     </tbody>
@@ -176,63 +163,63 @@
 @section('footer')
     <script type="module">
 
-    //     // edit pop up
-    //     $('.editBtn').on('click', function (e) {
-    //         e.preventDefault();
-    //         let idPM = $(this).attr('idPM');
-    //         $(`#edit-pm-form-${idPM}`).on('submit', function (e) {
-    //             e.preventDefault();
-    //             let data = Object.fromEntries(new FormData(e.target));
-    //             data['nisn_pemain'] = idPM;
-    //             axios.post(`/pemain/edit/${idPM}`, data)
-    //                 .then(() => {
-    //                     $(`#edit-modal-${idPM}`).css('display', 'none')
-    //                     swal.fire('Berhasil edit data!', '', 'success').then(function () {
-    //                         location.reload();
-    //                     })
-    //                 })
-    //                 .catch(() => {
-    //                     swal.fire('Gagal edit data!', '', 'warning');
-    //                 })
-    //         })
-    //     })
+         // edit pop up
+        $('.editBtn').on('click', function (e) {
+            e.preventDefault();
+            let idTM = $(this).attr('idTM');
+            $(`#edit-tm-form-${idTM}`).on('submit', function (e) {
+                e.preventDefault();
+                let data = Object.fromEntries(new FormData(e.target));
+                data['nisn_pemain'] = idTM;
+                axios.post(`/tim/edit/${idTM}`, data)
+                    .then(() => {
+                        $(`#edit-modal-${idTM}`).css('display', 'none')
+                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                            location.reload();
+                        })
+                    })
+                    .catch(() => {
+                        swal.fire('Gagal edit data!', '', 'warning');
+                    })
+            })
+        })
         
     //     //delete pop up
-    //     $('.DataTable tbody').on('click','.hapusBtn',function(a){
-    //     a.preventDefault();
-    //     let idPM = $(this).closest('.hapusBtn').attr('idPM');
-    //     swal.fire({
-    //             title : "Apakah anda ingin menghapus data ini?",
-    //             showCancelButton: true,
-    //             confirmButtonText: 'Setuju',
-    //             cancelButtonText: `Batal`,
-    //             confirmButtonColor: 'red'
+        $('.DataTable tbody').on('click','.hapusBtn',function(a){
+        a.preventDefault();
+        let idTM = $(this).closest('.hapusBtn').attr('idTM');
+        swal.fire({
+                title : "Apakah anda ingin menghapus data ini?",
+                showCancelButton: true,
+                confirmButtonText: 'Setuju',
+                cancelButtonText: `Batal`,
+                confirmButtonColor: 'red'
     
-    //         }).then((result)=>{
-    //             if(result.isConfirmed){
-    //                 //dilakukan proses hapus
-    //                 axios.delete('/pemain/hapus/' + idPM).then(function(response){
-    //                     console.log(response);
-    //                     if(response.data.success){
-    //                         swal.fire('Berhasil di hapus!', '', 'success').then(function(){
-    //                                 //Refresh Halaman
-    //                                 location.reload();
-    //                             });
-    //                     }else{
-    //                         swal.fire('Gagal di hapus!', '', 'warning').then(function(){
-    //                                 //Refresh Halaman
-    //                                 location.reload();
-    //                             });
-    //                     }
-    //                 }).catch(function(error){
-    //                     swal.fire('Data gagal di hapus!', '', 'error').then(function(){
-    //                                 //Refresh Halaman
+            }).then((result)=>{
+                if(result.isConfirmed){
+                    //dilakukan proses hapus
+                    axios.delete('/tim/hapus/' + idTM).then(function(response){
+                        console.log(response);
+                        if(response.data.success){
+                            swal.fire('Berhasil di hapus!', '', 'success').then(function(){
+                                    //Refresh Halaman
+                                    location.reload();
+                                });
+                        }else{
+                            swal.fire('Gagal di hapus!', '', 'warning').then(function(){
+                                    //Refresh Halaman
+                                    location.reload();
+                                });
+                        }
+                    }).catch(function(error){
+                        swal.fire('Data gagal di hapus!', '', 'error').then(function(){
+                                    //Refresh Halaman
                                    
-    //                             });
-    //                 });
-    //             }
-    //         });
-    // });
+                                });
+                    });
+                }
+            });
+    });
 
         $('.DataTable').DataTable();
     </script>

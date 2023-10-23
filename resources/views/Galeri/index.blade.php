@@ -33,7 +33,9 @@
                             style="width: 350px; height: 200px; border-radius: 5px">
 
                         <div class="overlay ">
-                            <span class="caption text-white" style="font-size: 18px; text-align: center;"> {{$gl->keterangan_foto}} </span>
+                            <span class="caption text-white" style="font-size: 18px; text-align: center; "> 
+                                {{$gl->keterangan_foto}} 
+                            </span>
                         </div>
 
                         @if (Auth::check() && Auth::user()->role == 'admin')
@@ -83,7 +85,7 @@
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Gambar</h1>
                         </div>
                         <div class="modal-body">
-                            <form id="edit-gl-form-{{$gl->id_galeri}}" enctype="multipart/form-data">
+                            <form id="edit-gl-form-{{$gl->id_galeri}}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                 <div class="form-group">
                                     <label>Keterangan Gambar</label>
@@ -91,13 +93,13 @@
                                         required class="form-control" style="resize: none">{{$gl->keterangan_foto}}
                                     </textarea>
                                 </div>
+                                <input type="hidden" name="id_galeri" value="{{$gl->id_galeri}}">
+
 
                                 <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
                                         <label for="fileUpload">Upload Gambar</label>
-                                        <input type="file" name="foto" id="fileUpload" 
-                                            class="btn w-auto btn-outline-primary form-control" 
-                                            value="{{ asset('storage/' . $gl->foto) }}">
+                                        <input type="file" name="foto" id="fileUpload" required class="btn w-auto btn-outline-primary form-control">
                                     </div>
                                 </div>
 
@@ -108,10 +110,10 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-primary edit-btn"
-                                    form="edit-gl-form-{{$gl->id_galeri}}">
+                            <button type="submit" class="btn btn-primary edit-btn" form="edit-gl-form-{{$gl->id_galeri}}">
                                 Edit
                             </button>
+                            
                         </div>
                     </div>
                 </div>

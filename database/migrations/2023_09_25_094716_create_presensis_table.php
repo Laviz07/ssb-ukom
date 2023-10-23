@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('presensi', function (Blueprint $table) {
             $table->integer('id_presensi')->autoIncrement();
+            $table->integer('id_kegiatan')->nullable(false);
             $table->date('hari_tanggal_hadir')->default('1960-01-01')->nullable(false);
+
+            $table->foreign('id_kegiatan')->references('id_kegiatan')->on('kegiatan')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pemain', function (Blueprint $table) {
             $table->bigInteger("nisn_pemain")->primary();
             $table->integer("id_user")->nullable(false);
+            $table->integer("id_tim")->nullable(true);
             $table->string("nama_pemain", 50)->nullable(false);
             $table->date("tanggal_lahir")->default("2000-01-01")->nullable(false);
             $table->string("tempat_lahir", 255)->nullable(false);
@@ -26,6 +27,9 @@ return new class extends Migration
             $table->integer("no_punggung")->nullable(false);
 
             $table->foreign("id_user")->references("id_user")->on("user")
+                ->onDelete("cascade")->onUpdate("cascade");
+
+            $table->foreign("id_tim")->references("id_tim")->on("tim")
                 ->onDelete("cascade")->onUpdate("cascade");
         });
     }
