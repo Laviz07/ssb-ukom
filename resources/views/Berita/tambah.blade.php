@@ -28,7 +28,7 @@
                         </div>
                         <div class="form-group mt-2">
                             <label for="">Isi Berita:</label>
-                            <textarea name="isi_berita" id="" rows="2"
+                            <textarea name="isi_berita" id="" rows="20"
                                 class="form-control"
                                placeholder="Keterangan Berita" style="resize: none" ></textarea>
                         </div>

@@ -2,7 +2,7 @@
 @section('title', 'Detail Berita')
 @section('content')
 <div class="container mt-4 mb-4 text-center">
-    <span style="font-size: 45px; font-weight: 600;"> {{$berita->judul_berita}} </span>
+    <span style="font-size: 45px; font-weight: 600;" class="text-capitalize "> {{$berita->judul_berita}} </span>
     <div class="row mt-1 d-flex justify-content-between">
         <div>
             <div class="row p-4 d-flex flex-column align-items-center justify-content-center">
@@ -15,10 +15,12 @@
         </div>
         
 
-        <div class="container mt-4 mb-4 text-center" style="width: 73%">
+        <div class="container mt-4 mb-4 text-center" style="width: 90%">
             <div class="row p-3">
                 <div class="row mt-3">
-                    <p style="font-size: 16px; text-align: left"> {{$berita->isi_berita}} </p>
+                    <p style="font-size: 16px; text-align: left"> 
+                        {!! nl2br(e($berita->isi_berita)) !!}
+                    </p>
                 </div>
             </div>
         </div>
