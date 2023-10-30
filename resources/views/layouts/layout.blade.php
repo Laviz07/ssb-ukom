@@ -75,10 +75,13 @@
                     </div>
                 <hr style="margin-top: -1px">
 
+                @if (Auth::user()->role != 'admin')
                 <a class="dropdown-item" href="{{ url('profil', ['']) }}"> 
-                <i class="bi bi-person-circle"  style="font-size: 20px; vertical-align: middle; "></i> 
-                    <strong class="ms-1">Profil Anda</strong> 
-                   </a>
+                  <i class="bi bi-person-circle"  style="font-size: 20px; vertical-align: middle; "></i> 
+                  <strong class="ms-1">Profil Anda</strong> 
+                </a>
+                @endif
+
                    <a class="dropdown-item" href="{{ url('logout', []) }}"> 
                     <i class="bi bi-box-arrow-right"  style="font-size: 20px; vertical-align: middle; color: #DC3545;"></i> 
                     <strong class="ms-1" style="color: #DC3545;">Log Out</strong> 
