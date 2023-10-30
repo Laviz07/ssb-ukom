@@ -19,7 +19,6 @@
                 @if (Auth::check() && Auth::user()->role == 'admin')
                     <a href="{{ url('galeri', ['tambah']) }}" class="btn btn-success">Tambah Foto</a>
                 @endif
-                
             </div>
 
             <div class="row mt-4 mb-4">
@@ -121,8 +120,7 @@
                 @endforeach      
             </div>
         
-        
-        
+        </div>
     </div>
 
 @endsection

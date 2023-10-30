@@ -8,7 +8,7 @@
         <div class="card align-items-center ms-2" style="width: 98%;">
             <div class="card-body">
                 <span class="h3 text-uppercase">
-                    <strong>Tambah Foto Galeri</strong>
+                    <strong>Tambah Berita Sekolah</strong>
                 </span>
             </div>
         </div>
@@ -22,20 +22,20 @@
                     <div class="row">
                         <div class="form-group mt-2">
                             <label for="">Judul:</label>
-                            <textarea name="keterangan_foto" id="" rows="2"
+                            <textarea name="judul_berita" id="" rows="2"
                                 class="form-control"
-                               placeholder="Keterangan Foto" style="resize: none" ></textarea>
+                               placeholder="Judul Berita" style="resize: none" ></textarea>
                         </div>
                         <div class="form-group mt-2">
                             <label for="">Isi Berita:</label>
-                            <textarea name="keterangan_foto" id="" rows="2"
+                            <textarea name="isi_berita" id="" rows="2"
                                 class="form-control"
-                               placeholder="Keterangan Foto" style="resize: none" ></textarea>
+                               placeholder="Keterangan Berita" style="resize: none" ></textarea>
                         </div>
                         <div class="row">
                             <div class="col-md-4 mt-3 align-items-center">
                                 <label for="fileUpload">Upload Gambar</label>
-                                <input type="file" name="foto" id="fileUpload" class="btn w-auto btn-outline-primary form-control">
+                                <input type="file" name="foto_berita" id="fileUpload" class="btn w-auto btn-outline-primary form-control">
                             </div>
                         </div>
 

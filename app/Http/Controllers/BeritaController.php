@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Berita;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
@@ -31,33 +32,105 @@ class BeritaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
         //
+        $data = $request->validate([
+            'judul_berita' => ['required'],
+            'isi_berita' => ['required'],
+            'foto_berita' => ['required'],
+        ]);
+
+        $path = $request->file('foto_berita')->storePublicly('foto_berita', 'public');
+        $data['foto_berita'] = $path;
+
+        $berita = new Berita($data);
+        $berita->save();
+
+        return redirect('/berita')
+            ->with('success', 'Berita berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Berita $berita)
+    public function delete(Request $request)
     {
-        //
+        $id_berita = $request->id; // Ubah menjadi idBerita sesuai dengan variabel yang Anda gunakan di route.
+
+        // Cari berita berdasarkan ID
+        $berita = Berita::find($id_berita);
+
+        if (!$berita) {
+            // Jika berita tidak ditemukan, kirimkan pesan kesalahan
+            $pesan = [
+                'success' => false,
+                'pesan' => 'Berita tidak ditemukan'
+            ];
+        } else {
+            // Hapus berita dari penyimpanan
+            Storage::disk('public')->delete($berita->id_berita);
+
+            // Hapus berita dari database
+            $berita->delete();
+
+            $pesan = [
+                'success' => true,
+                'pesan' => 'Berita berhasil dihapus'
+            ];
+        }
+
+        return response()->json($pesan);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Berita $berita)
+    public function edit(Request $request, Berita $berita)
     {
         //
+        $data = $request->validate([
+            'foto_berita' => ['required', 'image|mimes:jpeg,png,jpg,gif|max:2048'],
+            'isi_berita`' => ['required']
+        ]);
+
+        // $berita = Berita::where('id_berita', $request->input('id_berita'));
+
+
+        // Cek apakah pengguna mengunggah foto berita baru
+        if ($request->hasFile('foto_berita')) {
+            $destination = public_path() . '/foto_berita';
+            $oldFoto = $berita->foto_berita;
+
+            if ($oldFoto) {
+                $oldFotoPath = public_path($oldFoto);
+                if (file_exists($oldFotoPath)) {
+                    unlink($oldFoto);
+                }
+            }
+
+            $path = $request->file('foto_berita');
+            $fotoName = $path->getClientOriginalName();
+            $path->move($destination, $fotoName);
+            $berita->foto = '/foto_berita' . $fotoName;
+        }
+
+        $berita->isi_berita = $request->input('isi_berita');
+        $berita->save();
+
+        return redirect()->to('/berita')->with('success', 'Berita berhasil diupdate');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Berita $berita)
+    public function indexDetail(Request $request)
     {
-        //
+        $data = [
+            'berita' => Berita::where('id_berita', $request->id)->first()
+        ];
+
+        return view('Berita.detail', $data);
     }
 
     /**

@@ -2,72 +2,178 @@
 @section('title', 'Berita')
 @section('content')   
 
-<div class="container mt-4 mb-4">
+<div class="mt-4">
     <div class="row mt-4 d-flex justify-content-between">
-        <div class="card align-items-center" style="border: 2px solid #00171F;">
-            <div class="card-body">
-                <span class="h3 text-uppercase "> <strong>Berita Sekolah</strong></span>
+        <div>
+            <div class="card align-items-center" style="border: 2px solid #00171F;">
+                <div class="card-body">
+                    <span class="h3 text-uppercase "> <strong>Berita Sekolah</strong></span>
+                </div>
             </div>
-        </div>
 
-        <div class=" mt-3">
-            @if (Auth::check() && Auth::user()->role == 'admin')
-        <a href="{{ url('berita', ['tambah']) }}" class="btn btn-success">Tambah Berita</a>
-        </a>
-        @endif
+            <div class="col d-flex justify-content-between mb-2  mt-3">
+                <a href="{{ url('/', []) }}">
+                    <btn class="btn btn-primary">Kembali</btn>
+                </a>
+
+                @if (Auth::check() && Auth::user()->role == 'admin')
+                <a href="{{ url('berita', ['tambah']) }}" class="btn btn-success">Tambah Berita</a>
+                </a>
+                @endif
+            </div>
         </div>
     
-        <div class="col-md-3 card mt-4 align-items-center" style="width: 340px;">
+        @foreach($berita as $br)
+
+        @if (Auth::check() && Auth::user()->role == 'admin')
+        <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0 container">
+            <div idBR={{$br->id_berita}} >
+                <div class="col-md-6 card mt-4 align-items-center" style="width: 350px;">
+                    <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
+                        width="280" class="rounded p-2 pt-4" >
+
+                    <div class="mb-3">
+                            <span style="font-weight: 300; font-size: 20px" > 
+                                {{$br->judul_berita}} 
+                            </span>
+                        <div style="display: inline-block;">
+                            <div class="dropdown dropend" style=" vertical-align: middle;">
+                                <i  class="bi bi-three-dots-vertical " 
+                                    style="font-size: 20px; vertical-align: middle; cursor: pointer;"
+                                    id="beritaDropdown" data-bs-toggle='dropdown' data-bs-offset="-10,20">
+                                </i>
+
+                                <div class="dropdown-menu" style="width: 200px;" aria-labelledby="beritaDropdown">
+                                    <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
+                                    <a class="dropdown-item" href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
+                                     <i class="bi bi-eye"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                     <strong class="ms-1">Lihat Detail Berita</strong> 
+                                    </a>
+
+                                        @if (Auth::user()['role']=='admin')
+                                            <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
+                                                style="cursor: pointer" idBR = {{$br->id_berita}} > 
+                                                <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                                <strong class="ms-1" >Edit Data Berita</strong> 
+                                            </a>
+                                            <a class="dropdown-item hapusBtn" idBR={{$br->id_berita}} style="cursor: pointer"> 
+                                                <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                                <strong class="ms-1">Hapus Data Berita</strong> 
+                                            </a>
+                                        @endif
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>@endif
+
+        {{-- EDIT GAMBAR--}}
+        <div class="modal fade" id="edit-modal-{{$br->id_berita}}" tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Gambar</h1>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-br-form-{{$br->id_berita}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                        <div class="form-group">
+                            <label>Keterangan Gambar</label>
+                            <textarea name="keterangan_foto" id="" rows="2" 
+                                required class="form-control" style="resize: none">{{$br->keterangan_foto}}
+                            </textarea>
+                        </div>
+                        <input type="hidden" name="id_berita" value="{{$br->id_berita}}">
+
+
+                        <div class="row">
+                            <div class="col-md-4 mt-3 align-items-center">
+                                <label for="fileUpload">Upload Gambar</label>
+                                <input type="file" name="foto" id="fileUpload" required class="btn w-auto btn-outline-primary form-control">
+                            </div>
+                        </div>
+
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary edit-btn" form="edit-br-form-{{$br->id_berita}}">
+                        Edit
+                    </button>
                     
-            <img 
-            src="{{ asset('images/main_bola.jpeg') }}"
-                alt="Stadion" width="250" class="rounded p-2 pt-4">
-            
-            <div class="row p-3">
-                <span class="h4" style="font-weight: 500; font-size: 18px">
-                    {{-- <i class="bi bi-geo-alt"></i> --}}
-                    Nama Tim : Java FC
-                </span>
-                <span class="mt-2">
-                    Jalan Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </span>
-            </div>
-        </div>
-        <div class="col-md-3 card mt-4 align-items-center" style="width: 340px;">
-                
-            <img 
-            src="{{ asset('images/main_bola.jpeg') }}"
-                alt="Stadion" width="250" class="rounded p-2 pt-4">
-            
-            <div class="row p-3">
-                <span class="h4" style="font-weight: 500; font-size: 18px">
-                    {{-- <i class="bi bi-geo-alt"></i> --}}
-                    Nama Tim : Papua FC
-                </span>
-                <span class="mt-2">
-                    Jalan Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </span>
-            </div>
-        </div>
-        <div class="col-md-3 card mt-4 align-items-center" style="width: 340px;">
-                
-            <img 
-            src="{{ asset('images/main_bola.jpeg') }}"
-                alt="Stadion" width="250" class="rounded p-2 pt-4">
-            
-            <div class="row p-3">
-                <span class="h4" style="font-weight: 500; font-size: 18px">
-                    {{-- <i class="bi bi-geo-alt"></i> --}}
-                    Nama Tim : Papua FC
-                </span>
-                <span class="mt-2">
-                    Jalan Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </span>
+                </div>
             </div>
         </div>
     </div>
+        @endforeach      
+    </div>
 </div>
+@endsection
+@section('footer')
+    <script type="module">
+         //delete pop up
+         $('.container').on('click', '.hapusBtn', function(e) {
+            e.preventDefault();
+            let idBR = $(this).attr('idBR');
+            swal.fire({
+                title: "Apakah anda ingin menghapus data ini?",
+                showCancelButton: true,
+                confirmButtonText: 'Setuju',
+                cancelButtonText: `Batal`,
+                confirmButtonColor: 'red'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete('/berita/hapus/' + idBR) 
+                    .then(function(response) {
+                        console.log(response);
+                        if (response.data.success) {
+                            swal.fire('Berhasil dihapus!', '', 'success').then(function() {
+                                // Refresh Halaman
+                                location.reload();
+                            });
+                        } else {
+                            swal.fire('Gagal dihapus!', '', 'warning').then(function() {
+                                // Refresh Halaman
+                                location.reload();
+                            });
+                        }
+                    }).catch(function(error) {
+                        swal.fire('Data gagal dihapus!', '', 'error').then(function() {
+                            // Refresh Halaman
+                        });
+                    });
+                }
+            });
+        });
+
+         // edit pop up
+         $('.editBtn').on('click', function (e) {
+            e.preventDefault();
+            let idBR = $(this).attr('idBR');
+            $(`#edit-br-form-${idBR}`).on('submit', function (e) {
+                e.preventDefault();
+                let data = Object.fromEntries(new FormData(e.target));
+                data['id_galeri'] = idBR;
+                axios.post(`/galeri/edit/${idBR}`, data)
+                    .then(() => {
+                        $(`#edit-modal-${idBR}`).css('display', 'none')
+                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                            location.reload();
+                        })
+                    })
+                    .catch(() => {
+                        swal.fire('Gagal edit data!', '', 'warning');
+                    })
+            })
+        })
+
+    </script>
 @endsection

@@ -35,7 +35,7 @@ Route::get('/', function () {
 Route::get('/beranda', [DashboardController::class, 'index']);
 
 Route::get('/berita', [BeritaController::class, 'index']);
-Route::post('/berita/detail/{id}', [BeritaController::class, 'indexDetail']);
+Route::get('/berita/detail/{id}', [BeritaController::class, 'indexDetail']);
 
 Route::get('/galeri', [GaleriController::class, 'index']);
 
@@ -65,7 +65,10 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
             Route::get("/log", [LogsController::class, 'index']);
 
+            Route::get("/berita/tambah", [BeritaController::class, 'indexCreate']);
             Route::post('/berita/tambah', [BeritaController::class, 'create']);
+            Route::post('/berita/edit/{id}', [BeritaController::class, 'edit']);
+            Route::delete("/berita/hapus/{id}", [BeritaController::class, 'delete']);
 
             Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
             Route::delete('/tim/hapus/{id}', [TimController::class, 'delete']);
