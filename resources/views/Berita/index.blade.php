@@ -28,9 +28,9 @@
         @if (Auth::check() && Auth::user()->role == 'admin')
         <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0 content">
             <div idBR={{$br->id_berita}} >
-                <div class="col-md-6 card mt-4 align-items-center" style="width: 350px;">
+                <div class="col-md-6 card mt-0 align-items-center" style="width: 350px;">
                     <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
-                        width="280" class="rounded p-2 pt-4" >
+                        height="200" width="300" class="rounded p-2 pt-4" >
 
                     <div class="mb-3">
                             <span style="font-weight: 300; font-size: 20px" > 
