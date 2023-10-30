@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Galeri;
 use App\Models\logs;
 use App\Models\Tim;
 use App\Models\Jadwal;
 use App\Models\User;
 use App\Models\Berita;
-
+use App\Models\Pelatih;
+use App\Models\Pemain;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -25,7 +28,8 @@ class DashboardController extends Controller
     //     return view('Beranda.dashboard');
     // }
 
-    public function indexDashboard() {
+    public function indexDashboard()
+    {
         $data = [
             'user' => User::query()->count(),
             'galeri' => Galeri::query()->count(),
