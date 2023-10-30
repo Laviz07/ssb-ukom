@@ -3,7 +3,7 @@
 @section('content')   
 
 <div class="mt-4">
-    <div class="row mt-4 d-flex justify-content-between">
+    <div class="row mt-4">
         <div>
             <div class="card align-items-center" style="border: 2px solid #00171F;">
                 <div class="card-body">
@@ -26,7 +26,7 @@
         @foreach($berita as $br)
 
         @if (Auth::check() && Auth::user()->role == 'admin')
-        <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0 container">
+        <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0 content">
             <div idBR={{$br->id_berita}} >
                 <div class="col-md-6 card mt-4 align-items-center" style="width: 350px;">
                     <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
@@ -120,7 +120,7 @@
 @section('footer')
     <script type="module">
          //delete pop up
-         $('.container').on('click', '.hapusBtn', function(e) {
+         $('.content').on('click', '.hapusBtn', function(e) {
             e.preventDefault();
             let idBR = $(this).attr('idBR');
             swal.fire({
