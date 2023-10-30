@@ -75,8 +75,8 @@
                     </div>
                 <hr style="margin-top: -1px">
 
-                   <a class="dropdown-item" href="#"> 
-                    <i class="bi bi-person-circle"  style="font-size: 20px; vertical-align: middle; "></i> 
+                <a class="dropdown-item" href="{{ url('profil', ['']) }}"> 
+                <i class="bi bi-person-circle"  style="font-size: 20px; vertical-align: middle; "></i> 
                     <strong class="ms-1">Profil Anda</strong> 
                    </a>
                    <a class="dropdown-item" href="{{ url('logout', []) }}"> 
