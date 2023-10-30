@@ -2,7 +2,13 @@
 @section('title', 'Detail Berita')
 @section('content')
 <div class="container mt-4 mb-4 text-center">
-    <span style="font-size: 45px; font-weight: 600;" class="text-capitalize "> {{$berita->judul_berita}} </span>
+    <div class="row">
+        <span style="font-size: 45px; font-weight: 600;" class="text-capitalize "> {{$berita->judul_berita}} </span>
+        <span class="mt-1" style="font-size:16px; font-weight: 400;"> 
+            <span style="color: #7C7C7C;">Dibuat Oleh</span>
+            <span style="color: #003459;" class="text-capitalize " > {{$berita->admin->nama_admin}} </span> 
+        </span>
+    </div>
     <div class="row mt-1 d-flex justify-content-between">
         <div>
             <div class="row p-4 d-flex flex-column align-items-center justify-content-center">

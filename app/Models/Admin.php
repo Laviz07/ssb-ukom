@@ -49,6 +49,6 @@ class Admin extends Model
 
     public function berita(): HasMany
     {
-        return $this->hasMany(Berita::class, 'id_berita');
+        return $this->hasMany(Berita::class, 'nik_admin');
     }
 }

@@ -32,7 +32,8 @@ class Berita extends Model
     protected $fillable = [
         "judul_berita",
         "isi_berita",
-        "foto_berita"
+        "foto_berita",
+        "nik_admin",
     ];
     public $timestamps = false;
 

@@ -20,6 +20,9 @@
                     @csrf
 
                     <div class="row">
+
+                        <input type="hidden" name="nik_admin" value="{{Auth::user()->admin["nik_admin"]}}">
+
                         <div class="form-group mt-2">
                             <label for="">Judul:</label>
                             <textarea name="judul_berita" id="" rows="2"
@@ -28,9 +31,9 @@
                         </div>
                         <div class="form-group mt-2">
                             <label for="">Isi Berita:</label>
-                            <textarea name="isi_berita" id="" rows="20"
+                            <textarea name="isi_berita" id="" rows="10"
                                 class="form-control"
-                               placeholder="Keterangan Berita" style="resize: none" ></textarea>
+                               placeholder="Keterangan Berita" style="" ></textarea>
                         </div>
                         <div class="row">
                             <div class="col-md-4 mt-3 align-items-center">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\User;
 use App\Models\Berita;
 use Illuminate\Http\Request;
@@ -39,16 +40,26 @@ class BeritaController extends Controller
             'judul_berita' => ['required'],
             'isi_berita' => ['required'],
             'foto_berita' => ['required'],
+            'nik_admin' => ['required'],
         ]);
+
 
         $path = $request->file('foto_berita')->storePublicly('foto_berita', 'public');
         $data['foto_berita'] = $path;
 
-        $berita = new Berita($data);
-        $berita->save();
+        $nik_admin = $request->input('nik_admin');
+        $admin = Admin::where('nik_admin', $nik_admin)->first();
 
-        return redirect('/berita')
-            ->with('success', 'Berita berhasil ditambahkan');
+        if ($admin) {
+            $berita = new Berita($data);
+            $berita->admin()->associate($admin);
+            $berita->save();
+
+            return redirect('/berita')
+                ->with('success', 'Berita berhasil ditambahkan');
+
+            // response()->json([$data]);
+        }
     }
 
     /**
