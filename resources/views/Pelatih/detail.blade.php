@@ -55,8 +55,8 @@
                     src="{{asset('storage/' . $ptm->foto_tim) }}"
                         alt="Stadion" width="470" class="rounded p-2 pt-4">
                     
-                    <div class="row p-3">
-                        <span class="h4 text-capitalize " style="font-weight: 500; font-size: 26px">
+                    <div class="row p-3" style="">
+                        <span class="h4 text-capitalize " style="font-weight: 500; font-size: 26px;">
                             {{-- <i class="bi bi-geo-alt"></i> --}}
                             Nama Tim : {{$ptm->nama_tim}}
                         </span>
