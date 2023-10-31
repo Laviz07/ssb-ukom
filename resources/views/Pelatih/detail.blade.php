@@ -30,7 +30,7 @@
                     <span style="font-size: 16px;"> {{$pelatih->tempat_lahir}}, {{$pelatih->tanggal_lahir}} </span>
                 </div>
 
-                <div class="row mt-3">
+                <div class="row mt-3"> 
                     <span style="font-size: 16px; font-weight: 600;">Alamat:</span>
                     <span style="font-size: 16px;"> {{$pelatih->alamat}}</span>
                 </div>
@@ -48,40 +48,27 @@
             </div>
         </div>
         
-        <div class="col-md-3 card mt-4 align-items-center" style="width: 520px;">
-                
-            <img 
-            src="{{ asset('images/main_bola.jpeg') }}"
-                alt="Stadion" width="470" class="rounded p-2 pt-4">
-            
-            <div class="row p-3">
-                <span class="h4" style="font-weight: 500; font-size: 26px">
-                    {{-- <i class="bi bi-geo-alt"></i> --}}
-                    Nama Tim : Java FC
-                </span>
-                <span class="mt-2">
-                    Jalan Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </span>
-            </div>
-        </div>
-        <div class="col-md-3 card mt-4 align-items-center" style="width: 520px;">
-                
-            <img 
-            src="{{ asset('images/main_bola.jpeg') }}"
-                alt="Stadion" width="470" class="rounded p-2 pt-4">
-            
-            <div class="row p-3">
-                <span class="h4" style="font-weight: 500; font-size: 26px">
-                    {{-- <i class="bi bi-geo-alt"></i> --}}
-                    Nama Tim : Papua FC
-                </span>
-                <span class="mt-2">
-                    Jalan Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </span>
-            </div>
-        </div>
+        @foreach ($pelatih->tim as $ptm)
+            {{-- @if ($ptm->tim) --}}
+                <div class="col-md-3 card mt-4 align-items-center" style="width: 520px;">
+                    <img 
+                    src="{{asset('storage/' . $ptm->foto_tim) }}"
+                        alt="Stadion" width="470" class="rounded p-2 pt-4">
+                    
+                    <div class="row p-3">
+                        <span class="h4" style="font-weight: 500; font-size: 26px">
+                            {{-- <i class="bi bi-geo-alt"></i> --}}
+                            Nama Tim : {{$ptm->nama_tim}}
+                        </span>
+                        <span class="mt-2">
+                            {{$ptm->deskripsi_tim}}
+                        </span>
+                    </div>
+                </div>
+            {{-- @endif --}}
+        @endforeach
+      
+      
     </div>
 </div>
 

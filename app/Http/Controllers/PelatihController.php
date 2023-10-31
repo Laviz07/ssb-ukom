@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelatih;
+use App\Models\Tim;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -38,8 +39,11 @@ class PelatihController extends Controller
     public function indexDetail(Request $request)
     {
         $data = [
-            'pelatih' => Pelatih::where('nik_pelatih', $request->id)->first()
+            'pelatih' => Pelatih::where('nik_pelatih', $request->id)->first(),
+            'tim' => Tim::all(),
         ];
+
+        // dd($data);
 
         return view('Pelatih.detail', $data);
     }

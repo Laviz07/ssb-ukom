@@ -23,6 +23,7 @@
             </div>
         </div>
     
+        @if ($berita->count() > 0)
         @foreach($berita as $br)
 
         <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0 content">
@@ -123,8 +124,15 @@
         </div>
     </div>
         @endforeach      
+
+        @else
+        <span class="text-center text-capitalize " style="font-size: 60px; font-weight: 700; color: #7c7c7c;" > 
+            Tidak ada berita
+        </span>
+    @endif
     </div>
 </div>
+
 @endsection
 @section('footer')
     <script type="module">

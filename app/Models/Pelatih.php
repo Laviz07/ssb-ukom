@@ -72,4 +72,9 @@ class Pelatih extends Model
     {
         return $this->belongsTo(User::class, "id_user");
     }
+
+    public function tim()
+    {
+        return $this->hasMany(Tim::class, "nik_pelatih");
+    }
 }
