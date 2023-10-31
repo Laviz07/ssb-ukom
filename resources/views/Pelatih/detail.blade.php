@@ -48,15 +48,15 @@
             </div>
         </div>
         
+        @if ($pelatih->tim->count() >0)
         @foreach ($pelatih->tim as $ptm)
-            {{-- @if ($ptm->tim) --}}
                 <div class="col-md-3 card mt-4 align-items-center" style="width: 520px;">
                     <img 
                     src="{{asset('storage/' . $ptm->foto_tim) }}"
                         alt="Stadion" width="470" class="rounded p-2 pt-4">
                     
                     <div class="row p-3">
-                        <span class="h4" style="font-weight: 500; font-size: 26px">
+                        <span class="h4 text-capitalize " style="font-weight: 500; font-size: 26px">
                             {{-- <i class="bi bi-geo-alt"></i> --}}
                             Nama Tim : {{$ptm->nama_tim}}
                         </span>
@@ -65,8 +65,15 @@
                         </span>
                     </div>
                 </div>
-            {{-- @endif --}}
         @endforeach
+            
+                @else
+
+                <span class="text-center text-capitalize mt-5 mb-5 " style="font-size: 40px; font-weight: 700; color: #7c7c7c;" > 
+                    Tidak ada tim yang dilatih
+                </span>
+
+            @endif
       
       
     </div>
