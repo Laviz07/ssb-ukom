@@ -23,9 +23,9 @@
             </div>
         </div>
     
+        @if ($berita->count() > 0)
         @foreach($berita as $br)
 
-        @if (Auth::check() && Auth::user()->role == 'admin')
         <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0 content">
             <div idBR={{$br->id_berita}} >
                 <div class="col-md-6 card mt-0 align-items-center" style="width: 350px;">
@@ -50,7 +50,7 @@
                                      <strong class="ms-1">Lihat Detail Berita</strong> 
                                     </a>
 
-                                        @if (Auth::user()['role']=='admin')
+                                        @if (Auth::check() && Auth::user()->role == 'admin')
                                             <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
                                                 style="cursor: pointer" idBR = {{$br->id_berita}} > 
                                                 <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             </div>
-        </div>@endif
+        </div>
 
         {{-- EDIT GAMBAR--}}
         <div class="modal fade" id="edit-modal-{{$br->id_berita}}" tabindex="-1"
@@ -114,8 +114,15 @@
         </div>
     </div>
         @endforeach      
+
+        @else
+        <span class="text-center text-capitalize " style="font-size: 60px; font-weight: 700; color: #7c7c7c;" > 
+            Tidak ada berita
+        </span>
+    @endif
     </div>
 </div>
+
 @endsection
 @section('footer')
     <script type="module">
