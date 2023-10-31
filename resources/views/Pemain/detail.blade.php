@@ -27,7 +27,10 @@
 
                 <div class="row mt-3">
                     <span style="font-size: 16px; font-weight: 600;">Tempat, Tanggal Lahir:</span>
-                    <span style="font-size: 16px;"> {{$pemain->tempat_lahir}}, {{$pemain->tanggal_lahir}} </span>
+                    <span style="font-size: 16px;"> 
+                        {{$pemain->tempat_lahir}}, 
+                        {{\Carbon\Carbon::parse($pemain->tanggal_lahir)->format('j F Y') }}
+                    </span>
                 </div>
 
                 <div class="row mt-3">

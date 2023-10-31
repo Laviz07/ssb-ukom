@@ -26,53 +26,53 @@
         @if ($berita->count() > 0)
         @foreach($berita as $br)
 
-        <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0 content">
-            <div idBR={{$br->id_berita}} >
-                <div class="col-md-6 card mt-0 align-items-center" style="width: 350px;">
-                    <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
-                        height="200" width="300" class="rounded p-2 pt-4" >
-
-                    <div class="col d-flex justify-content-between mb-2 mt-3 ps-4">
-                        <div>
-                            <span style="font-weight: 300; font-size: 18px;" > 
-                            {{$br->judul_berita}} 
-                            </span>
-                        </div>   
+          
+            <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0 content">
+                <div idBR={{$br->id_berita}} >
+                    <div class="col-md-6 card mt-0 align-items-center" style="width: 350px;">
                         
-                        <div class="ps-3" style="display: inline-block; ">
-                            <div class="dropdown dropend" style=" vertical-align: middle; margin-right: 20px;">
-                                <i  class="bi bi-three-dots-vertical " 
-                                    style="font-size: 20px; vertical-align: middle; cursor: pointer;"
-                                    id="beritaDropdown" data-bs-toggle='dropdown' data-bs-offset="-10,20">
-                                </i>
+                    <a class="dropdown-item z-0 " href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
+                        <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
+                            height="200" width="300" class="rounded p-2 pt-4" >
+                    </a>
 
-                                <div class="dropdown-menu" style="width: 200px;" aria-labelledby="beritaDropdown">
-                                    <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
-                                    <a class="dropdown-item" href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
-                                     <i class="bi bi-eye"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                     <strong class="ms-1">Lihat Detail Berita</strong> 
-                                    </a>
+                        <div class="col d-flex justify-content-between mb-2 mt-3 ps-4">
+                            <div>
+                                <span style="font-weight: 300; font-size: 18px;" > 
+                                {{$br->judul_berita}} 
+                                </span>
+                            </div>   
+                            
+                            <div class="ps-3" style="display: inline-block; ">
+                                <div class="dropdown dropend" style=" vertical-align: middle; margin-right: 20px;">
+                                    <i  class="bi bi-three-dots-vertical " 
+                                        style="font-size: 20px; vertical-align: middle; cursor: pointer;"
+                                        id="beritaDropdown" data-bs-toggle='dropdown' data-bs-offset="-10,20">
+                                    </i>
 
-                                        @if (Auth::check() && Auth::user()->role == 'admin')
-                                            <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
-                                                style="cursor: pointer" idBR = {{$br->id_berita}} > 
-                                                <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                                <strong class="ms-1" >Edit Data Berita</strong> 
-                                            </a>
-                                            <a class="dropdown-item hapusBtn" idBR={{$br->id_berita}} style="cursor: pointer"> 
-                                                <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                                <strong class="ms-1">Hapus Data Berita</strong> 
-                                            </a>
-                                        @endif
+                                    <div class="dropdown-menu z-2 " style="width: 200px; " aria-labelledby="beritaDropdown">
+                                        <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
+
+                                            @if (Auth::check() && Auth::user()->role == 'admin')
+                                                <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
+                                                    style="cursor: pointer" idBR = {{$br->id_berita}} > 
+                                                    <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                                    <strong class="ms-1" >Edit Data Berita</strong> 
+                                                </a>
+                                                <a class="dropdown-item hapusBtn" idBR={{$br->id_berita}} style="cursor: pointer"> 
+                                                    <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                                    <strong class="ms-1">Hapus Data Berita</strong> 
+                                                </a>
+                                            @endif
+                                    </div>
+
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+            
         {{-- EDIT GAMBAR--}}
         <div class="modal fade" id="edit-modal-{{$br->id_berita}}" tabindex="-1"
             aria-labelledby="exampleModalLabel"
