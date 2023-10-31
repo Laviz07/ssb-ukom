@@ -18,9 +18,8 @@
                             {{$user->pemain->nama_pemain}}
                         </span>
 
-                        <span class="text-capitalize" 
-                        style="font-weight: 200; font-size: 26px; margin-top: 5px; color:#5b5b5b" >
-                            {{$user->username}}
+                        <span 
+                        style="font-weight: 400; font-size: 20px; color:#5b5b5b" >@ {{$user->username}}
                         </span>
                     </div>
                     <div class="row mt-2 ">
@@ -192,9 +191,8 @@
                             {{$user->pelatih->nama_pelatih}}
                         </span>
 
-                        <span class="text-capitalize" 
-                        style="font-weight: 200; font-size: 26px; margin-top: 5px; color:#5b5b5b" >
-                            {{$user->username}}
+                        <span 
+                        style="font-weight: 400; font-size: 20px; color:#5b5b5b" >@ {{$user->username}}
                         </span>
                     </div>
                     <div class="row mt-2 ">

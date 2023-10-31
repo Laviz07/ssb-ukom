@@ -32,12 +32,15 @@
                     <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
                         height="200" width="300" class="rounded p-2 pt-4" >
 
-                    <div class="mb-3">
-                            <span style="font-weight: 300; font-size: 20px" > 
-                                {{$br->judul_berita}} 
+                    <div class="col d-flex justify-content-between mb-2 mt-3 ps-4">
+                        <div>
+                            <span style="font-weight: 300; font-size: 18px;" > 
+                            {{$br->judul_berita}} 
                             </span>
-                        <div style="display: inline-block;">
-                            <div class="dropdown dropend" style=" vertical-align: middle;">
+                        </div>   
+                        
+                        <div class="ps-3" style="display: inline-block; ">
+                            <div class="dropdown dropend" style=" vertical-align: middle; margin-right: 20px;">
                                 <i  class="bi bi-three-dots-vertical " 
                                     style="font-size: 20px; vertical-align: middle; cursor: pointer;"
                                     id="beritaDropdown" data-bs-toggle='dropdown' data-bs-offset="-10,20">
@@ -74,7 +77,7 @@
         <div class="modal fade" id="edit-modal-{{$br->id_berita}}" tabindex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Gambar</h1>
@@ -83,13 +86,20 @@
                     <form id="edit-br-form-{{$br->id_berita}}" method="POST" enctype="multipart/form-data">
                             @csrf
                         <div class="form-group">
-                            <label>Keterangan Gambar</label>
-                            <textarea name="keterangan_foto" id="" rows="2" 
-                                required class="form-control" style="resize: none">{{$br->keterangan_foto}}
+                            <label>Judul Berita Baru</label>
+                            <textarea name="judul_berita" id="" rows="2" 
+                                required class="form-control" style="resize: none">{{$br->judul_berita}}
                             </textarea>
                         </div>
                         <input type="hidden" name="id_berita" value="{{$br->id_berita}}">
 
+                        <div class="form-group">
+                            <label>Detail Berita Baru</label>
+                            <textarea name="isi_berita" id="" rows="10" 
+                                required class="form-control" style="resize: none">{{$br->isi_berita}}
+                            </textarea>
+                        </div>
+                        <input type="hidden" name="id_berita" value="{{$br->id_berita}}">
 
                         <div class="row">
                             <div class="col-md-4 mt-3 align-items-center">
@@ -105,7 +115,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary edit-btn" form="edit-br-form-{{$br->id_berita}}">
+                    <button type="submit" class="btn btn-primary editBtn" form="edit-br-form-{{$br->id_berita}}">
                         Edit
                     </button>
                     
@@ -168,8 +178,8 @@
             $(`#edit-br-form-${idBR}`).on('submit', function (e) {
                 e.preventDefault();
                 let data = Object.fromEntries(new FormData(e.target));
-                data['id_galeri'] = idBR;
-                axios.post(`/galeri/edit/${idBR}`, data)
+                data['id_berita'] = idBR;
+                axios.post(`/berita/edit/${idBR}`, data)
                     .then(() => {
                         $(`#edit-modal-${idBR}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
