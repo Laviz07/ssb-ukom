@@ -39,9 +39,21 @@
                         </span>
 
                         <button class="btn btn-primary mt-4 editBtn" 
-                        data-bs-toggle="modal" data-bs-target="#edit-modal-{{$user->pemain->nisn_pemain}}"
-                        idPM = {{$user->pemain->nisn_pemain}}>
+                        data-bs-toggle="modal" data-bs-target="#editProfil-modal-{{$user->pemain->nisn_pemain}}"
+                        idPL = {{$user->pemain->nisn_pemain}}>
                             Edit Profil
+                        </button>
+
+                        <button class="btn btn-primary mt-2 editBtn" style="width: 47%;" 
+                        data-bs-toggle="modal" data-bs-target="#editUsername-modal-{{$user->id_user}}"
+                        idUser = {{$user->id_user}}>
+                            Edit Username
+                        </button>
+
+                        <button class="btn btn-primary mt-2 editBtn"  style="width: 47%; margin-left: 5%"
+                        data-bs-toggle="modal" data-bs-target="#editPassword-modal-{{$user->id_user}}"
+                        idUser = {{$user->id_user}}>
+                            Ganti Password
                         </button>
                         
                     </div>
@@ -139,7 +151,6 @@
                             name="no_telp"
                             value="{{$user->pemain->no_telp}}"
                             required/>
-                   
                 </div>
 
                 <div class="form-group">
@@ -156,9 +167,7 @@
                     <textarea required name="deskripsi_pemain" id="" 
                         class="form-control" rows="5" placeholder="Deskripsi Diri" 
                         style="resize: none">{{$user->pemain->deskripsi_pemain}}
-                    </textarea>
-    
-                   
+                    </textarea> 
                 </div>
             </form>
         </div>
@@ -174,6 +183,72 @@
     </div>
 </div>
 </div>
+
+ {{-- EDIT USERNAME--}}
+ <div class="modal fade" id="editUsername-modal-{{$user->id_user}}" tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Username Pelatih</h1>
+        </div>
+        <div class="modal-body">
+            <form id="edit-un-form-{{$user->id_user}}">
+                <div class="form-group">
+                    <label>Username Anda</label>
+                    <input placeholder="example" type="text" class="form-control mb-3"
+                            name="username"
+                            value="{{$user->username}}"
+                            required/>
+                    @csrf
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary edit-btn"
+                        form="edit-un-form-{{$user->id_user}}">
+                    Edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- EDIT PASSWORD PELATIH --}}
+<div class="modal fade" id="editPassword-modal-{{$user->id_user}}" tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Ganti Password</h1>
+        </div>
+        <div class="modal-body">
+            <form id="edit-pw-form-{{$user->id_user}}">
+                <div class="form-group">
+                    <label>Password Baru:</label>
+                    <input placeholder="Masukkan Password" type="text" class="form-control mb-3"
+                            name="password"
+                            required/>
+                    @csrf
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary edit-btn"
+                        form="edit-pw-form-{{$user->id_user}}">
+                    Edit
+                </button>
+            </div>
+        </div>
+    </div>
 
 @elseif(Auth::user()['role']=='pelatih')
 
