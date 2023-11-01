@@ -29,7 +29,7 @@ class ProfilController extends Controller
 
         // dd($data);
 
-        return view('Beranda.profil', $data);
+        return view('Profil.index', $data);
     }
 
     public function editPemain(Request $request)
