@@ -92,7 +92,7 @@ class GaleriController extends Controller
         // Validate request data
         $data = $request->validate([
             'keterangan_foto' => ['required'],
-            'foto' => ['nullable'],
+            'foto' => ['required'],
         ]);
 
 

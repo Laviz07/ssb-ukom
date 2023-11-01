@@ -98,7 +98,8 @@
                                 <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
                                         <label for="fileUpload">Upload Gambar</label>
-                                        <input type="file" name="foto" id="fileUpload" class="btn w-auto btn-outline-primary form-control">
+                                        <input type="file" name="foto" id="fileUpload"
+                                        class="btn w-auto btn-outline-primary form-control">
                                        
                                     </div>
                                 </div>
@@ -176,7 +177,9 @@
                 e.preventDefault();
                 let data = Object.fromEntries(new FormData(e.target));
                 data['id_galeri'] = idGL;
-                axios.post(`/galeri/edit/${idGL}`, data)
+                axios.post(`/galeri/edit/${idGL}`, data, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                })
                     .then(() => {
                         $(`#edit-modal-${idGL}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
