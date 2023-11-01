@@ -11,6 +11,7 @@ use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PemainController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\TimController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,9 @@ Route::get('/galeri', [GaleriController::class, 'index']);
 Route::get('/profil', [ProfilController::class, 'index']);
 Route::post('/profil/pemain/edit/{id}', [ProfilController::class, 'editPemain']);
 Route::post('/profil/pelatih/edit/{id}', [ProfilController::class, 'editPelatih']);
+
+Route::post('/profil/edit/username/{id}', [UserController::class, 'editUsername']);
+Route::post('/profil/edit/password/{id}', [UserController::class, 'editPassword']);
 
 Route::prefix('/')->middleware('auth')->group(function () {
 

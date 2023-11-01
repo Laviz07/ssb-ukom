@@ -150,17 +150,17 @@ class AdminController extends Controller
         if ($admin) {
 
             // //hapus foto profil
-            // if ($admin->user->foto_profil) {
-            //     Storage::disk('public')->delete($admin->user->foto_profil);
-            // }
+            if ($admin->user->foto_profil) {
+                Storage::disk('public')->delete($admin->user->foto_profil);
+            }
 
             //menghapus admin
             $admin->delete();
 
             //menghapus user
-            $admin = Admin::where('id_user', $admin->id_user)->first();
-            if ($admin) {
-                $admin->delete();
+            $user = User::where('id_user', $admin->id_user)->first();
+            if ($user) {
+                $user->delete();
             }
 
             $pesan = [

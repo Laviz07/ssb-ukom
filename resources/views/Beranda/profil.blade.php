@@ -196,7 +196,7 @@
                         </span>
                     </div>
                     <div class="row mt-2 ">
-                        <span>
+                         <span>
                             <span class="fw-bold ">NIK </span>
                             <span class="ms-4 ">: {{$user->pelatih->nik_pelatih}}</span> 
                         </span>
@@ -206,15 +206,27 @@
                             0{{$user->pelatih->no_telp}}
                         </span>
 
-                        <span>
+                        {{--<span>
                             <span class="fw-bold ">Email </span>
                             <span style="margin-left: 13px">: {{$user->pelatih->email}}</span> 
-                        </span>
+                        </span> --}}
 
                         <button class="btn btn-primary mt-4 editBtn" 
-                        data-bs-toggle="modal" data-bs-target="#edit-modal-{{$user->pelatih->nik_pelatih}}"
+                        data-bs-toggle="modal" data-bs-target="#editProfil-modal-{{$user->pelatih->nik_pelatih}}"
                         idPL = {{$user->pelatih->nik_pelatih}}>
                             Edit Profil
+                        </button>
+
+                        <button class="btn btn-primary mt-2 editBtn" style="width: 47%;" 
+                        data-bs-toggle="modal" data-bs-target="#editUsername-modal-{{$user->id_user}}"
+                        idUser = {{$user->id_user}}>
+                            Edit Username
+                        </button>
+
+                        <button class="btn btn-primary mt-2 editBtn"  style="width: 47%; margin-left: 5%"
+                        data-bs-toggle="modal" data-bs-target="#editPassword-modal-{{$user->id_user}}"
+                        idUser = {{$user->id_user}}>
+                            Ganti Password
                         </button>
                         
                     </div>
@@ -226,6 +238,21 @@
         <div class="col-md-8 card" style="width: 65%">
             <div class="row p-3">
                 <span style="font-size:24px; font-weight: 700">Detail Anda:</span>
+
+                {{-- <div class="row mt-3">
+                    <span style="font-size: 17px; font-weight: 600;">NIK:</span>
+                    <span style="font-size: 17px;"> {{$user->pelatih->nik_pelatih}} </span>
+                </div> --}}
+
+                {{-- <div class="row mt-3">
+                    <span style="font-size: 17px; font-weight: 600;">No Telp:</span>
+                    <span style="font-size: 17px;">  0{{$user->pelatih->no_telp}} </span>
+                </div> --}}
+
+                <div class="row mt-3">
+                    <span style="font-size: 17px; font-weight: 600;">Email:</span>
+                    <span style="font-size: 17px;">{{$user->pelatih->email}} </span>
+                </div>
 
                 <div class="row mt-3">
                     <span style="font-size: 17px; font-weight: 600;">Tempat, Tanggal Lahir:</span>
@@ -249,8 +276,8 @@
 
 </div>
 
-{{-- EDIT PELATIH --}}
-<div class="modal fade" id="edit-modal-{{$user->pelatih->nik_pelatih}}" tabindex="-1"
+{{-- EDIT PROFIL PELATIH --}}
+<div class="modal fade" id="editProfil-modal-{{$user->pelatih->nik_pelatih}}" tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -313,6 +340,74 @@
             </div>
         </div>
     </div>
+</div>
+
+    {{-- EDIT USERNAME--}}
+    <div class="modal fade" id="editUsername-modal-{{$user->id_user}}" tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Username Pelatih</h1>
+            </div>
+            <div class="modal-body">
+                <form id="edit-un-form-{{$user->id_user}}">
+                    <div class="form-group">
+                        <label>Username Anda</label>
+                        <input placeholder="example" type="text" class="form-control mb-3"
+                                name="username"
+                                value="{{$user->username}}"
+                                required/>
+                        @csrf
+                    </div>
+                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary edit-btn"
+                            form="edit-un-form-{{$user->id_user}}">
+                        Edit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- EDIT PASSWORD PELATIH --}}
+    <div class="modal fade" id="editPassword-modal-{{$user->id_user}}" tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ganti Password</h1>
+            </div>
+            <div class="modal-body">
+                <form id="edit-pw-form-{{$user->id_user}}">
+                    <div class="form-group">
+                        <label>Password Baru:</label>
+                        <input placeholder="Masukkan Password" type="text" class="form-control mb-3"
+                                name="password"
+                                required/>
+                        @csrf
+                    </div>
+                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary edit-btn"
+                            form="edit-pw-form-{{$user->id_user}}">
+                        Edit
+                    </button>
+                </div>
+            </div>
+        </div>
+   
 
 @else
     
@@ -326,7 +421,7 @@
 @endsection
 @section('footer')
     <script type="module">
-         // pop up edit pemain
+         // pop up edit profil pemain
          $('.editBtn').on('click', function (e) {
             e.preventDefault();
             let idPM = $(this).attr('idPM');
@@ -347,7 +442,7 @@
             })
         })
 
-          // pop up edit pelatih
+          // pop up edit profil pelatih
           $('.editBtn').on('click', function (e) {
             e.preventDefault();
             let idPL = $(this).attr('idPL');
@@ -358,6 +453,48 @@
                 axios.post(`/profil/pelatih/edit/${idPL}`, data)
                     .then(() => {
                         $(`#edit-modal-${idPL}`).css('display', 'none')
+                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                            location.reload();
+                        })
+                    })
+                    .catch(() => {
+                        swal.fire('Gagal edit data!', '', 'warning');
+                    })
+            })
+        })
+
+          // pop up edit username
+          $('.editBtn').on('click', function (e) {
+            e.preventDefault();
+            let idUser = $(this).attr('idUser');
+            $(`#edit-un-form-${idUser}`).on('submit', function (e) {
+                e.preventDefault();
+                let data = Object.fromEntries(new FormData(e.target));
+                data['id_user'] = idUser;
+                axios.post(`/profil/edit/username/${idUser}`, data)
+                    .then(() => {
+                        $(`#editUsername-modal-${idUser}`).css('display', 'none')
+                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                            location.reload();
+                        })
+                    })
+                    .catch(() => {
+                        swal.fire('Gagal edit data!', '', 'warning');
+                    })
+            })
+        })
+
+         // pop up edit password
+         $('.editBtn').on('click', function (e) {
+            e.preventDefault();
+            let idUser = $(this).attr('idUser');
+            $(`#edit-pw-form-${idUser}`).on('submit', function (e) {
+                e.preventDefault();
+                let data = Object.fromEntries(new FormData(e.target));
+                data['id_user'] = idUser;
+                axios.post(`/profil/edit/password/${idUser}`, data)
+                    .then(() => {
+                        $(`#editPassword-modal-${idUser}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
                             location.reload();
                         })

@@ -72,6 +72,10 @@ class BeritaController extends Controller
         // Cari berita berdasarkan ID
         $berita = Berita::find($id_berita);
 
+        if ($berita->foto_berita) {
+            Storage::disk('public')->delete($berita->foto_berita);
+        }
+
         if (!$berita) {
             // Jika berita tidak ditemukan, kirimkan pesan kesalahan
             $pesan = [
