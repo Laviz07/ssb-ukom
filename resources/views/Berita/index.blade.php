@@ -25,18 +25,15 @@
     
         @if ($berita->count() > 0)
         @foreach($berita as $br)
-
-          
-            <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0 content">
+            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
                 <div idBR={{$br->id_berita}} >
-                    <div class="col-md-6 card mt-0 align-items-center" style="width: 350px;">
-                        
-                    <a class="dropdown-item z-0 " href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
+                    <div class="col-md-3 card mt-4 align-items-center" style="width: 350px;">    
+                    <a class="dropdown-item z-0 d-flex justify-content-center" href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
                         <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
                             height="200" width="300" class="rounded p-2 pt-4" >
                     </a>
 
-                        <div class="col d-flex justify-content-between mb-2 mt-3 ps-4">
+                        <div class="col d-flex justify-content-between mb-3 mt-3 ps-4">
                             <div>
                                 <span style="font-weight: 300; font-size: 18px;" > 
                                 {{$br->judul_berita}} 
