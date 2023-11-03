@@ -27,10 +27,13 @@
 
                 <div class="row mt-3">
                     <span style="font-size: 16px; font-weight: 600;">Tempat, Tanggal Lahir:</span>
-                    <span style="font-size: 16px;"> {{$pelatih->tempat_lahir}}, {{$pelatih->tanggal_lahir}} </span>
+                    <span style="font-size: 16px;"> 
+                        {{$pelatih->tempat_lahir}}, 
+                        {{\Carbon\Carbon::parse($pelatih->tanggal_lahir)->format('j F Y') }}
+                    </span>
                 </div>
 
-                <div class="row mt-3">
+                <div class="row mt-3"> 
                     <span style="font-size: 16px; font-weight: 600;">Alamat:</span>
                     <span style="font-size: 16px;"> {{$pelatih->alamat}}</span>
                 </div>
@@ -41,6 +44,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
         <div class="card align-items-center mt-4" style="border: 2px solid #00171F;">
             <div class="card-body">
@@ -48,41 +52,37 @@
             </div>
         </div>
         
-        <div class="col-md-3 card mt-4 align-items-center" style="width: 520px;">
-                
-            <img 
-            src="{{ asset('images/main_bola.jpeg') }}"
-                alt="Stadion" width="470" class="rounded p-2 pt-4">
+        <div class="row mt-4 mb-4">
+        @if ($pelatih->tim->count() >0)
+            @foreach ($pelatih->tim as $ptm)
+                <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0">
+                    <div class="col-md-3 card mt-4 align-items-center" style="width: 350px; ">
+                        <a href="{{ url('tim', ['detail', $ptm->id_tim]) }}">
+                        <img src="{{asset('storage/' . $ptm->foto_tim) }}"
+                            alt="Stadion" width="320" height="200" class="rounded p-2 pt-4">
+                        </a>
+                        <div class="row p-3" ">
+                            <span class="h4 text-capitalize " style="font-weight: 500; font-size: 26px; text-decoration: none;">
+                                {{-- <i class="bi bi-geo-alt"></i> --}}
+                                Nama Tim : {{$ptm->nama_tim}}
+                            </span>
+                            <span class="mt-2" style="text-decoration: none;">
+                                {{$ptm->deskripsi_tim}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
             
-            <div class="row p-3">
-                <span class="h4" style="font-weight: 500; font-size: 26px">
-                    {{-- <i class="bi bi-geo-alt"></i> --}}
-                    Nama Tim : Java FC
+                @else
+
+                <span class="text-center text-capitalize mt-5 mb-5 " style="font-size: 40px; font-weight: 700; color: #7c7c7c;" > 
+                    Tidak ada tim yang dilatih
                 </span>
-                <span class="mt-2">
-                    Jalan Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </span>
-            </div>
+
+            @endif
         </div>
-        <div class="col-md-3 card mt-4 align-items-center" style="width: 520px;">
-                
-            <img 
-            src="{{ asset('images/main_bola.jpeg') }}"
-                alt="Stadion" width="470" class="rounded p-2 pt-4">
-            
-            <div class="row p-3">
-                <span class="h4" style="font-weight: 500; font-size: 26px">
-                    {{-- <i class="bi bi-geo-alt"></i> --}}
-                    Nama Tim : Papua FC
-                </span>
-                <span class="mt-2">
-                    Jalan Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </span>
-            </div>
-        </div>
-    </div>
+      
 </div>
 
 @endsection

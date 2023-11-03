@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('judul_berita', 255)->nullable(false);
             $table->string('foto_berita', 255)->nullable(true);
             $table->text('isi_berita')->nullable(true);
+            $table->timestamp('created_at')->nullable(false)->useCurrent();
 
             $table->foreign('nik_admin')->references('nik_admin')->on('admin')
                 ->onDelete('cascade')->onUpdate('cascade');

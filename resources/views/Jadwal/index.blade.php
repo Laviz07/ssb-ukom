@@ -43,7 +43,10 @@
                     
                         <tr style="vertical-align: middle; font-size: 17px;" idJW={{$jw->id_jadwal}}>
                             <td class="col-1" style="text-align: center;"> {{$no++}} </td>
-                            <td class="col-3" style="text-align: center"> {{$jw->tanggal_kegiatan}} </td>
+                            <td class="col-3" style="text-align: center"> 
+                                {{\Carbon\Carbon::parse($jw->tanggal_kegiatan)->format('j F Y') }}
+                        
+                            </td>
                             <td class="col-5 text-capitalize text-center "> {{$jw->judul_kegiatan}} </td>
                             <td style="text-align: center">
                                
@@ -84,7 +87,7 @@
                             </td>
                         </tr>
 
-                         {{-- EDIT PEMAIN --}}
+                         {{-- EDIT JADWAL --}}
                         <div class="modal fade" id="edit-modal-{{$jw->id_jadwal}}" tabindex="-1"
                                 aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">

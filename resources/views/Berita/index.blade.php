@@ -23,58 +23,58 @@
             </div>
         </div>
     
+        @if ($berita->count() > 0)
         @foreach($berita as $br)
+            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                <div idBR={{$br->id_berita}} >
+                    <div class="col-md-3 card mt-4 align-items-center" style="width: 350px;">    
+                    <a class="dropdown-item z-0 d-flex justify-content-center" href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
+                        <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
+                            height="200" width="300" class="rounded p-2 pt-4" >
+                    </a>
 
-        @if (Auth::check() && Auth::user()->role == 'admin')
-        <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0 content">
-            <div idBR={{$br->id_berita}} >
-                <div class="col-md-6 card mt-0 align-items-center" style="width: 350px;">
-                    <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
-                        height="200" width="300" class="rounded p-2 pt-4" >
-
-                    <div class="mb-3">
-                            <span style="font-weight: 300; font-size: 20px" > 
+                        <div class="col d-flex justify-content-between mb-3 mt-3 ps-4">
+                            <div>
+                                <span style="font-weight: 300; font-size: 18px;" > 
                                 {{$br->judul_berita}} 
-                            </span>
-                        <div style="display: inline-block;">
-                            <div class="dropdown dropend" style=" vertical-align: middle;">
-                                <i  class="bi bi-three-dots-vertical " 
-                                    style="font-size: 20px; vertical-align: middle; cursor: pointer;"
-                                    id="beritaDropdown" data-bs-toggle='dropdown' data-bs-offset="-10,20">
-                                </i>
+                                </span>
+                            </div>   
+                            
+                            <div class="ps-3" style="display: inline-block; ">
+                                <div class="dropdown dropend" style=" vertical-align: middle; margin-right: 20px;">
+                                    <i  class="bi bi-three-dots-vertical " 
+                                        style="font-size: 20px; vertical-align: middle; cursor: pointer;"
+                                        id="beritaDropdown" data-bs-toggle='dropdown' data-bs-offset="-10,20">
+                                    </i>
 
-                                <div class="dropdown-menu" style="width: 200px;" aria-labelledby="beritaDropdown">
-                                    <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
-                                    <a class="dropdown-item" href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
-                                     <i class="bi bi-eye"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                     <strong class="ms-1">Lihat Detail Berita</strong> 
-                                    </a>
+                                    <div class="dropdown-menu z-2 " style="width: 200px; " aria-labelledby="beritaDropdown">
+                                        <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
 
-                                        @if (Auth::user()['role']=='admin')
-                                            <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
-                                                style="cursor: pointer" idBR = {{$br->id_berita}} > 
-                                                <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                                <strong class="ms-1" >Edit Data Berita</strong> 
-                                            </a>
-                                            <a class="dropdown-item hapusBtn" idBR={{$br->id_berita}} style="cursor: pointer"> 
-                                                <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                                <strong class="ms-1">Hapus Data Berita</strong> 
-                                            </a>
-                                        @endif
+                                            @if (Auth::check() && Auth::user()->role == 'admin')
+                                                <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
+                                                    style="cursor: pointer" idBR = {{$br->id_berita}} > 
+                                                    <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                                    <strong class="ms-1" >Edit Data Berita</strong> 
+                                                </a>
+                                                <a class="dropdown-item hapusBtn" idBR={{$br->id_berita}} style="cursor: pointer"> 
+                                                    <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                                    <strong class="ms-1">Hapus Data Berita</strong> 
+                                                </a>
+                                            @endif
+                                    </div>
+
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>@endif
-
+            
         {{-- EDIT GAMBAR--}}
         <div class="modal fade" id="edit-modal-{{$br->id_berita}}" tabindex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Gambar</h1>
@@ -83,13 +83,20 @@
                     <form id="edit-br-form-{{$br->id_berita}}" method="POST" enctype="multipart/form-data">
                             @csrf
                         <div class="form-group">
-                            <label>Keterangan Gambar</label>
-                            <textarea name="keterangan_foto" id="" rows="2" 
-                                required class="form-control" style="resize: none">{{$br->keterangan_foto}}
+                            <label>Judul Berita Baru</label>
+                            <textarea name="judul_berita" id="" rows="2" 
+                                required class="form-control" style="resize: none">{{$br->judul_berita}}
                             </textarea>
                         </div>
                         <input type="hidden" name="id_berita" value="{{$br->id_berita}}">
 
+                        <div class="form-group">
+                            <label>Detail Berita Baru</label>
+                            <textarea name="isi_berita" id="" rows="10" 
+                                required class="form-control" style="resize: none">{{$br->isi_berita}}
+                            </textarea>
+                        </div>
+                        <input type="hidden" name="id_berita" value="{{$br->id_berita}}">
 
                         <div class="row">
                             <div class="col-md-4 mt-3 align-items-center">
@@ -105,7 +112,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary edit-btn" form="edit-br-form-{{$br->id_berita}}">
+                    <button type="submit" class="btn btn-primary editBtn" form="edit-br-form-{{$br->id_berita}}">
                         Edit
                     </button>
                     
@@ -114,8 +121,15 @@
         </div>
     </div>
         @endforeach      
+
+        @else
+        <span class="text-center text-capitalize " style="font-size: 60px; font-weight: 700; color: #7c7c7c;" > 
+            Tidak ada berita
+        </span>
+    @endif
     </div>
 </div>
+
 @endsection
 @section('footer')
     <script type="module">
@@ -161,8 +175,8 @@
             $(`#edit-br-form-${idBR}`).on('submit', function (e) {
                 e.preventDefault();
                 let data = Object.fromEntries(new FormData(e.target));
-                data['id_galeri'] = idBR;
-                axios.post(`/galeri/edit/${idBR}`, data)
+                data['id_berita'] = idBR;
+                axios.post(`/berita/edit/${idBR}`, data)
                     .then(() => {
                         $(`#edit-modal-${idBR}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {

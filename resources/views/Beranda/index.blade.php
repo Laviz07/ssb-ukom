@@ -3,7 +3,7 @@
 @section('content')   
 
 <div class="container mt-1 mb-4">
-    <div>
+    <div id="#">
         <div class="row">
             <div class="col-md-6 d-flex align-items-center" >
                 <div class="row" >
@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    <div id="hubungiKami">
+    <di id="hubungiKami">
         <div class="row mt-5">
             <span class=" judul1 text-uppercase judul2" style="text-align: center">Hubungi Kami</span>
 
@@ -114,16 +114,15 @@
                         <i class="bi bi-facebook" style="font-size: 40px;  vertical-align: middle;"></i>
                         <span class="ms-3"> Sekolah Bola </span>
                     </div>
-
-                    
                 </div>
             </div>
-
+        </div>
         </div>
     </div>
-    
-    </div>
-   
 </div>
-
+<div class="col d-flex justify-content-end mb-2 mt-3">
+    <a href="{{ url('#', []) }}" class="position-fixed z-10 bottom-0 end-0">
+        <i class="bi bi-arrow-up-circle bi-3x" style="font-size: 35px; margin: 30px; color:black;"></i>
+    </a>
+</div>
 @endsection

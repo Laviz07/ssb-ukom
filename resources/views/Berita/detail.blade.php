@@ -4,10 +4,15 @@
 <div class="container mt-4 mb-4 text-center">
     <div class="row">
         <span style="font-size: 45px; font-weight: 600;" class="text-capitalize "> {{$berita->judul_berita}} </span>
-        <span class="mt-1" style="font-size:16px; font-weight: 400;"> 
+        <div class="mt-1" style="font-size: 16px; font-weight: 400;">
             <span style="color: #7C7C7C;">Dibuat Oleh</span>
-            <span style="color: #003459;" class="text-capitalize " > {{$berita->admin->nama_admin}} </span> 
-        </span>
+            <span style="color: #003459;" class="text-capitalize">{{$berita->admin->nama_admin}}</span>
+            <hr style="width: 20px; height: 2px; font-weight: 900; color: black; 
+                border: none;  background-color: black; display: inline-block; vertical-align: middle; ">
+              <span style="color: #003459;" class="text-capitalize">
+                {{\Carbon\Carbon::parse($berita->created_at)->format('d F Y') }}
+            </span>
+        </div>
     </div>
     <div class="row mt-1 d-flex justify-content-between">
         <div>
@@ -30,6 +35,16 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col d-flex justify-content-center mt-3">
+        <a href="{{ url('/berita', []) }}">
+            <btn class="btn btn-primary">Kembali</btn>
+        </a>
+
+        @if (Auth::check() && Auth::user()->role == 'admin')
+        <a href="{{ url('berita', ['tambah']) }}" class="btn btn-success">Tambah Berita</a>
+        </a>
+        @endif
     </div>
 </div>
 @endsection

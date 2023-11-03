@@ -13,13 +13,8 @@ return new class extends Migration
     {
         Schema::create('galeri', function (Blueprint $table) {
             $table->integer("id_galeri", true);
-            // $table->integer("nik_admin")->nullable(false);
             $table->string("foto", 255)->nullable(false);
             $table->text("keterangan_foto")->nullable(false);
-
-            //FOREIGN KEY
-
-            // $table->foreign("nik_admin")->on("admin")->references("nik_admin");
         });
     }
 

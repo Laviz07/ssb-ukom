@@ -67,6 +67,7 @@
                     <div class="col">
                         <div class="d-flex align-items-center">
                             <i class="bi bi-person-circle ms-3" style="font-size: 40px; vertical-align: middle;"></i>
+                            <img src="" alt="">
                             <div class="ms-0 row">
                                 <span class="text-capitalize"><strong> {{Auth::user()->username}} </strong></span>
                                 <span style="" class="text-capitalize">{{Auth::user()->role}}</span>

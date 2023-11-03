@@ -22,9 +22,11 @@
             </div>
 
             <div class="row mt-4 mb-4">
+                @if ($galeri->count() > 0)
+                    
                 @foreach($galeri as $gl)
 
-                <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0">
+                <div class="col-lg-4 col-md-12 mb-4 mt-1 mb-lg-0">
 
                     <div class="image-container" idGL={{$gl->id_galeri}} >
 
@@ -92,13 +94,13 @@
                                         required class="form-control" style="resize: none">{{$gl->keterangan_foto}}
                                     </textarea>
                                 </div>
-                                <input type="hidden" name="id_galeri" value="{{$gl->id_galeri}}">
-
 
                                 <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
                                         <label for="fileUpload">Upload Gambar</label>
-                                        <input type="file" name="foto" id="fileUpload" required class="btn w-auto btn-outline-primary form-control">
+                                        <input type="file" name="foto" id="fileUpload"
+                                        class="btn w-auto btn-outline-primary form-control">
+                                       
                                     </div>
                                 </div>
 
@@ -118,6 +120,12 @@
                 </div>
             </div>
                 @endforeach      
+                
+                @else
+                    <span class="text-center text-capitalize " style="font-size: 60px; font-weight: 700; color: #7c7c7c;" > 
+                        Tidak ada foto 
+                    </span>
+                @endif
             </div>
         
         </div>
@@ -169,7 +177,9 @@
                 e.preventDefault();
                 let data = Object.fromEntries(new FormData(e.target));
                 data['id_galeri'] = idGL;
-                axios.post(`/galeri/edit/${idGL}`, data)
+                axios.post(`/galeri/edit/${idGL}`, data, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                })
                     .then(() => {
                         $(`#edit-modal-${idGL}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {

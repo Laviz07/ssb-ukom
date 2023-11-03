@@ -87,39 +87,29 @@ class GaleriController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, Galeri $galeri)
+    public function edit(Request $request)
     {
-        //
+        // Validate request data
         $data = $request->validate([
-            'foto' => ['required', 'image|mimes:jpeg,png,jpg,gif|max:2048'],
-            'keterangan_foto' => ['required']
+            'keterangan_foto' => ['nullable'],
+            'foto' => ['nullable'],
         ]);
 
-        // $galeri = Galeri::where('id_galeri', $request->input('id_galeri'));
 
+        $galeri = Galeri::find($request->input('id_galeri'));
 
-        // Cek apakah pengguna mengunggah foto baru
+        // dd($request->all());
+
         if ($request->hasFile('foto')) {
-            $destination = public_path() . '/foto_galeri';
-            $oldFoto = $galeri->foto;
-
-            if ($oldFoto) {
-                $oldFotoPath = public_path($oldFoto);
-                if (file_exists($oldFotoPath)) {
-                    unlink($oldFoto);
-                }
-            }
-
-            $path = $request->file('foto');
-            $fotoName = $path->getClientOriginalName();
-            $path->move($destination, $fotoName);
-            $galeri->foto = '/foto_galeri' . $fotoName;
+            $path = $request->file('foto')->store('foto_galeri', 'public');
+            $galeri->foto = $path;
         }
 
         $galeri->keterangan_foto = $request->input('keterangan_foto');
         $galeri->save();
 
         return redirect()->to('/galeri')->with('success', 'Galeri berhasil diupdate');
+        // return response()->json($galeri);
     }
 
     /**
