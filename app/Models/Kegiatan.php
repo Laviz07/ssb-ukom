@@ -38,8 +38,8 @@ class Kegiatan extends Model
     protected $table = "kegiatan";
     protected $primaryKey = "id_kegiatan";
     protected $fillable = [
-        "nik_pelatih",
-        "id_jadwal",
+        "nama_kegiatan",
+        "nama_pelatih",
         "jam_mulai",
         "jam_selesai",
         "tipe_kegiatan",

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
+use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,15 +15,24 @@ class JadwalController extends Controller
     public function index()
     {
         $data = [
-            'jadwal' => Jadwal::all()
+          'jadwal' => Jadwal::all()
         ];
-
         return view("Jadwal.index", $data);
+        
     }
 
     /**
      * Show the form for creating a new resource.
      */
+
+     public function indexDetail(Request $request)
+    {
+        $data = [
+            'jadwal' => Jadwal::where('tanggal_kegiatan', $request->id)->first()
+        ];
+
+        return view('jadwal.detail', $data);
+    }
 
      public function indexCreate()
      {
@@ -124,4 +134,9 @@ class JadwalController extends Controller
 
         return response()->json($pesan);
     }
+
+    // public function indexDetail($jadwal) {
+    //     $jadwal = Kegiatan::where('tanggal_kegiatan', $jadwal)->get();
+    //     return view('jadwal.kegiatan', compact('activities', 'tanggal'));
+    // }
 }

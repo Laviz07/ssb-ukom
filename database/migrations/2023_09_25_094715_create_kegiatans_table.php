@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('kegiatan', function (Blueprint $table) {
             $table->integer('id_kegiatan')->autoIncrement();
             $table->integer('id_jadwal')->nullable(false);
+            $table->text('nama_kegiatan')->nullable(false);
+            $table->string('nama_pelatih', 50)->nullable(false);
             $table->enum('tipe_kegiatan', ['latihan', 'pertandingan'])->nullable(false);
             $table->time('jam_mulai')->nullable(false);
             $table->time('jam_selesai')->nullable(false);

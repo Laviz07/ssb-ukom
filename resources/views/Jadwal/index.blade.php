@@ -59,9 +59,9 @@
                                     <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
                                     
                                     <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6> 
-                                       <a class="dropdown-item" href="{{ url('jadwal', ['detail', $jw->id_jadwal]) }}"> 
-                                        <i class="bi bi-eye"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                        <strong class="ms-1">Lihat Detail Jadwal</strong> 
+                                       <a class="dropdown-item" href="{{ url('kegiatan', ['$jw->id_jadwal']) }}"> 
+                                        <i class="bi bi-calendar4-event"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                        <strong class="ms-1">Lihat List Kegiatan</strong> 
                                        </a>
 
                                     @if (Auth::user()['role']=='admin')
