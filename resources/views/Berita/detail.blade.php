@@ -40,11 +40,6 @@
         <a href="{{ url('/berita', []) }}">
             <btn class="btn btn-primary">Kembali</btn>
         </a>
-
-        @if (Auth::check() && Auth::user()->role == 'admin')
-        <a href="{{ url('berita', ['tambah']) }}" class="btn btn-success">Tambah Berita</a>
-        </a>
-        @endif
     </div>
 </div>
 @endsection
