@@ -34,7 +34,7 @@
                             style="width: 350px; height: 200px; border-radius: 5px">
 
                         <div class="overlay ">
-                            <span class="caption text-white" style="font-size: 18px; text-align: center; "> 
+                            <span class="caption text-white" style="font-size: 20px; text-align: center;"> 
                                 {{$gl->keterangan_foto}} 
                             </span>
                         </div>
