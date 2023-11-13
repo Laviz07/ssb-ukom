@@ -36,7 +36,7 @@
         </div>
         <div class="col d-flex justify-content-end mb-2 mt-3">
             @if (Auth::check() && Auth::user()->role == 'admin')
-            <a href="{{ url('tim', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
+            <a data-bs-toggle="modal" data-bs-target="#add-modal" class="position-fixed z-10 bottom-0 end-0">
                 <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 45px; margin: 30px; color:#003459;"></i>
             </a>@endif
         </div>

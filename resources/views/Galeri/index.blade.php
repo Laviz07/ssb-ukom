@@ -16,7 +16,7 @@
                     
                 @foreach($galeri as $gl)
 
-                <div class="col-lg-4 col-md-12 mb-4 mt-1 mb-lg-0">
+                <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0">
 
                     <div class="image-container" idGL={{$gl->id_galeri}} >
 

@@ -35,6 +35,6 @@ class Jadwal extends Model
 
     public function kegiatan()
     {
-        return $this->hasMany(Kegiatan::class, "id_kegiatan");
+        return $this->hasMany(Kegiatan::class, "id_jadwal");
     }
 }

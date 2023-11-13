@@ -40,7 +40,7 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <button class="btn btn-primary" type="submit">Simpan</button>
+                        <button class="btn btn-primary addBtn" type="submit">Simpan</button>
                     </div>
                 </div>
                     
@@ -52,4 +52,24 @@
     </div>
 </div>
 
+@endsection
+@section('footer')
+    <script type="module" > 
+        // add pop up
+        $('.addBtn').on('click', function (e) {
+        e.preventDefault();
+        let data = new FormData(e.target.form);
+        axios.post(`/galeri/tambah`, data, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        .then((res) => {
+            swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+                window.location.href = '/galeri'; 
+            })
+        })
+        .catch((err) => {
+            swal.fire('Gagal tambah data!', '', 'warning');
+        });
+    });
+    </script>
 @endsection
