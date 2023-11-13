@@ -37,6 +37,9 @@ class DashboardController extends Controller
             'log' => logs::query()->count(),
             'tim' => Tim::query()->count(),
             'jadwal' => Jadwal::query()->count(),
+            'admin' => Admin::query()->count(),
+            'pelatih' => Pelatih::query()->count(),
+            'pemain' => Pemain::query()->count(),
             // 'jsChart' => $jsChart->build(),
             // 'suratChart' => $suratChart->build()
         ];
