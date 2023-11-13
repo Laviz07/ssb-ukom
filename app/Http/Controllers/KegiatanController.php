@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use App\Models\Kegiatan;
+use App\Models\Pelatih;
 
 class KegiatanController extends Controller
 {
     public function index()
     {
         $data = [
-           'kegiatan' => Kegiatan::all(),
-           'jadwal' => Jadwal::all()
+            'kegiatan' => Kegiatan::all(),
+            'jadwal' => Jadwal::all()
         ];
         return view('Kegiatan.index', $data);
     }
@@ -27,12 +28,13 @@ class KegiatanController extends Controller
     // }
 
     public function indexCreate()
-     {
+    {
         $data = [
             'jadwal' => Jadwal::all(),
+            'pelatih' => Pelatih::all(),
         ];
-         return view('Kegiatan.tambah');
-     }
+        return view('Kegiatan.tambah');
+    }
 
     public function create(Request $request)
     {
@@ -54,8 +56,8 @@ class KegiatanController extends Controller
         $path = $request->file("foto_kegiatan")->storePublicly("foto_kegiatan", "public");
         $data['foto_kegiatan'] = $path;
 
-       
-        
+
+
 
         $dataInsert = Kegiatan::create($data);
         if ($dataInsert) {
@@ -75,7 +77,7 @@ class KegiatanController extends Controller
         return redirect()->route('Kegiatan.index');
     }
 
-    
+
     public function edit(Request $request)
     {
         $data = $request->validate([
@@ -111,7 +113,7 @@ class KegiatanController extends Controller
             //     Storage::disk('public')->delete($admin->user->foto_profil);
             // }
 
-            
+
 
             //menghapus user
             $kegiatan = Kegiatan::where('id_jadwal', $kegiatan->id_jadwal)->first();
