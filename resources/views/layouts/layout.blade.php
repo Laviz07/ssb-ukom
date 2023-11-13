@@ -48,7 +48,7 @@
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centerOnMobile">
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80px">
-            <span class="h4"><strong>Sekolah  Sepak Bola</strong></span>
+            <span class="h4" style="color: #003459;"><strong><i>ONE </i>SOCCER</strong></span>
         </div>
         
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-none d-lg-block d-md-block-d-sm-block d-xs-none  text-end">
