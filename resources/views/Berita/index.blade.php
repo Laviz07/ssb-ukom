@@ -20,7 +20,7 @@
                 <div idBR={{$br->id_berita}} >
                     <div class="col-md-3 card mt-4 align-items-center" style="width: 350px;">    
                     <a class="dropdown-item z-0 d-flex justify-content-center" href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
-                        <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
+                        <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{'storage/foto_berita/' . $br->foto_berita}}" 
                             height="200" width="300" class="rounded p-2 pt-4" >
                     </a>
 

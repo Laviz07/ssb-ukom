@@ -106,22 +106,20 @@ class BeritaController extends Controller
         //
         $data = $request->validate([
             'judul_berita'=> ['required'],
-            'foto_berita' => ['nullable'],
+            'foto_berita' => ['nullable'], 
             'isi_berita`' => ['nullable']
         ]);
 
-        $berita = Berita::where('id_berita', $request->input('id_berita'));
-
-
+        $berita = Berita::where('id_berita', $request->input('id_berita')); 
         // Cek apakah pengguna mengunggah foto berita baru
         if ($request->hasFile('foto_berita')) {
-            $path = $request->file('foto_berita')->store('foto_berita', 'public');
-            $berita->foto = $path;
-        
+            $path = $request->file('foto_berita')->storePublicly('foto_berita', 'public');
+            $data['foto_berita'] = $path;
+            $berita->foto_berita = $path;
         }
 
-        $berita->fill($data);
-        $berita->save();
+        $berita->update($data);
+        // $berita->save();
 
         return redirect()->to('/berita')->with('success', 'Berita berhasil diupdate');
     }
