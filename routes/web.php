@@ -6,6 +6,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PemainController;
@@ -91,6 +92,11 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::post('/admin/tambah', [AdminController::class, 'create']);
             Route::post('/admin/edit/{id}', [AdminController::class, 'edit']);
             Route::delete('/admin/hapus/{id}', [AdminController::class, 'delete']);
+
+            Route::get('/kegiatan/tambah', [KegiatanController::class, 'indexCreate']);
+            Route::post('/kegiatan/tambah', [KegiatanController::class, 'create']);
+            Route::post('/kegiatan/edit/{id}', [KegiatanController::class, 'edit']);
+            Route::delete('/kegiatan/hapus/{id}', [KegiatanController::class, 'delete']);
         });
     });
 
@@ -113,4 +119,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
 
     Route::get('/jadwal', [JadwalController::class, 'index']);
+
+    Route::get('/kegiatan/{id}',[KegiatanController::class, 'index']);
+    // Route::get('/kegiatan/detail/{id}', [KegiatanController::class, 'indexDetail']);
 });

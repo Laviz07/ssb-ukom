@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title', 'List Jadwal')
+@section('title', 'List Kegiatan')
 @section('content')   
 
 <div class="container mt-4 mb-4">
@@ -8,17 +8,17 @@
     <div>
         <div class="card align-items-center" style="border: 2px solid #00171F;">
             <div class="card-body">
-                <span class="h3 text-uppercase "> <strong>Daftar Jadwal</strong></span>
+                <span class="h3 text-uppercase "> <strong>Daftar Kegiatan</strong></span>
             </div>
         </div>
 
         <div class="col d-flex justify-content-between mb-2  mt-3">
-            <a href="{{ url('/', []) }}">
+            <a href="{{ url('jadwal', []) }}">
                 <btn class="btn btn-primary">Kembali</btn>
             </a>
 
             @if (Auth::user()['role']=='admin')
-            <a href="{{ url('jadwal', ['tambah'])}}" class="justify-content-end">
+            <a href="{{ url('kegiatan', ['tambah'])}}" class="justify-content-end">
                 <btn class="btn btn-success">Tambah </btn>
             </a>
             @endif
@@ -29,7 +29,7 @@
                     <thead>
                         <tr style="text-align: center; font-size: 17px; font-weight: 600;">
                             <td>No</td>
-                            <td>Tanggal</td>
+                            <td>Jam</td>
                             <td>Judul Kegiatan</td>
                             <td>Action</td>
                         </tr>
@@ -39,12 +39,12 @@
                             $no = 1;
                         ?>
 
-                @foreach ($jadwal as $jw)
+                @foreach ($kegiatan as $kg)
                     
-                        <tr style="vertical-align: middle; font-size: 17px;" idJW={{$jw->id_jadwal}}>
+                        <tr style="vertical-align: middle; font-size: 17px;" idKG={{$kg->id_kegiatan}}>
                             <td class="col-1" style="text-align: center;"> {{$no++}} </td>
-                            <td class="col-3" style="text-align: center"> {{$jw->tanggal_kegiatan}} </td>
-                            <td class="col-5 text-capitalize text-center "> {{$jw->judul_kegiatan}} </td>
+                            <td class="col-3" style="text-align: center"> {{$kg->jam_mulai}} </td>
+                            <td class="col-5 text-capitalize text-center "> {{$kg->tipe_kegiatan}} </td>
                             <td style="text-align: center">
                                
 
@@ -59,19 +59,19 @@
                                     <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
                                     
                                     <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6> 
-                                       <a class="dropdown-item" href="{{ url('jadwal', ['detail', $jw->id_jadwal]) }}"> 
+                                       <a class="dropdown-item" href="{{ url('kegiatan', ['detail', $kg->id_kegiatan]) }}"> 
                                         <i class="bi bi-eye"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                        <strong class="ms-1">Lihat Detail Jadwal</strong> 
+                                        <strong class="ms-1">Lihat Detail Kegiatan</strong> 
                                        </a>
 
                                     @if (Auth::user()['role']=='admin')
-                                        <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$jw->id_jadwal}}" 
-                                            style="cursor: pointer" idJW = {{$jw->id_jadwal}} > 
+                                        <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$kg->id_kegiatan}}" 
+                                            style="cursor: pointer" idKG = {{$kg->id_kegiatan}} > 
                                             <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
                                             <strong class="ms-1" >Edit Data Jadwal</strong> 
                                         </a>
 
-                                        <a class="dropdown-item hapusBtn" idJW={{$jw->id_jadwal}} style="cursor: pointer"> 
+                                        <a class="dropdown-item hapusBtn" idKG={{$kg->id_kegiatan}} style="cursor: pointer"> 
                                             <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
                                             <strong class="ms-1">Hapus Data Jadwal</strong> 
                                         </a>
@@ -85,27 +85,27 @@
                         </tr>
 
                          {{-- EDIT PEMAIN --}}
-                        <div class="modal fade" id="edit-modal-{{$jw->id_jadwal}}" tabindex="-1"
+                        <div class="modal fade" id="edit-modal-{{$kg->id_kegiatan}}" tabindex="-1"
                                 aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Jadwal</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Kegiatan</h1>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="edit-jw-form-{{$jw->id_jadwal}}">
+                                        <form id="edit-jw-form-{{$kg->id_kegiatan}}">
                                             <div class="form-group">
-                                                <label>Judul Kegiatan:</label>
+                                                <label>Jam:</label>
                                                 <input placeholder="example" type="text" class="form-control mb-3"
-                                                        name="judul_kegiatan"
-                                                        value="{{$jw->judul_kegiatan}}"
+                                                        name="jam_mulai"
+                                                        value="{{$kg->jam_mulai}}"
                                                         required/>
                                                 @csrf
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label>Tanggal Kegiatan:</label>
-                                                <input placeholder="{{$jw->tanggal_kegiatan}}" type="date" id="tanggal" name="tanggal_kegiatan" class="form-control">
+                                                <label>Tipe Kegiatan:</label>
+                                                <input placeholder="{{$kg->tipe_kegiatan}}" type="text" id="kegiatan" name="tipe_kegiatan" class="form-control">
                                             </div>
                                         </form>
                                     </div>
@@ -114,7 +114,7 @@
                                             Cancel
                                         </button>
                                         <button type="submit" class="btn btn-primary edit-btn"
-                                                form="edit-jw-form-{{$jw->id_jadwal}}" >
+                                                form="edit-jw-form-{{$kg->id_jadwal}}" >
                                             Edit
                                         </button>
                                     </div>
@@ -140,14 +140,14 @@
         // // edit pop up
         $('.editBtn').on('click', function (e) {
             e.preventDefault();
-            let idJW = $(this).attr('idJW');
-            $(`#edit-jw-form-${idJW}`).on('submit', function (e) {
+            let idKG = $(this).attr('idKG');
+            $(`#edit-kg-form-${idKG}`).on('submit', function (e) {
                 e.preventDefault();
                 let data = Object.fromEntries(new FormData(e.target));
-                data['id_jadwal'] = idJW;
-                axios.post(`/jadwal/edit/${idJW}`, data)
+                data['id_kegiatan'] = idKG;
+                axios.post(`/kegiatan/edit/${idKG}`, data)
                     .then(() => {
-                        $(`#edit-modal-${idJW}`).css('display', 'none')
+                        $(`#edit-modal-${idKG}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
                             location.reload();
                         })
@@ -161,7 +161,7 @@
         //delete pop up
         $('.DataTable tbody').on('click','.hapusBtn',function(a){
         a.preventDefault();
-        let idJW = $(this).closest('.hapusBtn').attr('idJW');
+        let idKG = $(this).closest('.hapusBtn').attr('idKG');
         swal.fire({
                 title : "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
@@ -172,7 +172,7 @@
             }).then((result)=>{
                 if(result.isConfirmed){
                     //dilakukan proses hapus
-                    axios.delete('/jadwal/hapus/' + idJW).then(function(response){
+                    axios.delete('/kegiatan/hapus/' + idKG).then(function(response){
                         console.log(response);
                         if(response.data.success){
                             swal.fire('Berhasil di hapus!', '', 'success').then(function(){

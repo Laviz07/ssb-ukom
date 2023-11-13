@@ -6,8 +6,8 @@
         <div class="row">
             @if(auth()->user()->role == 'admin')
                 <div class="col-2">
-                    <a href="{{ url('user') }}" class="text-decoration-none">
-                        <div class="card bg-c-blue ">
+                    <a data-bs-toggle="modal" data-bs-target="#user-modal">
+                        <div class="card bg-c-blue">
                             <div class="card-body text-white">
                                 <h1 class="text-right"><i class="bi bi-person-fill"></i><span
                                         class="f-right">{{$user}}</span></h1>
@@ -16,6 +16,8 @@
                         </div>
                     </a>
                 </div>
+               
+                    
                 <div class="col-2">
                     <a href="{{url('tim')}}" class="text-decoration-none">
                         <div class="card bg-c-blue ">
@@ -76,6 +78,56 @@
                 </a>
             </div>
         </div>
+
+        <div class="modal fade" id="user-modal" tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">User:</h1>
+                </div>
+                <div class="modal-body row">
+                <div class="col-4">
+                    <a href="{{url('admin')}}" class="text-decoration-none">
+                        <div class="card bg-c-blue">
+                            <div class="card-body text-white">
+                                <h1 class="text-right"><i class="bi bi-person-fill"></i>
+                                <span class="f-right">{{$admin}}</span></h1>
+                                <h2>Admin</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+               
+                    
+                <div class="col-4">
+                    <a href="{{url('pemain')}}" class="text-decoration-none">
+                        <div class="card bg-c-blue ">
+                            <div class="card-body text-white">
+                                <h1 class="text-right"><i class="bi bi-person-fill"></i>
+                                <span class="f-right">{{$pemain}}</span></h1>
+                                <h2>Pemain</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-4">
+                    <a href="{{url('pelatih')}}" class="text-decoration-none">
+                        <div class="card bg-c-blue ">
+                            <div class="card-body text-white">
+                                <h1 class="text-right"><i class="bi bi-person-fill"></i>
+                                <span class="f-right">{{$pelatih}}</span></h1>
+                                <h2>Pelatih</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                </div>
+                </div>
+            </div>
     {{-- <div class="row">
         <div class="col">
             <div class="card">
