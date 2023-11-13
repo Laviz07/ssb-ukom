@@ -12,19 +12,6 @@
             </div>
         </div>
 
-        <div class="col d-flex justify-content-between mb-2  mt-3">
-            <a href="{{ url('/', []) }}">
-                <btn class="btn btn-primary">Kembali</btn>
-            </a>
-
-            @if (Auth::user()['role']=='admin')
-                <a href="{{ url('pelatih', ['tambah'])}}" class="justify-content-end">
-                    <btn class="btn btn-success">Tambah </btn>
-                </a>
-            @endif
-            
-        </div>
-
         <div class=" mt-3">
                 <table class="table table-hovered table-bordered DataTable  ">
                     <thead>
@@ -161,11 +148,15 @@
 
                     </tbody>
                 </table>
-        </div>
-           
+        </div>        
     </div>
 </div>
-
+<div class="col d-flex justify-content-end mb-2 mt-3">
+    @if (Auth::check() && Auth::user()->role == 'admin')
+    <a href="{{ url('pelatih', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
+        <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 45px; margin: 30px; color:#003459;"></i>
+    </a>@endif
+</div>
 @endsection
 
 @section('footer')
