@@ -46,6 +46,7 @@ class Kegiatan extends Model
         "foto_kegiatan",
         "detail_kegiatan",
         "laporan_kegiatan",
+        "id_jadwal",
     ];
     public $timestamps = false;
 

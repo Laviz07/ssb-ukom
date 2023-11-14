@@ -23,7 +23,7 @@
             </a>
 
             @if (Auth::user()['role']=='admin')
-            <a href="{{ url('jadwal', ['kegiatan', 'tambah'])}}" class="justify-content-end">
+            <a href="{{ url('jadwal', ['kegiatan',  'tambah', $jadwal->id_jadwal])}}" class="justify-content-end">
                 <btn class="btn btn-success">Tambah </btn>
             </a>
             @endif
@@ -44,7 +44,7 @@
                             $no = 1;
                         ?>
 
-                @foreach ($kegiatan as $kg)
+                @foreach ($jadwal->kegiatan as $kg)
                     
                         <tr style="vertical-align: middle; font-size: 17px;" idKG={{$kg->id_kegiatan}}>
                             <td class="col-1" style="text-align: center;"> {{$no++}} </td>

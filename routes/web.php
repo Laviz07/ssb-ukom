@@ -93,8 +93,8 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::post('/admin/edit/{id}', [AdminController::class, 'edit']);
             Route::delete('/admin/hapus/{id}', [AdminController::class, 'delete']);
 
-            Route::get('/jadwal/kegiatan/tambah', [KegiatanController::class, 'indexCreate']);
-            Route::post('/jadwal/kegiatan/tambah', [KegiatanController::class, 'create']);
+            Route::get('/jadwal/kegiatan/tambah/{id}', [KegiatanController::class, 'indexCreate']);
+            Route::post('/jadwal/kegiatan/tambah/{id}', [KegiatanController::class, 'create']);
             Route::post('/kegiatan/edit/{id}', [KegiatanController::class, 'edit']);
             Route::delete('/kegiatan/hapus/{id}', [KegiatanController::class, 'delete']);
         });

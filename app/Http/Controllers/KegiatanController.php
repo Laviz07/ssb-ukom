@@ -33,12 +33,14 @@ class KegiatanController extends Controller
         $data = $request->validate([
             // Menambah ke tabel pelatih
             'nik_pelatih' => ['required'],
+            'nama_kegiatan' => ['required'],
+            'id_jadwal' => ['required'],
             'tipe_kegiatan' => ['required'],
             'jam_mulai' => ['required'],
             'jam_selesai' => ['required'],
             // 'foto_kegiatan' => ['required'],
             'detail_kegiatan' => ['required'],
-            // 'laporan_kegiatan' => ['required'],
+            'laporan_kegiatan' => ['required'],
 
         ]);
 
