@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Charts\BeritaChart;
 use App\Models\Galeri;
 use App\Models\logs;
 use App\Models\Tim;
@@ -28,7 +29,7 @@ class DashboardController extends Controller
     //     return view('Beranda.dashboard');
     // }
 
-    public function indexDashboard()
+    public function indexDashboard(BeritaChart $beritaChart)
     {
         $data = [
             'user' => User::query()->count(),
@@ -37,7 +38,7 @@ class DashboardController extends Controller
             'log' => logs::query()->count(),
             'tim' => Tim::query()->count(),
             'jadwal' => Jadwal::query()->count(),
-            // 'jsChart' => $jsChart->build(),
+            'beritaChart' => $beritaChart->build(),
             // 'suratChart' => $suratChart->build()
         ];
 

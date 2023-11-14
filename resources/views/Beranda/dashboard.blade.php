@@ -76,31 +76,51 @@
                 </a>
             </div>
         </div>
-    {{-- <div class="row">
-        <div class="col">
+    <div class="row">
+        <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    {!! $suratChart->container() !!}
+                    {!! $beritaChart->container() !!}
+                </div>
+            </div>
+        </div><div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    {{-- {!! $beritaChart->container() !!} --}}
                 </div>
             </div>
         </div>
     </div>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        {!! $jsChart->container() !!}
-                    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    {{-- {!! $beritaChart->container() !!} --}}
                 </div>
             </div>
         </div>
-    </div> --}}
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    {{-- {!! $beritaChart->container() !!} --}}
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    {{-- {!! $beritaChart->container() !!} --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 @endsection
 @section('footer')
-    {{-- <script src="{{ $jsChart->cdn() }}"></script>
+    {{-- {{-- <script src="{{ $jsChart->cdn() }}"></script>
 
-    {{ $jsChart->script() }}
-    <script src="{{ $suratChart->cdn() }}"></script>
+    {{ $jsChart->script() }} --}}
+    <script src="{{ $beritaChart->cdn() }}"></script>
 
-    {{ $suratChart->script() }} --}}
+    {{ $beritaChart->script() }} 
 @endsection
