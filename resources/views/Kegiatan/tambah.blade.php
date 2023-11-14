@@ -25,6 +25,8 @@
                                     <input type="hidden" name="role" value="kegiatan">
                                 </div>
 
+                                {{-- <input type="hidden" name="id_jadwal" value="{{$jadwal->id_jadwal }}"> --}}
+
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group mt-2">
@@ -55,27 +57,26 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group mt-2">
-                                            <label >Nama Pelatih:</label>
-                                            <input type="text" class="form-control" required name="nama_pelatih">
-                                        </div> 
+                                             <label >Nama Pelatih:</label>
+                                           {{-- <input type="text" class="form-control" required name="nama_pelatih"> --}}
+
+                                        <select name="nik_pelatih" required id="pilihPelatih" class="form-select mb-3">
+                                            <option value="" selected>Pilih Pelatih</option>
+                                            @foreach ($pelatih as $pl)
+                                                <option value="{{ $pl->nik_pelatih }}">{{ $pl->nama_pelatih }}</option>
+                                            @endforeach
+                                        </select> 
+                                    </div> 
                                     </div>
-{{-- 
-                                    <select name="nik_pelatih" id="pilihPelatih" class="form-select mb-3">
-                                        <option value="" selected>Pilih Pelatih</option>
-                                        @foreach ($pelatih as $pl)
-                                            <option value="{{ $pl->nik_pelatih }}">{{ $pl->nama_pelatih }}</option>
-                                        @endforeach
-                                        
-                                    </select> --}}
 
                                 </div>
                                
                                 <div class="form-group">
                                     <label >Detail Kegiatan:</label>
-                                    <textarea required name="detail_kegiatan" id="" class="form-control" rows="3" placeholder="Detail Kegiatan" style="resize: none"></textarea>
+                                    <textarea required name="detail_kegiatan"class="form-control" rows="3" placeholder="Detail Kegiatan" style="resize: none"></textarea>
                                 </div>
 
-                                <div class="form-group">
+                                {{--      <div class="form-group">
                                     <label >Laporan Kegiatan:</label>
                                     <textarea required name="laporan_kegiatan" id="" class="form-control" rows="3" placeholder="Laporan Kegiatan" style="resize: none"></textarea>
                                 </div>
@@ -109,12 +110,12 @@
         $('.addBtn').on('click', function (e) {
         e.preventDefault();
         let data = new FormData(e.target.form);
-        axios.post(`/kegiatan/tambah`, data, {
+        axios.post(`/jadwal/kegiatan/tambah`, data, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {
             swal.fire('Berhasil tambah data!', '', 'success').then(function () {
-                window.location.href = '/kegiatan/{id}'; 
+                window.location.href = '/jadwal/kegiatan/{id}'; 
             })
         })
         .catch((err) => {

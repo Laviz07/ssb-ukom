@@ -39,13 +39,13 @@ class Kegiatan extends Model
     protected $primaryKey = "id_kegiatan";
     protected $fillable = [
         "nama_kegiatan",
-        "nama_pelatih",
+        "nik_pelatih",
         "jam_mulai",
         "jam_selesai",
         "tipe_kegiatan",
         "foto_kegiatan",
         "detail_kegiatan",
-        "laporan_kegiatan"
+        "laporan_kegiatan",
     ];
     public $timestamps = false;
 

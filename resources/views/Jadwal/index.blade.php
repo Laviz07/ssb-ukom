@@ -50,7 +50,7 @@
                                     <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
                                     
                                     <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6> 
-                                       <a class="dropdown-item" href="{{ url('kegiatan', ['$jw->id_jadwal']) }}"> 
+                                       <a class="dropdown-item" href="{{ url('jadwal', ['kegiatan', $jw->id_jadwal]) }}"> 
                                         <i class="bi bi-calendar4-event"  style="font-size: 20px; vertical-align: middle; "></i> 
                                         <strong class="ms-1">Lihat List Kegiatan</strong> 
                                        </a>
