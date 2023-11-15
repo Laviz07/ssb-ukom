@@ -33,7 +33,7 @@
                                             <label for="pilihPelatih">Nama Pelatih:</label>
                                             {{-- <input type="text" class="form-control" required name="nama_pelatih"> --}}
                                             <select name="nik_pelatih" id="pilihPelatih" class="form-select mb-3">
-                                                <option value="" selected>Pilih Pelatih Tim</option>
+                                                <option value="" selected disabled>Pilih Pelatih Tim</option>
                                                 @foreach ($pelatih as $pl)
                                                     <option value="{{$pl->nik_pelatih}}">{{$pl->nama_pelatih}}</option>
                                                 @endforeach
