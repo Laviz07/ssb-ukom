@@ -37,6 +37,7 @@ class Admin extends Model
     protected $fillable = [
         'nik_admin',
         'nama_admin',
+        'username',
         'no_telp',
         'email'
     ];

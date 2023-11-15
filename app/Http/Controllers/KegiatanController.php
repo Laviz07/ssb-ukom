@@ -30,10 +30,10 @@ class KegiatanController extends Controller
 
     public function create(Request $request)
     {
-        $data = $request->validate([
+        $this -> validate($request, [
             // Menambah ke tabel pelatih
-            'nik_pelatih' => ['required'],
-            'nama_kegiatan' => ['required'],
+            'nama_pelatih' => ['required'],
+            'nik_kegiatan' => ['required'],
             'id_jadwal' => ['required'],
             'tipe_kegiatan' => ['required'],
             'jam_mulai' => ['required'],
@@ -48,7 +48,7 @@ class KegiatanController extends Controller
         // $path = $request->file("foto_kegiatan")->storePublicly("foto_kegiatan", "public");
         // $data['foto_kegiatan'] = $path;
 
-        $dataInsert = Kegiatan::create($data);
+        $dataInsert = Kegiatan::create($request->all());
         if ($dataInsert) {
             return redirect()->to('/jadwal/kegiatan/{id}')->with('success', 'kegiatan berhasil ditambah');
         }

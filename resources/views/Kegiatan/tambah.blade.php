@@ -61,7 +61,7 @@
                                            {{-- <input type="text" class="form-control" required name="nama_pelatih"> --}}
 
                                         <select name="nik_pelatih" required id="pilihPelatih" class="form-select mb-3">
-                                            <option value="" selected>Pilih Pelatih</option>
+                                            <option value="nik_pelatih" selected>Pilih Pelatih</option>
                                             @foreach ($pelatih as $pl)
                                                 <option value="{{ $pl->nik_pelatih }}">{{ $pl->nama_pelatih }}</option>
                                             @endforeach

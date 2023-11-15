@@ -19,6 +19,7 @@
                             <td>No</td>
                             <td>Foto</td>
                             <td>Nama</td>
+                            <td>Username</td>
                             <td>NIK</td>
                             <td>Email</td>
                             <td>Action</td>
@@ -41,6 +42,7 @@
                                 @endif
                             </td>
                             <td class="col-3 text-capitalize text-center"> {{$ad->nama_admin}} </td>
+                            <td class="col-2 text-capitalize text-center"> {{$ad->username}} </td>
                             <td class="col-2" style="text-align: center"> {{$ad->nik_admin}} </td>
                             <td class="col-3" style="text-align: center"> {{$ad->email}} </td>
                             <td style="text-align: center">
@@ -48,9 +50,9 @@
                                 <div class="dropdown dropend" style="display: inline-block; vertical-align: middle;">
                                     <button class="btn btn-primary" id="navbarDropdownMenuLink" data-bs-toggle='dropdown' data-bs-offset="-10,20">
                                         Action
-                                        <i  class="bi bi-three-dots-vertical " 
+                                        {{-- <i  class="bi bi-three-dots-vertical " 
                                             style="font-size: 26; vertical-align: middle; cursor: pointer;">
-                                        </i>
+                                        </i> --}}
                                     </button>
 
                                     <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">

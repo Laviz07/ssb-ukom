@@ -50,7 +50,7 @@ class AdminController extends Controller
     {
         //
         $data = $request->validate([
-            // Menambah ke tabel pelatih
+            // Menambah ke tabel admin
             'nik_admin' => ['required'],
             'nama_admin' => ['required'],
             'no_telp' => ['required'],

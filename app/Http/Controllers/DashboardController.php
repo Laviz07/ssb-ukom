@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Charts\BeritaChart;
+use App\Charts\JadwalChart;
 use App\Models\Galeri;
 use App\Models\logs;
 use App\Models\Tim;
@@ -29,7 +30,7 @@ class DashboardController extends Controller
     //     return view('Beranda.dashboard');
     // }
 
-    public function indexDashboard(BeritaChart $beritaChart)
+    public function indexDashboard(BeritaChart $beritaChart, JadwalChart $jadwalChart)
     {
         $data = [
             'user' => User::query()->count(),
@@ -39,6 +40,7 @@ class DashboardController extends Controller
             'tim' => Tim::query()->count(),
             'jadwal' => Jadwal::query()->count(),
             'beritaChart' => $beritaChart->build(),
+            'jadwalChart' => $jadwalChart->build()
             // 'suratChart' => $suratChart->build()
         ];
 
