@@ -48,9 +48,8 @@
                                         <div class="form-group mt-2">
                                             <label >Tipe Kegiatan:</label>
                                             <select required name="tipe_kegiatan" class="form-select mb-3">
-                                                <option value="" selected disabled>Pilih Posisi</option>
-                                                <option value="pertandingan">pertandingan</option>
-                                                <option value="latihan">latihan</option>
+                                                <option selected value="pertandingan">pertandingan</option>
+                                                <option selected value="latihan">latihan</option>
                                             </select>
                                         </div>
                                     </div>
@@ -62,7 +61,7 @@
                                            {{-- <input type="text" class="form-control" required name="nama_pelatih"> --}}
 
                                         <select name="nik_pelatih" required id="pilihPelatih" class="form-select mb-3">
-                                            <option value="" selected disabled>Pilih Pelatih</option>
+                                            <option value="nik_pelatih" selected>Pilih Pelatih</option>
                                             @foreach ($pelatih as $pl)
                                                 <option value="{{ $pl->nik_pelatih }}">{{ $pl->nama_pelatih }}</option>
                                             @endforeach

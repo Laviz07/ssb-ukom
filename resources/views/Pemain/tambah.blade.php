@@ -49,11 +49,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group mt-2">
                                             <label >No. Telepon:</label>
-                                            <div class="input-group mb-2">
-                                                <span class="input-group-text" >+62</span>
-                                                <input  type="number" class="form-control" placeholder="81234567890"
-                                                name="no_telp" required/>
-                                              </div>
+                                            <input type="number" class="form-control" required name="no_telp">
                                         </div>
                                     </div>
 
@@ -106,11 +102,10 @@
                                         <div class="form-group mt-2">
                                             <label >Posisi:</label>
                                             <select required name="posisi" class="form-select mb-3">
-                                                <option value="" selected disabled>Pilih Posisi</option>
-                                                <option value="kiper">Kiper</option>
-                                                <option value="back">Back</option>
-                                                <option value="gelandang">Gelandang</option>
-                                                <option value="striker">Striker</option>
+                                                <option selected value="kiper">Kiper</option>
+                                                <option selected value="back">Back</option>
+                                                <option selected value="gelandang">Gelandang</option>
+                                                <option selected value="striker">Striker</option>
                                             </select>
                                         </div>
                                     </div>
@@ -119,10 +114,9 @@
                                         <div class="form-group mt-2">
                                             <label >Kategori Umur:</label>
                                             <select required name="kategori_umur" class="form-select mb-3">
-                                                <option value="" selected disabled>Pilih Kategori Umur</option>
-                                                <option value="7-12">7-12 Tahun</option>
-                                                <option value="13-15">13-15 Tahun</option>
-                                                <option value="16-18">16-18 Tahun</option>
+                                                <option selected value="7-12">7-12 Tahun</option>
+                                                <option selected value="13-15">13-15 Tahun</option>
+                                                <option selected value="16-18">16-18 Tahun</option>
                                             </select>
                                         </div> 
                                     </div>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -37,6 +37,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
+
 <body class="bg-white">
     <section class="vh-100">
         <div class="container-fluid">
@@ -96,55 +97,38 @@
             </div>
         </div>
     </section>
+    <script type="module">
+        $('form').submit(async function (e) {
+            e.preventDefault();
+            let username = $('#username').val();
+            let password = $('#password').val();
 
-<script type="module">
-    $('form').submit(async function (e) {
-        e.preventDefault();
-        let username = $('#username').val();
-        let password = $('#password').val();
+            await axios({
+                method: 'post',
+                url: '/login',
+                data: {
+                    username,
+                    password
+                }
+            }).then(async (res) => {
 
-        try {
-            const response = await axios.post('/login', {
-                username,
-                password
-            }).then((res) => {
-            console.log(res);                
-            const role = res.data.role;
-
-            if (role === 'admin') {
-                swal.fire({
+                await swal.fire({
                     title: 'Login berhasil!',
                     text: 'Redirecting to dashboard...',
                     icon: 'success',
                     timer: 1000,
                     showConfirmButton: false
-                }).then(() => {
-                    window.location = '/dashboard';
-                });
-            } else {
-                swal.fire({
-                    title: 'Login berhasil!',
-                    text: 'Redirecting to beranda...',
-                    icon: 'success',
-                    timer: 1000,
-                    showConfirmButton: false
-                }).then(() => {
-                    window.location = '/beranda';
-                });
-            }
+                })
+                window.location = '/beranda'
+                console.log(res)
+            }).catch(({response}) => {
+                swal.fire('Gagal Login!', '',
+                        'warning');
+                        console.log(response);
             })
 
-
-            console.log(response);
-        } catch (error) {
-            swal.fire('Gagal Login!', '', 'warning');
-            console.error(error);
-        }
-    });
-</script>
-
-
+        })
+    </script>
 </body>
 
 </html>
-

@@ -118,7 +118,7 @@
                    
 
                     <select name="nisn_pemain" id="pilihPemain" class="form-select mb-3">
-                        <option value="" selected disabled>Pilih Anggota Tim</option>
+                        <option value="" selected>Pilih Anggota Tim</option>
                         @foreach ($pemain as $pm)
                             <option value="{{ $pm->nisn_pemain }}">{{ $pm->nama_pemain }}</option>
                         @endforeach

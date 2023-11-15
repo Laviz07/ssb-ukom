@@ -13,11 +13,7 @@
                         <span class="text-capitalize" style="font-weight: 800; font-size: 26px;">{{$pemain->nama_pemain}}</span>
                     </div>
                     <div class="row">
-                        <span>No. Telp: 
-                            <a href="https://wa.me/62{{$pemain->no_telp}}" style="text-decoration: none">
-                                0{{$pemain->no_telp}}
-                            </a>
-                        </span>
+                        <span>No. Telp: {{$pemain->no_telp}}</span>
                         <span>Email: {{$pemain->email}}</span>
                     </div>
                 </div>

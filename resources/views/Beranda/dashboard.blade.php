@@ -78,11 +78,18 @@
                 </a>
             </div>
         </div>
-    {{-- <div class="row">
+    <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    {{-- {!! $beritaChart->container() !!} --}}
+                    {!! $beritaChart->container() !!}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    {!! $jadwalChart->container() !!}
                 </div>
             </div>
         </div>
@@ -91,21 +98,21 @@
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    {{-- {!! $beritaChart->container() !!} --}}
+                    {!! $beritaChart->container() !!}
                 </div>
             </div>
         </div>
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    {{-- {!! $beritaChart->container() !!} --}}
+                    {!! $beritaChart->container() !!}
                 </div>
             </div>
         </div>
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    {{-- {!! $beritaChart->container() !!} --}}
+                    {!! $beritaChart->container() !!}
                 </div>
             </div>
         </div>
@@ -113,10 +120,11 @@
     </div>
 @endsection
 @section('footer')
-    {{-- {{-- <script src="{{ $jsChart->cdn() }}"></script>
-
-    {{ $jsChart->script() }} --}}
     <script src="{{ $beritaChart->cdn() }}"></script>
 
     {{ $beritaChart->script() }} 
+
+    <script src="{{ $jadwalChart->cdn() }}"></script>
+
+    {{ $jadwalChart->script() }} 
 @endsection

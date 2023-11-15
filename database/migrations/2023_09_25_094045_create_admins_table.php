@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigInteger('nik_admin')->primary();
             $table->integer("id_user")->nullable(false);
             $table->string('nama_admin', 50)->nullable(false);
+            $table->string('username', 50)->nullable(false);
             $table->bigInteger('no_telp')->nullable(false);
             $table->string("email", 255)->nullable(false);
 
