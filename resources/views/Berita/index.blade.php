@@ -11,16 +11,7 @@
                 </div>
             </div>
 
-            <div class="col d-flex justify-content-between mb-2  mt-3">
-                <a href="{{ url('/', []) }}">
-                    <btn class="btn btn-primary">Kembali</btn>
-                </a>
-
-                @if (Auth::check() && Auth::user()->role == 'admin')
-                <a href="{{ url('berita', ['tambah']) }}" class="btn btn-success">Tambah Berita</a>
-                </a>
-                @endif
-            </div>
+            
         </div>
     
         @if ($berita->count() > 0)
@@ -29,7 +20,7 @@
                 <div idBR={{$br->id_berita}} >
                     <div class="col-md-3 card mt-4 align-items-center" style="width: 350px;">    
                     <a class="dropdown-item z-0 d-flex justify-content-center" href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
-                        <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{$br->foto_berita}}" 
+                        <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{'storage/foto_berita/' . $br->foto_berita}}" 
                             height="200" width="300" class="rounded p-2 pt-4" >
                     </a>
 
@@ -39,45 +30,41 @@
                                 {{$br->judul_berita}} 
                                 </span>
                             </div>   
-                            
+                             @if (Auth::check() && Auth::user()->role == 'admin')
                             <div class="ps-3" style="display: inline-block; ">
                                 <div class="dropdown dropend" style=" vertical-align: middle; margin-right: 20px;">
                                     <i  class="bi bi-three-dots-vertical " 
                                         style="font-size: 20px; vertical-align: middle; cursor: pointer;"
                                         id="beritaDropdown" data-bs-toggle='dropdown' data-bs-offset="-10,20">
                                     </i>
-
                                     <div class="dropdown-menu z-2 " style="width: 200px; " aria-labelledby="beritaDropdown">
                                         <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
-
-                                            @if (Auth::check() && Auth::user()->role == 'admin')
-                                                <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
-                                                    style="cursor: pointer" idBR = {{$br->id_berita}} > 
-                                                    <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                                    <strong class="ms-1" >Edit Data Berita</strong> 
-                                                </a>
-                                                <a class="dropdown-item hapusBtn" idBR={{$br->id_berita}} style="cursor: pointer"> 
-                                                    <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                                    <strong class="ms-1">Hapus Data Berita</strong> 
-                                                </a>
-                                            @endif
+                                            <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
+                                                style="cursor: pointer" idBR = {{$br->id_berita}} > 
+                                                <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                                <strong class="ms-1" >Edit Data Berita</strong> 
+                                            </a>
+                                            <a class="dropdown-item hapusBtn" idBR={{$br->id_berita}} style="cursor: pointer"> 
+                                                <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                                <strong class="ms-1">Hapus Data Berita</strong> 
+                                            </a>
                                     </div>
-
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
             
-        {{-- EDIT GAMBAR--}}
+        {{-- EDIT BERITA--}}
         <div class="modal fade" id="edit-modal-{{$br->id_berita}}" tabindex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 70%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Gambar</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Berita</h1>
                 </div>
                 <div class="modal-body">
                     <form id="edit-br-form-{{$br->id_berita}}" method="POST" enctype="multipart/form-data">
@@ -101,7 +88,7 @@
                         <div class="row">
                             <div class="col-md-4 mt-3 align-items-center">
                                 <label for="fileUpload">Upload Gambar</label>
-                                <input type="file" name="foto" id="fileUpload" required class="btn w-auto btn-outline-primary form-control">
+                                <input type="file" name="foto_berita" id="fileUpload" required class="btn w-auto btn-outline-primary form-control">
                             </div>
                         </div>
 
@@ -112,7 +99,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary editBtn" form="edit-br-form-{{$br->id_berita}}">
+                    <button type="submit" class="btn btn-primary edit-btn" form="edit-br-form-{{$br->id_berita}}">
                         Edit
                     </button>
                     
@@ -126,9 +113,16 @@
         <span class="text-center text-capitalize " style="font-size: 60px; font-weight: 700; color: #7c7c7c;" > 
             Tidak ada berita
         </span>
-    @endif
+        @endif
     </div>
 </div>
+<div class="col d-flex justify-content-end mb-2 mt-3">
+    @if (Auth::check() && Auth::user()->role == 'admin')
+    <a href="{{ url('berita', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
+        <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 45px; margin: 30px; color:#003459;"></i>
+    </a>@endif
+</div>
+
 
 @endsection
 @section('footer')
@@ -176,7 +170,9 @@
                 e.preventDefault();
                 let data = Object.fromEntries(new FormData(e.target));
                 data['id_berita'] = idBR;
-                axios.post(`/berita/edit/${idBR}`, data)
+                axios.post(`/berita/edit/${idBR}`, data, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                })
                     .then(() => {
                         $(`#edit-modal-${idBR}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {

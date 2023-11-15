@@ -119,7 +119,6 @@ class AdminController extends Controller
             'nik_admin' => ['required'],
             'no_telp' => ['required'],
             'email' => ['required'],
-            'deskripsi_pelatih' => ['nullable']
         ]);
 
         $admin = Admin::where('nik_admin', $request->input('nik_admin'))->first();

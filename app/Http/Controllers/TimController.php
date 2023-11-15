@@ -71,24 +71,6 @@ class TimController extends Controller
             ->with('success', 'Tim berhasil ditambahkan');
     }
 
-    public function createAnggota(Request $request)
-    {
-        $data = $request->validate([
-            'nisn_pemain' => ['required'],
-            'id_tim' => ['required'],
-        ]);
-
-        $tim = Tim::find($data['id_tim']);
-        $pemain = Pemain::find($data['nisn_pemain']);
-
-        $tim->pemain()->save($pemain);
-
-        // return redirect('/tim/detail/{id}')->with('success', 'Anggota tim berhasil ditambahkan');
-
-        return response()->json(['message' => $tim->pemain()]);
-    }
-
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -140,6 +122,23 @@ class TimController extends Controller
         }
 
         return response()->json($pesan);
+    }
+
+    public function createAnggota(Request $request)
+    {
+        $data = $request->validate([
+            'nisn_pemain' => ['required'],
+            'id_tim' => ['required'],
+        ]);
+
+        $tim = Tim::find($data['id_tim']);
+        $pemain = Pemain::find($data['nisn_pemain']);
+
+        $tim->pemain()->save($pemain);
+
+        // return redirect('/tim/detail/{id}')->with('success', 'Anggota tim berhasil ditambahkan');
+
+        return response()->json(['message' => $tim->pemain()]);
     }
 
     public function deleteAnggota(Tim $tim, Request $request)

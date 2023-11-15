@@ -105,33 +105,21 @@ class BeritaController extends Controller
     {
         //
         $data = $request->validate([
-            'foto_berita' => ['required', 'image|mimes:jpeg,png,jpg,gif|max:2048'],
-            'isi_berita`' => ['required']
+            'judul_berita'=> ['required'],
+            'foto_berita' => ['nullable'], 
+            'isi_berita`' => ['nullable']
         ]);
 
-        // $berita = Berita::where('id_berita', $request->input('id_berita'));
-
-
+        $berita = Berita::where('id_berita', $request->input('id_berita')); 
         // Cek apakah pengguna mengunggah foto berita baru
         if ($request->hasFile('foto_berita')) {
-            $destination = public_path() . '/foto_berita';
-            $oldFoto = $berita->foto_berita;
-
-            if ($oldFoto) {
-                $oldFotoPath = public_path($oldFoto);
-                if (file_exists($oldFotoPath)) {
-                    unlink($oldFoto);
-                }
-            }
-
-            $path = $request->file('foto_berita');
-            $fotoName = $path->getClientOriginalName();
-            $path->move($destination, $fotoName);
-            $berita->foto = '/foto_berita' . $fotoName;
+            $path = $request->file('foto_berita')->storePublicly('foto_berita', 'public');
+            $data['foto_berita'] = $path;
+            $berita->foto_berita = $path;
         }
 
-        $berita->isi_berita = $request->input('isi_berita');
-        $berita->save();
+        $berita->update($data);
+        // $berita->save();
 
         return redirect()->to('/berita')->with('success', 'Berita berhasil diupdate');
     }

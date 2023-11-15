@@ -44,11 +44,11 @@
             <div class="row">
                 <div class="col-sm-6 text-black">
         
-                <div class="px-4 ms-xl-4">
+                <div class="px-5 ms-xl-5">
                     <div class="d-flex"><i class="fas fa-crow fa-2x me-9 pt-5 mt-xl-4" style="color: #709085;"></i>
                     <img src="{{asset('images/logo1.png')}}" alt="ssb logo" width="150" height="150" style="margin: 15px">
-                    <h3 class="my-5 display-8 fw-bold ls-tight h3 text-uppercase" style="color: #003459; font-size:38px">
-                        sekolah sepak bola <br />
+                    <h3 class="display-8 fw-bold ls-tight h3 text-uppercase" style="color: #003459; font-size:38px; margin-top: 45px">
+                        <i>ONE</i><br>SOCCER
                     </h3></div>
                     
                 </div>

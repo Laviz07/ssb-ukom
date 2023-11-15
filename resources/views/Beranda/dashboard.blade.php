@@ -6,8 +6,8 @@
         <div class="row">
             @if(auth()->user()->role == 'admin')
                 <div class="col-2">
-                    <a href="{{ url('user') }}" class="text-decoration-none">
-                        <div class="card bg-c-blue ">
+                    <a data-bs-toggle="modal" data-bs-target="#user-modal">
+                        <div class="card bg-c-blue">
                             <div class="card-body text-white">
                                 <h1 class="text-right"><i class="bi bi-person-fill"></i><span
                                         class="f-right">{{$user}}</span></h1>
@@ -16,6 +16,8 @@
                         </div>
                     </a>
                 </div>
+               
+                    
                 <div class="col-2">
                     <a href="{{url('tim')}}" class="text-decoration-none">
                         <div class="card bg-c-blue ">
@@ -76,14 +78,8 @@
                 </a>
             </div>
         </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="card">
-                <div class="card-body">
-                    {!! $beritaChart->container() !!}
-                </div>
-            </div>
-        </div><div class="col-6">
+    {{-- <div class="row">
+        <div class="col">
             <div class="card">
                 <div class="card-body">
                     {{-- {!! $beritaChart->container() !!} --}}
