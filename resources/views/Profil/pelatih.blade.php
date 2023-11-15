@@ -67,8 +67,8 @@
                                </a>
 
                                <a class="dropdown-item editBtn" 
-                                data-bs-toggle="modal" data-bs-target="#editProfil-modal-{{$user->pelatih->nik_pelatih}}"
-                                idPL = {{$user->pelatih->nik_pelatih}} style="cursor: pointer" > 
+                                data-bs-toggle="modal" data-bs-target="#editFotoProfil-modal-{{$user->id_user}}"
+                                idUser = {{$user->id_user}} style="cursor: pointer" > 
                                     <i class="bi bi-image-fill"  style="font-size: 20px; vertical-align: middle; "></i> 
                                     <strong class="ms-1" >Edit Foto Profil Anda</strong> 
                                </a>
@@ -261,6 +261,57 @@
                 </div>
             </div>
         </div>
+    </div>
+
+         {{--- EDIT FOTO PROFIL --}}
+<div class="modal fade" id="editFotoProfil-modal-{{$user->id_user}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ganti Foto Profil</h1>
+            </div>
+            <form id="edit-fp-form-{{$user->id_user}}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="col-md-4 mt-0 align-items-center">
+                        <label for="fileUpload">Upload Gambar</label>
+                        <input type="file" name="foto_profil" id="fileUpload" onchange="previewImage()"
+                            class="btn w-auto btn-outline-primary form-control">
+                        
+                        <img src="#" id="imagePreview" alt="preview" 
+                        style="width: 250px; height: 250px; display: none" 
+                        class="mt-2 rounded ">
+                        @csrf
+                    </div>
+
+                    <script>
+                        function previewImage(){
+                            var input = document.getElementById("fileUpload");
+                            var preview = document.getElementById("imagePreview")
+
+                            if(input.files && input.files[0]){
+                                var reader = new FileReader();
+
+                                reader.onload = function(e){
+                                    preview.src = e.target.result;
+                                    preview.style.display = 'block';
+                                }
+
+                                reader.readAsDataURL(input.files[0]);
+                            } else {
+                                preview.src = "#";
+                                preview.style.display = "none";
+                            }
+                        }
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary edit-btn" form="edit-fp-form-{{$user->id_user}}">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 @section('footer')
     <script type="module">
@@ -317,6 +368,29 @@
                 axios.post(`/profil/edit/password/${idUser}`, data)
                     .then(() => {
                         $(`#editPassword-modal-${idUser}`).css('display', 'none')
+                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                            location.reload();
+                        })
+                    })
+                    .catch(() => {
+                        swal.fire('Gagal edit data!', '', 'warning');
+                    })
+            })
+        })
+
+        // pop up foto profil
+        $('.editBtn').on('click', function (e) {
+            e.preventDefault();
+            let idUser = $(this).attr('idUser');
+            $(`#edit-fp-form-${idUser}`).on('submit', function (e) {
+                e.preventDefault();
+                let data = Object.fromEntries(new FormData(e.target));
+                data['id_user'] = idUser;
+                axios.post(`/profil/edit/foto_profil/${idUser}`, data, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
+                    .then(() => {
+                        $(`#editFotoProfil-modal-${idUser}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
                             location.reload();
                         })
