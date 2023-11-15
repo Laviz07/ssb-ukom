@@ -33,7 +33,7 @@
                                             <label for="pilihPelatih">Nama Pelatih:</label>
                                             {{-- <input type="text" class="form-control" required name="nama_pelatih"> --}}
                                             <select name="nik_pelatih" id="pilihPelatih" class="form-select mb-3">
-                                                <option value="" selected>Pilih Pelatih Tim</option>
+                                                <option value="" selected disabled>Pilih Pelatih Tim</option>
                                                 @foreach ($pelatih as $pl)
                                                     <option value="{{$pl->nik_pelatih}}">{{$pl->nama_pelatih}}</option>
                                                 @endforeach
@@ -51,9 +51,34 @@
                                 <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
                                         <label for="fileUpload" class="">Upload Foto (masukkan frame 2:4) :</label>
-                                        <input type="file" name="foto_tim" id="fileUpload"  class="btn w-auto btn-outline-primary form-control">
+                                        <input type="file" name="foto_tim" id="fileUpload" onchange="previewImage()"
+                                            class="btn w-auto btn-outline-primary form-control">
+                                        <img src="#" id="imagePreview" alt="preview" 
+                                            style="width: 345px; height: 200px; display: none" 
+                                            class="mt-2 rounded ">
                                     </div>
                                 </div>
+
+                                <script>
+                                    function previewImage(){
+                                        var input = document.getElementById("fileUpload");
+                                        var preview = document.getElementById("imagePreview")
+
+                                        if(input.files && input.files[0]){
+                                            var reader = new FileReader();
+
+                                            reader.onload = function(e){
+                                                preview.src = e.target.result;
+                                                preview.style.display = 'block';
+                                            }
+
+                                            reader.readAsDataURL(input.files[0]);
+                                        } else {
+                                            preview.src = "#";
+                                            preview.style.display = "none";
+                                        }
+                                    }
+                                </script>
                             </div>
                         </div>  
                         {{-- <p> --}}
