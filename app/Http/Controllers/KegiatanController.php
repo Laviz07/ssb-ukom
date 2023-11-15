@@ -9,59 +9,48 @@ use App\Models\Pelatih;
 
 class KegiatanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $data = [
-            'kegiatan' => Kegiatan::all(),
-            'jadwal' => Jadwal::all()
+            'jadwal' => Jadwal::where('id_jadwal', $request->id)->first(),
+            'kegiatan' => Kegiatan::all()
         ];
+
         return view('Kegiatan.index', $data);
     }
 
-    // public function indexDetail(Request $request)
-    // {
-    //     $data = [
-    //         'kegiatan' => Kegiatan::where('id_kegiatan', $request->id)->first()
-    //     ];
-
-    //     return view('Kegiatan.index', $data);
-    // }
-
-    public function indexCreate()
+    public function indexCreate(Request $request)
     {
         $data = [
-            'jadwal' => Jadwal::all(),
+            'jadwal' => Jadwal::where('id_jadwal', $request->id)->first(),
             'pelatih' => Pelatih::all(),
         ];
-        return view('Kegiatan.tambah');
+        return view('Kegiatan.tambah', $data);
     }
 
     public function create(Request $request)
     {
         $data = $request->validate([
             // Menambah ke tabel pelatih
-            'nama_pelatih' => ['required'],
-            'id_kegiatan' => ['required'],
+            'nik_pelatih' => ['required'],
+            'nama_kegiatan' => ['required'],
+            'id_jadwal' => ['required'],
             'tipe_kegiatan' => ['required'],
             'jam_mulai' => ['required'],
             'jam_selesai' => ['required'],
-            'foto_kegiatan' => ['required'],
+            // 'foto_kegiatan' => ['required'],
             'detail_kegiatan' => ['required'],
             'laporan_kegiatan' => ['required'],
 
-            // Menambah ke tabel user
         ]);
 
         //Upload foto kegiatan
-        $path = $request->file("foto_kegiatan")->storePublicly("foto_kegiatan", "public");
-        $data['foto_kegiatan'] = $path;
-
-
-
+        // $path = $request->file("foto_kegiatan")->storePublicly("foto_kegiatan", "public");
+        // $data['foto_kegiatan'] = $path;
 
         $dataInsert = Kegiatan::create($data);
         if ($dataInsert) {
-            return redirect()->to('/kegiatan/{id}')->with('success', 'kegiatan berhasil ditambah');
+            return redirect()->to('/jadwal/kegiatan/{id}')->with('success', 'kegiatan berhasil ditambah');
         }
     }
 

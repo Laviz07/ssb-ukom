@@ -45,7 +45,12 @@
                                     <div class="col-md-4">
                                         <div class="form-group mt-2">
                                             <label >No. Telepon:</label>
-                                            <input type="number" class="form-control" required name="no_telp">
+                                            <div class="input-group mb-2">
+                                                <span class="input-group-text" >+62</span>
+                                                <input  type="number" class="form-control" placeholder="81234567890"
+                                                name="no_telp" required/>
+                                              </div>
+                                            
                                         </div>
                                     </div>
 

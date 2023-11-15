@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|logs whereUsername($value)
  * @mixin \Eloquent
  */
-class logs extends Model
+class Logs extends Model
 {
     use HasFactory;
     protected $table = "logs";

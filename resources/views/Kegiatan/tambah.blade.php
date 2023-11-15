@@ -15,7 +15,7 @@
             <div class="card ">
              
                 <div class="card-body" >
-                    <form action="{{ url('kegiatan', ['tambah'])}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('jadwal', ['kegiatan','tambah', $jadwal->id_jadwal])}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="">
@@ -24,6 +24,8 @@
                                     <input type="text" class="form-control" required name="nama_kegiatan">
                                     <input type="hidden" name="role" value="kegiatan">
                                 </div>
+
+                                <input type="hidden" name="id_jadwal" value="{{$jadwal->id_jadwal }}">
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -46,8 +48,9 @@
                                         <div class="form-group mt-2">
                                             <label >Tipe Kegiatan:</label>
                                             <select required name="tipe_kegiatan" class="form-select mb-3">
-                                                <option selected value="pertandingan">pertandingan</option>
-                                                <option selected value="latihan">latihan</option>
+                                                <option value="" selected disabled>Pilih Posisi</option>
+                                                <option value="pertandingan">pertandingan</option>
+                                                <option value="latihan">latihan</option>
                                             </select>
                                         </div>
                                     </div>
@@ -55,40 +58,38 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group mt-2">
-                                            <label >Nama Pelatih:</label>
-                                            <input type="text" class="form-control" required name="nama_pelatih">
-                                        </div> 
+                                             <label >Nama Pelatih:</label>
+                                           {{-- <input type="text" class="form-control" required name="nama_pelatih"> --}}
+
+                                        <select name="nik_pelatih" required id="pilihPelatih" class="form-select mb-3">
+                                            <option value="" selected disabled>Pilih Pelatih</option>
+                                            @foreach ($pelatih as $pl)
+                                                <option value="{{ $pl->nik_pelatih }}">{{ $pl->nama_pelatih }}</option>
+                                            @endforeach
+                                        </select> 
+                                    </div> 
                                     </div>
-{{-- 
-                                    <select name="nik_pelatih" id="pilihPelatih" class="form-select mb-3">
-                                        <option value="" selected>Pilih Pelatih</option>
-                                        @foreach ($pelatih as $pl)
-                                            <option value="{{ $pl->nik_pelatih }}">{{ $pl->nama_pelatih }}</option>
-                                        @endforeach
-                                        
-                                    </select> --}}
 
                                 </div>
                                
                                 <div class="form-group">
                                     <label >Detail Kegiatan:</label>
-                                    <textarea required name="detail_kegiatan" id="" class="form-control" rows="3" placeholder="Detail Kegiatan" style="resize: none"></textarea>
+                                    <textarea required name="detail_kegiatan"class="form-control" rows="3" placeholder="Detail Kegiatan" style="resize: none"></textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label >Laporan Kegiatan:</label>
-                                    <textarea required name="laporan_kegiatan" id="" class="form-control" rows="3" placeholder="Laporan Kegiatan" style="resize: none"></textarea>
+                                    <textarea required name="laporan_kegiatan" class="form-control" rows="3" placeholder="Laporan Kegiatan" style="resize: none"></textarea>
                                 </div>
 
-                                <div class="row">
+                                {{--   <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
                                         <label for="fileUpload" class="">Upload Foto (masukkan frame 1:1) :</label>
                                         <input type="file" name="foto_kegiatan" id="fileUpload" class="btn w-auto btn-outline-primary form-control">
                                     </div>
                                 </div>
                             </div>
-                        </div>  
-                        {{-- <p> --}}
+                        </div>   --}}
                             <hr>
                         <div class="row">
                             <div class="col-md-4">
@@ -104,22 +105,22 @@
 </div>
 @endsection
 @section('footer')
-    <script type="module" > 
-        // add pop up
-        $('.addBtn').on('click', function (e) {
+<script type="module">
+    // add pop up
+    $('.addBtn').on('click', function (e) {
         e.preventDefault();
         let data = new FormData(e.target.form);
-        axios.post(`/kegiatan/tambah`, data, {
+        axios.post(`/jadwal/kegiatan/tambah/${data.get('id_jadwal')}`, data, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {
             swal.fire('Berhasil tambah data!', '', 'success').then(function () {
-                window.location.href = '/kegiatan/{id}'; 
+                window.location.href = `/jadwal/kegiatan/${data.get('id_jadwal')}`;
             })
         })
         .catch((err) => {
             swal.fire('Gagal tambah data!', '', 'warning');
         });
     });
-    </script>
+</script>
 @endsection

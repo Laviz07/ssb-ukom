@@ -24,8 +24,11 @@
 
                         <span> 
                             <span class="fw-bold "> No.Telp </span>: 
-                            0{{$user->pemain->no_telp}}
+                            <a href="https://wa.me/62{{$user->pemain->no_telp}}" style="text-decoration: none">
+                                0{{$user->pemain->no_telp}}
+                            </a>
                         </span>
+
 
                         <span>
                             <span class="fw-bold ">Email </span>
@@ -62,7 +65,11 @@
 
                 <div class="row mt-3">
                     <span style="font-size: 17px; font-weight: 600;">Tempat, Tanggal Lahir:</span>
-                    <span style="font-size: 17px;"> {{$user->pemain->tempat_lahir}}, {{$user->pemain->tanggal_lahir}} </span>
+                    <span style="font-size: 17px;"> 
+                        {{$user->pemain->tempat_lahir}}, 
+                        {{$user->pemain->tanggal_lahir}} 
+                       {{\Carbon\Carbon::parse($pelatih->tanggal_lahir)->format('j F Y') }}
+                    </span>
                 </div>
 
                 <div class="row mt-3">

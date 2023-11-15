@@ -24,7 +24,9 @@
 
                         <span> 
                             <span class="fw-bold "> No.Telp </span>: 
-                            0{{$user->pelatih->no_telp}}
+                            <a href="https://wa.me/62{{$user->pelatih->no_telp}}" style="text-decoration: none">
+                                0{{$user->pelatih->no_telp}}
+                            </a>
                         </span>
 
                         {{--<span>
@@ -32,23 +34,49 @@
                             <span style="margin-left: 13px">: {{$user->pelatih->email}}</span> 
                         </span> --}}
 
-                        <button class="btn btn-primary mt-4 editBtn" 
-                        data-bs-toggle="modal" data-bs-target="#editProfil-modal-{{$user->pelatih->nik_pelatih}}"
-                        idPL = {{$user->pelatih->nik_pelatih}}>
-                            Edit Profil
-                        </button>
+                        <div class="dropdown dropend" style="display: inline-block; vertical-align: middle;">
+                            <button class="btn btn-primary mt-4" style="width: 100%" id="navbarDropdownMenuLink" data-bs-toggle='dropdown' data-bs-offset="-10,20">
+                                Edit Profil Anda
+                                <i class="bi bi-pencil ms-2 "></i> 
+                            </button>
 
-                        <button class="btn btn-primary mt-2 editBtn" style="width: 47%;" 
-                        data-bs-toggle="modal" data-bs-target="#editUsername-modal-{{$user->id_user}}"
-                        idUser = {{$user->id_user}}>
-                            Edit Username
-                        </button>
+                            <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
+                            
+                            <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
+                              
 
-                        <button class="btn btn-primary mt-2 editBtn"  style="width: 47%; margin-left: 5%"
-                        data-bs-toggle="modal" data-bs-target="#editPassword-modal-{{$user->id_user}}"
-                        idUser = {{$user->id_user}}>
-                            Ganti Password
-                        </button>
+                               <a class="dropdown-item editBtn" 
+                                data-bs-toggle="modal" data-bs-target="#editProfil-modal-{{$user->pelatih->nik_pelatih}}"
+                                idPL = {{$user->pelatih->nik_pelatih}} style="cursor: pointer" > 
+                                    <i class="bi bi-person-lines-fill"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                    <strong class="ms-1" >Edit Biodata Anda</strong> 
+                               </a>
+
+                               <a class="dropdown-item editBtn" 
+                                data-bs-toggle="modal" data-bs-target="#editUsername-modal-{{$user->id_user}}"
+                                idUser = {{$user->id_user}} style="cursor: pointer" > 
+                                    <i class="bi bi-pencil-square"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                    <strong class="ms-1" >Edit Username Anda</strong> 
+                               </a>
+
+                               <a class="dropdown-item editBtn" 
+                                data-bs-toggle="modal" data-bs-target="#editPassword-modal-{{$user->id_user}}"
+                                idUser = {{$user->id_user}} style="cursor: pointer" > 
+                                    <i class="bi bi-key-fill"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                    <strong class="ms-1" >Edit Password Anda</strong> 
+                               </a>
+
+                               <a class="dropdown-item editBtn" 
+                                data-bs-toggle="modal" data-bs-target="#editProfil-modal-{{$user->pelatih->nik_pelatih}}"
+                                idPL = {{$user->pelatih->nik_pelatih}} style="cursor: pointer" > 
+                                    <i class="bi bi-image-fill"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                    <strong class="ms-1" >Edit Foto Profil Anda</strong> 
+                               </a>
+
+                            </div>
+
+                        </div>
+
                         
                     </div>
                 </div>
@@ -77,7 +105,10 @@
 
                 <div class="row mt-3">
                     <span style="font-size: 17px; font-weight: 600;">Tempat, Tanggal Lahir:</span>
-                    <span style="font-size: 17px;"> {{$user->pelatih->tempat_lahir}}, {{$user->pelatih->tanggal_lahir}} </span>
+                    <span style="font-size: 17px;"> 
+                        {{$user->pelatih->tempat_lahir}}, 
+                        {{\Carbon\Carbon::parse($user->pelatih->tanggal_lahir)->format('j F Y') }}
+                    </span>
                 </div>
 
                 <div class="row mt-3">
@@ -124,13 +155,15 @@
                         </textarea>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label>No. Telepon:</label>
-                        <input placeholder="example" type="number" class="form-control mb-3"
-                                name="no_telp"
-                                value="{{$user->pelatih->no_telp}}"
-                                required/>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text" >+62</span>
+                            <input  type="number" class="form-control" placeholder="example" "
+                            name="no_telp"  value="{{$user->pelatih->no_telp}}" required/>
+                          </div>
                     </div>
+                      
 
                     <div class="form-group">
                     <label>Email:</label>

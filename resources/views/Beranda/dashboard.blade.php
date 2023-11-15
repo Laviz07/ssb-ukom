@@ -78,81 +78,45 @@
                 </a>
             </div>
         </div>
-
-        <div class="modal fade" id="user-modal" tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 70%;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">User:</h1>
-                </div>
-                <div class="modal-body row">
-                <div class="col-4">
-                    <a href="{{url('admin')}}" class="text-decoration-none">
-                        <div class="card bg-c-blue">
-                            <div class="card-body text-white">
-                                <h1 class="text-right"><i class="bi bi-person-fill"></i>
-                                <span class="f-right">{{$admin}}</span></h1>
-                                <h2>Admin</h2>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-               
-                    
-                <div class="col-4">
-                    <a href="{{url('pemain')}}" class="text-decoration-none">
-                        <div class="card bg-c-blue ">
-                            <div class="card-body text-white">
-                                <h1 class="text-right"><i class="bi bi-person-fill"></i>
-                                <span class="f-right">{{$pemain}}</span></h1>
-                                <h2>Pemain</h2>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-4">
-                    <a href="{{url('pelatih')}}" class="text-decoration-none">
-                        <div class="card bg-c-blue ">
-                            <div class="card-body text-white">
-                                <h1 class="text-right"><i class="bi bi-person-fill"></i>
-                                <span class="f-right">{{$pelatih}}</span></h1>
-                                <h2>Pelatih</h2>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                </div>
-                </div>
-            </div>
     {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    {!! $suratChart->container() !!}
+                    {{-- {!! $beritaChart->container() !!} --}}
                 </div>
             </div>
         </div>
     </div>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        {!! $jsChart->container() !!}
-                    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    {{-- {!! $beritaChart->container() !!} --}}
                 </div>
             </div>
         </div>
-    </div> --}}
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    {{-- {!! $beritaChart->container() !!} --}}
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    {{-- {!! $beritaChart->container() !!} --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 @endsection
 @section('footer')
-    {{-- <script src="{{ $jsChart->cdn() }}"></script>
+    {{-- {{-- <script src="{{ $jsChart->cdn() }}"></script>
 
-    {{ $jsChart->script() }}
-    <script src="{{ $suratChart->cdn() }}"></script>
+    {{ $jsChart->script() }} --}}
+    <script src="{{ $beritaChart->cdn() }}"></script>
 
-    {{ $suratChart->script() }} --}}
+    {{ $beritaChart->script() }} 
 @endsection
