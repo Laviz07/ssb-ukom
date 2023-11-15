@@ -137,9 +137,35 @@
                                 <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
                                         <label for="fileUpload" class="">Upload Foto (masukkan frame 1:1) :</label>
-                                        <input type="file" name="foto_profil" id="fileUpload"  class="btn w-auto btn-outline-primary form-control">
+                                        <input type="file" name="foto_profil" id="fileUpload" onchange="previewImage()" 
+                                            class="btn w-auto btn-outline-primary form-control">
+                                        <img src="#" id="imagePreview" alt="preview" 
+                                            style="width: 345px; height: 345px; display: none" 
+                                            class="mt-2 rounded ">
                                     </div>
                                 </div>
+
+                                <script>
+                                    function previewImage(){
+                                        var input = document.getElementById("fileUpload");
+                                        var preview = document.getElementById("imagePreview")
+
+                                        if(input.files && input.files[0]){
+                                            var reader = new FileReader();
+
+                                            reader.onload = function(e){
+                                                preview.src = e.target.result;
+                                                preview.style.display = 'block';
+                                            }
+
+                                            reader.readAsDataURL(input.files[0]);
+                                        } else {
+                                            preview.src = "#";
+                                            preview.style.display = "none";
+                                        }
+                                    }
+                                </script>
+
                             </div>
                         </div>  
                         {{-- <p> --}}
