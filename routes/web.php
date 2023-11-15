@@ -45,7 +45,6 @@ Route::get('/galeri', [GaleriController::class, 'index']);
 Route::get('/profil', [ProfilController::class, 'index']);
 Route::post('/profil/pemain/edit/{id}', [ProfilController::class, 'editPemain']);
 Route::post('/profil/pelatih/edit/{id}', [ProfilController::class, 'editPelatih']);
-Route::post('/profil/edit/foto_profil/{id}', [UserController::class, 'editFotoProfil']);
 
 Route::post('/profil/edit/username/{id}', [UserController::class, 'editUsername']);
 Route::post('/profil/edit/password/{id}', [UserController::class, 'editPassword']);
