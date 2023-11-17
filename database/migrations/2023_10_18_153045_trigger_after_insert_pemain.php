@@ -19,10 +19,15 @@ return new class extends Migration
 
             BEGIN 
                 DECLARE t_username varchar(50);
-                -- DECLARE t_password varchar(255);
+                DECLARE t_host varchar(50);
                 DECLARE t_role ENUM('admin', 'pelatih', 'pemain');
 
-                SELECT username into t_username from user where id_user = New.id_user;
+                -- SELECT username into t_usernamename from user where id_user = New.id_user;
+
+                SELECT USER into t_username FROM information_schema.processlist where ID=connection_id();
+
+                SELECT HOST into t_host FROM information_schema.processlist where ID=connection_id();
+
                 -- SELECT password into t_password from user where id_user = New.id_user;
                 SELECT role into t_role from user where id_user = New.id_user;
                 
@@ -30,7 +35,7 @@ return new class extends Migration
 
                 SET @deskripsi_pemain := IFNULL(New.deskripsi_pemain, '[NULL]');
                 
-                CALL Logger(t_username, 'INSERT',
+                CALL Logger(t_username, t_host, 'INSERT',
                     CONCAT(
                         'id_user: ', New.id_user,
                         -- ',  password: ', t_password,

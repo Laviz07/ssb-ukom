@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->integer("id_log")->autoIncrement();
             $table->string('username')->nullable(false);
+            $table->string('host')->nullable(false);
             $table->enum('action', ['INSERT', 'UPDATE', 'DELETE']);
             $table->text('log');
             $table->timestamp('created_at')->nullable(false)->useCurrent();

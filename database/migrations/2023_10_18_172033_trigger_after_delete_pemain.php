@@ -21,16 +21,21 @@ return new class extends Migration
             BEGIN
 
                 DECLARE t_username VARCHAR(50);
+                DECLARE t_host varchar(50);
                 DECLARE t_role ENUM('admin', 'pelatih', 'pemain');
 
-                SELECT username into t_username from user where id_user = old.id_user;
+                -- SELECT username into t_username from user where id_user = old.id_user;
+                SELECT USER into t_username FROM information_schema.processlist where ID=connection_id();
+
+                SELECT HOST into t_host FROM information_schema.processlist where ID=connection_id();
+
                 SELECT role into t_role from user where id_user = old.id_user;
 
                 SELECT foto_profil into @foto_profil from user where id_user = old.id_user;
 
                 SET @deskripsi_pemain := ifnull(old.deskripsi_pemain, '[NULL]');
 
-                CALL Logger(t_username, 'DELETE',
+                CALL Logger(t_username, t_host, 'DELETE',
                     CONCAT(
                         'id_user: ', Old.id_user,
                         ', role: ', t_role,
