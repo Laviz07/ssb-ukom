@@ -44,6 +44,7 @@
                             <td style="text-align: center">
                                
 
+                            @if (Auth::user()['role']=='admin')
                                 <div class="dropdown dropend" style="display: inline-block; vertical-align: middle;">
                                     <button class="btn btn-primary" id="navbarDropdownMenuLink" data-bs-toggle='dropdown' data-bs-offset="-10,20">
                                         Action
@@ -60,7 +61,6 @@
                                         <strong class="ms-1">Lihat Detail Pemain</strong> 
                                        </a>
 
-                                    @if (Auth::user()['role']=='admin')
                                         <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$pm->nisn_pemain}}" 
                                             style="cursor: pointer" idPM = {{$pm->nisn_pemain}} > 
                                             <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
@@ -71,11 +71,18 @@
                                             <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
                                             <strong class="ms-1">Hapus Data Pemain</strong> 
                                         </a>
-                                    @endif
 
                                     </div>
 
                                 </div>
+                            @endif
+
+                            @if (Auth::user()['role']!='admin')
+                                <a href="{{ url('pemain', ['detail', $pm->nisn_pemain]) }}" class="btn btn-primary" >
+                                    Lihat Detail
+                                    <i class="bi bi-search ms-2"  style="font-size: 15px; vertical-align: middle; "></i> 
+                                </a>
+                            @endif
 
                             </td>
                         </tr>

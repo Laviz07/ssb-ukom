@@ -42,7 +42,7 @@
                                 @endif
                             </td>
                             <td class="col-3 text-capitalize text-center"> {{$ad->nama_admin}} </td>
-                            <td class="col-2 text-capitalize text-center"> {{$ad->username}} </td>
+                            <td class="col-2 text-capitalize text-center"> {{$ad->user->username}} </td>
                             <td class="col-2" style="text-align: center"> {{$ad->nik_admin}} </td>
                             <td class="col-3" style="text-align: center"> {{$ad->email}} </td>
                             <td style="text-align: center">
