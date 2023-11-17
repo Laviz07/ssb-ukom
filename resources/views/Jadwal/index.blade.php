@@ -39,6 +39,7 @@
                             <td style="text-align: center">
                                
 
+                            @if (Auth::user()['role']=='admin' || Auth::user()['role']=='pelatih')
                                 <div class="dropdown dropend" style="display: inline-block; vertical-align: middle;">
                                     <button class="btn btn-primary" id="navbarDropdownMenuLink" data-bs-toggle='dropdown' data-bs-offset="-10,20">
                                         Action
@@ -55,7 +56,6 @@
                                         <strong class="ms-1">Lihat List Kegiatan</strong> 
                                        </a>
 
-                                    @if (Auth::user()['role']=='admin')
                                         <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$jw->id_jadwal}}" 
                                             style="cursor: pointer" idJW = {{$jw->id_jadwal}} > 
                                             <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
@@ -66,12 +66,19 @@
                                             <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
                                             <strong class="ms-1">Hapus Data Jadwal</strong> 
                                         </a>
-                                    @endif
+                                    
 
                                     </div>
 
                                 </div>
+                            @endif
 
+                            @if (Auth::user()['role']=='pemain')
+                                <a href="{{ url('jadwal', ['kegiatan', $jw->id_jadwal]) }}" class="btn btn-primary" >
+                                    Lihat Detail
+                                    <i class="bi bi-search ms-2"  style="font-size: 15px; vertical-align: middle; "></i> 
+                                </a>
+                            @endif
                             </td>
                         </tr>
 
