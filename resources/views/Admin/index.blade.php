@@ -21,6 +21,7 @@
                             <td>Nama</td>
                             <td>Username</td>
                             <td>NIK</td>
+                            <td>No. Telp</td>
                             <td>Email</td>
                             <td>Action</td>
                         </tr>
@@ -41,18 +42,19 @@
                                     <i class="bi bi-person-circle"  style="font-size: 40px;"></i> 
                                 @endif
                             </td>
-                            <td class="col-3 text-capitalize text-center"> {{$ad->nama_admin}} </td>
-                            <td class="col-2 text-capitalize text-center"> {{$ad->user->username}} </td>
+                            <td class="col-1 text-capitalize text-center"> {{$ad->nama_admin}} </td>
+                            <td class="col-1 text-capitalize text-center"> {{$ad->user->username}} </td>
                             <td class="col-2" style="text-align: center"> {{$ad->nik_admin}} </td>
-                            <td class="col-3" style="text-align: center"> {{$ad->email}} </td>
+                            <td class="col-2" style="text-align: center"> 0{{$ad->no_telp}} </td>
+                            <td class="col-2" style="text-align: center"> {{$ad->email}} </td>
                             <td style="text-align: center">
                                 
                                 <div class="dropdown dropend" style="display: inline-block; vertical-align: middle;">
                                     <button class="btn btn-primary" id="navbarDropdownMenuLink" data-bs-toggle='dropdown' data-bs-offset="-10,20">
                                         Action
-                                        {{-- <i  class="bi bi-three-dots-vertical " 
+                                        <i  class="bi bi-three-dots-vertical " 
                                             style="font-size: 26; vertical-align: middle; cursor: pointer;">
-                                        </i> --}}
+                                        </i>
                                     </button>
 
                                     <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
@@ -100,13 +102,23 @@
 
                                             
 
-                                            <div class="form-group">
-                                                <label>NIK Admin:</label>
+                                            {{-- <div class="form-group">
+                                                <label>No. Telepon:</label>
                                                 <input placeholder="example" type="number" class="form-control mb-3"
                                                         name="no_telp"
-                                                        value="{{$ad->nik_admin}}"
+                                                        value="{{$ad->no_telp}}"
                                                         required/>
+                                            </div> --}}
+
+                                            <div class="form-group mt-2">
+                                                <label >No. Telepon:</label>
+                                                <div class="input-group mb-2">
+                                                    <span class="input-group-text" >+62</span>
+                                                    <input  type="number" class="form-control" placeholder="81234567890"
+                                                    name="no_telp" value="{{$ad->no_telp}}" required/>
+                                                  </div>
                                             </div>
+
 
                                             <div class="form-group">
                                                 <label>Email:</label>

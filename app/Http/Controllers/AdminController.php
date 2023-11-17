@@ -116,7 +116,7 @@ class AdminController extends Controller
         //
         $data = $request->validate([
             'nama_admin' => ['required'],
-            'nik_admin' => ['required'],
+            // 'nik_admin' => ['required'],
             'no_telp' => ['required'],
             'email' => ['required'],
         ]);
