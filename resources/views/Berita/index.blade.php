@@ -16,12 +16,12 @@
     
         @if ($berita->count() > 0)
         @foreach($berita as $br)
-            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <div class="col-lg-4 col-md-12 mb-1 mb-lg-0">
                 <div idBR={{$br->id_berita}} >
                     <div class="col-md-3 card mt-4 align-items-center" style="width: 350px;">    
                     <a class="dropdown-item z-0 d-flex justify-content-center" href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
                         <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{'storage/foto_berita/' . $br->foto_berita}}" 
-                            height="200" width="300" class="rounded p-2 pt-4" >
+                            height="250" width="300" class="rounded p-2 pt-4" >
                     </a>
 
                         <div class="col d-flex justify-content-between mb-3 mt-3 ps-4">
