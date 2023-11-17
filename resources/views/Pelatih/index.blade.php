@@ -95,6 +95,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form id="edit-pl-form-{{$pl->nik_pelatih}}">
+                                            <input type="hidden" value="{{Auth::user()->id_user}}" name="id_user">
                                             <div class="form-group">
                                                 <label>Nama Pelatih</label>
                                                 <input placeholder="example" type="text" class="form-control mb-3"

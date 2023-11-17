@@ -20,14 +20,15 @@ return new class extends Migration
             CREATE OR REPLACE PROCEDURE $this->sp
             (
                 Username Varchar(50),
+                Host Varchar(50),
                 Action ENUM('INSERT', 'UPDATE', 'DELETE'),
                 Log TEXT
             )
             MODIFIES SQL DATA
 
             BEGIN
-                INSERT INTO logs (username, action, log)
-                VALUES (Username, Action, Log);
+                INSERT INTO logs (username, host, action, log)
+                VALUES (Username, Host, Action, Log);
             END;
             "
         );
