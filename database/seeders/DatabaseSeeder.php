@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->count(7)->create();
         $this->call(UserSeeder::class);
+        User::factory()->times(100)->create();
+
         // Panggil Seeder lain jika ada
     }
 }

@@ -53,7 +53,7 @@ class User extends Authenticatable
         'password',
         'role',
         'foto_profil',
-        'login_count'
+        'active'
     ];
 
     /**
@@ -74,6 +74,17 @@ class User extends Authenticatable
     //     'email_verified_at' => 'datetime',
     //     'password' => 'hashed',
     // ];
+    
+    public function getLoginCount()
+    {
+        return $this->logins()->count();
+    }
+
+    public function scopeActiveAdmins($query)
+    {
+        return $query->where('role', 'admin')
+            ->where('active', true);
+    }
 
     public function pemain(): HasOne
     {

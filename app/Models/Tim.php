@@ -51,4 +51,9 @@ class Tim extends Model
     {
         return $this->hasMany(Pemain::class, "id_tim");
     }
+
+    public function getPemainCountAttribute()
+  {
+    return $this->pemain()->count();
+  }
 }
