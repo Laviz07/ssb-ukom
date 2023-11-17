@@ -31,26 +31,27 @@
                                 </span>
                             </div>   
                              @if (Auth::check() && Auth::user()->role == 'admin')
-                            <div class="ps-3" style="display: inline-block; ">
-                                <div class="dropdown dropend" style=" vertical-align: middle; margin-right: 20px;">
-                                    <i  class="bi bi-three-dots-vertical " 
-                                        style="font-size: 20px; vertical-align: middle; cursor: pointer;"
+                             <div class="ps-3" style="display: flex; align-items: center;">
+                                <div class="dropdown dropend" style="margin-right: 20px;">
+                                    <i class="bi bi-three-dots-vertical" 
+                                        style="font-size: 20px; cursor: pointer;"
                                         id="beritaDropdown" data-bs-toggle='dropdown' data-bs-offset="-10,20">
                                     </i>
-                                    <div class="dropdown-menu z-2 " style="width: 200px; " aria-labelledby="beritaDropdown">
+                                    <div class="dropdown-menu z-2" style="width: 200px;" aria-labelledby="beritaDropdown">
                                         <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
-                                            <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
-                                                style="cursor: pointer" idBR = {{$br->id_berita}} > 
-                                                <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                                <strong class="ms-1" >Edit Data Berita</strong> 
-                                            </a>
-                                            <a class="dropdown-item hapusBtn" idBR={{$br->id_berita}} style="cursor: pointer"> 
-                                                <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                                <strong class="ms-1">Hapus Data Berita</strong> 
-                                            </a>
+                                        <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
+                                            style="cursor: pointer" idBR="{{$br->id_berita}}"> 
+                                            <i class="bi bi-pencil" style="font-size: 20px;"></i> 
+                                            <strong class="ms-1">Edit Data Berita</strong> 
+                                        </a>
+                                        <a class="dropdown-item hapusBtn" idBR="{{$br->id_berita}}" style="cursor: pointer"> 
+                                            <i class="bi bi-trash" style="font-size: 20px;"></i> 
+                                            <strong class="ms-1">Hapus Data Berita</strong> 
+                                        </a>
                                     </div>
                                 </div>
                             </div>
+                            
                             @endif
                         </div>
                     </div>
