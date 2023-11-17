@@ -80,12 +80,19 @@ class TimController extends Controller
         $data = $request->validate([
             'nama_tim' => ['required'],
             'nik_pelatih' => ['required'],
-            'deskripsi_tim' => ['required']
+            'deskripsi_tim' => ['required'],
+            'foto_tim' => ['nullable'],
         ]);
 
         $tim = Tim::query()->find($request->input('id_tim'));
-        $tim->fill($data);
-        $tim->save();
+
+        if ($request->hasFile('foto_tim')) {
+            $path = $request->file('foto_tim')->storePublicly('foto_tim', 'public');
+            $data['foto_tim'] = $path;
+            $tim->foto_tim = $path;
+        }
+
+        $tim->update($data);
 
         return redirect()->to('/tim')->with('success', 'Tim Berhasil Diupdate');
     }

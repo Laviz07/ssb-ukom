@@ -24,7 +24,9 @@
 
                         <span> 
                             <span class="fw-bold "> No.Telp </span>: 
-                            0{{$user->pelatih->no_telp}}
+                            <a href="https://wa.me/62{{$user->pelatih->no_telp}}" style="text-decoration: none">
+                                0{{$user->pelatih->no_telp}}
+                            </a>
                         </span>
 
                         {{--<span>
@@ -32,23 +34,49 @@
                             <span style="margin-left: 13px">: {{$user->pelatih->email}}</span> 
                         </span> --}}
 
-                        <button class="btn btn-primary mt-4 editBtn" 
-                        data-bs-toggle="modal" data-bs-target="#editProfil-modal-{{$user->pelatih->nik_pelatih}}"
-                        idPL = {{$user->pelatih->nik_pelatih}}>
-                            Edit Profil
-                        </button>
+                        <div class="dropdown dropend" style="display: inline-block; vertical-align: middle;">
+                            <button class="btn btn-primary mt-4" style="width: 100%" id="navbarDropdownMenuLink" data-bs-toggle='dropdown' data-bs-offset="-10,20">
+                                Edit Profil Anda
+                                <i class="bi bi-pencil ms-2 "></i> 
+                            </button>
 
-                        <button class="btn btn-primary mt-2 editBtn" style="width: 47%;" 
-                        data-bs-toggle="modal" data-bs-target="#editUsername-modal-{{$user->id_user}}"
-                        idUser = {{$user->id_user}}>
-                            Edit Username
-                        </button>
+                            <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
+                            
+                            <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
+                              
 
-                        <button class="btn btn-primary mt-2 editBtn"  style="width: 47%; margin-left: 5%"
-                        data-bs-toggle="modal" data-bs-target="#editPassword-modal-{{$user->id_user}}"
-                        idUser = {{$user->id_user}}>
-                            Ganti Password
-                        </button>
+                               <a class="dropdown-item editBtn" 
+                                data-bs-toggle="modal" data-bs-target="#editProfil-modal-{{$user->pelatih->nik_pelatih}}"
+                                idPL = {{$user->pelatih->nik_pelatih}} style="cursor: pointer" > 
+                                    <i class="bi bi-person-lines-fill"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                    <strong class="ms-1" >Edit Biodata Anda</strong> 
+                               </a>
+
+                               <a class="dropdown-item editBtn" 
+                                data-bs-toggle="modal" data-bs-target="#editUsername-modal-{{$user->id_user}}"
+                                idUser = {{$user->id_user}} style="cursor: pointer" > 
+                                    <i class="bi bi-pencil-square"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                    <strong class="ms-1" >Edit Username Anda</strong> 
+                               </a>
+
+                               <a class="dropdown-item editBtn" 
+                                data-bs-toggle="modal" data-bs-target="#editPassword-modal-{{$user->id_user}}"
+                                idUser = {{$user->id_user}} style="cursor: pointer" > 
+                                    <i class="bi bi-key-fill"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                    <strong class="ms-1" >Edit Password Anda</strong> 
+                               </a>
+
+                               <a class="dropdown-item editBtn" 
+                                data-bs-toggle="modal" data-bs-target="#editFotoProfil-modal-{{$user->id_user}}"
+                                idUser = {{$user->id_user}} style="cursor: pointer" > 
+                                    <i class="bi bi-image-fill"  style="font-size: 20px; vertical-align: middle; "></i> 
+                                    <strong class="ms-1" >Edit Foto Profil Anda</strong> 
+                               </a>
+
+                            </div>
+
+                        </div>
+
                         
                     </div>
                 </div>
@@ -77,7 +105,10 @@
 
                 <div class="row mt-3">
                     <span style="font-size: 17px; font-weight: 600;">Tempat, Tanggal Lahir:</span>
-                    <span style="font-size: 17px;"> {{$user->pelatih->tempat_lahir}}, {{$user->pelatih->tanggal_lahir}} </span>
+                    <span style="font-size: 17px;"> 
+                        {{$user->pelatih->tempat_lahir}}, 
+                        {{\Carbon\Carbon::parse($user->pelatih->tanggal_lahir)->format('j F Y') }}
+                    </span>
                 </div>
 
                 <div class="row mt-3">
@@ -124,13 +155,15 @@
                         </textarea>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label>No. Telepon:</label>
-                        <input placeholder="example" type="number" class="form-control mb-3"
-                                name="no_telp"
-                                value="{{$user->pelatih->no_telp}}"
-                                required/>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text" >+62</span>
+                            <input  type="number" class="form-control" placeholder="example" "
+                            name="no_telp"  value="{{$user->pelatih->no_telp}}" required/>
+                          </div>
                     </div>
+                      
 
                     <div class="form-group">
                     <label>Email:</label>
@@ -228,6 +261,57 @@
                 </div>
             </div>
         </div>
+    </div>
+
+         {{--- EDIT FOTO PROFIL --}}
+<div class="modal fade" id="editFotoProfil-modal-{{$user->id_user}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ganti Foto Profil</h1>
+            </div>
+            <form id="edit-fp-form-{{$user->id_user}}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="col-md-4 mt-0 align-items-center">
+                        <label for="fileUpload">Upload Gambar</label>
+                        <input type="file" name="foto_profil" id="fileUpload" onchange="previewImage()"
+                            class="btn w-auto btn-outline-primary form-control">
+                        
+                        <img src="#" id="imagePreview" alt="preview" 
+                        style="width: 250px; height: 250px; display: none" 
+                        class="mt-2 rounded ">
+                        @csrf
+                    </div>
+
+                    <script>
+                        function previewImage(){
+                            var input = document.getElementById("fileUpload");
+                            var preview = document.getElementById("imagePreview")
+
+                            if(input.files && input.files[0]){
+                                var reader = new FileReader();
+
+                                reader.onload = function(e){
+                                    preview.src = e.target.result;
+                                    preview.style.display = 'block';
+                                }
+
+                                reader.readAsDataURL(input.files[0]);
+                            } else {
+                                preview.src = "#";
+                                preview.style.display = "none";
+                            }
+                        }
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary edit-btn" form="edit-fp-form-{{$user->id_user}}">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 @section('footer')
     <script type="module">
@@ -284,6 +368,29 @@
                 axios.post(`/profil/edit/password/${idUser}`, data)
                     .then(() => {
                         $(`#editPassword-modal-${idUser}`).css('display', 'none')
+                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                            location.reload();
+                        })
+                    })
+                    .catch(() => {
+                        swal.fire('Gagal edit data!', '', 'warning');
+                    })
+            })
+        })
+
+        // pop up foto profil
+        $('.editBtn').on('click', function (e) {
+            e.preventDefault();
+            let idUser = $(this).attr('idUser');
+            $(`#edit-fp-form-${idUser}`).on('submit', function (e) {
+                e.preventDefault();
+                let data = Object.fromEntries(new FormData(e.target));
+                data['id_user'] = idUser;
+                axios.post(`/profil/edit/foto_profil/${idUser}`, data, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
+                    .then(() => {
+                        $(`#editFotoProfil-modal-${idUser}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
                             location.reload();
                         })

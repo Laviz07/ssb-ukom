@@ -43,6 +43,7 @@
                             <td class="col-3" style="text-align: center"> {{$pl->nik_pelatih}} </td>
                             <td style="text-align: center">
                                 
+                            @if (Auth::user()['role']=='admin')
                                 <div class="dropdown dropend" style="display: inline-block; vertical-align: middle;">
                                     <button class="btn btn-primary" id="navbarDropdownMenuLink" data-bs-toggle='dropdown' data-bs-offset="-10,20">
                                         Action
@@ -59,7 +60,6 @@
                                         <strong class="ms-1">Lihat Detail Pelatih</strong> 
                                        </a>
 
-                                       @if (Auth::user()['role']=='admin')
                                        <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$pl->nik_pelatih}}" 
                                         style="cursor: pointer" idPL = {{$pl->nik_pelatih}} > 
                                         <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
@@ -70,11 +70,17 @@
                                         <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
                                         <strong class="ms-1">Hapus Data Pelatih</strong> 
                                        </a>
-                                       @endif
                                     </div>
 
                                 </div>
+                            @endif
 
+                            @if (Auth::user()['role']!='admin')
+                            <a href="{{ url('pelatih', ['detail', $pl->nik_pelatih]) }}" class="btn btn-primary" >
+                                Lihat Detail
+                                <i class="bi bi-search ms-2"  style="font-size: 15px; vertical-align: middle; "></i> 
+                            </a>
+                            @endif
                             </td>
                         </tr>
 
@@ -89,6 +95,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form id="edit-pl-form-{{$pl->nik_pelatih}}">
+                                            <input type="hidden" value="{{Auth::user()->id_user}}" name="id_user">
                                             <div class="form-group">
                                                 <label>Nama Pelatih</label>
                                                 <input placeholder="example" type="text" class="form-control mb-3"
@@ -154,7 +161,7 @@
 <div class="col d-flex justify-content-end mb-2 mt-3">
     @if (Auth::check() && Auth::user()->role == 'admin')
     <a href="{{ url('pelatih', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
-        <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 45px; margin: 30px; color:#003459;"></i>
+        <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 35px; margin: 30px; color:#003459;"></i>
     </a>@endif
 </div>
 @endsection

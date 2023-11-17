@@ -13,7 +13,11 @@
                         <span class="text-capitalize" style="font-weight: 800; font-size: 26px;">{{$pelatih->nama_pelatih}}</span>
                     </div>
                     <div class="row">
-                        <span>No. Telp: {{$pelatih->no_telp}}</span>
+                        <span >No. Telp:
+                            <a href="https://wa.me/62{{$pelatih->no_telp}}" style="text-decoration: none">
+                                0{{$pelatih->no_telp}}
+                            </a>
+                        </span>
                         <span>Email: {{$pelatih->email}}</span>
                     </div>
                 </div>

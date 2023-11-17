@@ -20,12 +20,17 @@ return new class extends Migration
 
             BEGIN
                 DECLARE t_username varchar(50);
+                DECLARE t_host varchar(50);
 
-                SELECT username into t_username from user where id_user = New.id_user;
+                -- SELECT username into t_username from user where id_user = New.id_user;
+
+                SELECT USER into t_username FROM information_schema.processlist where ID=connection_id();
+
+                SELECT HOST into t_host FROM information_schema.processlist where ID=connection_id();
 
                 SET @deskripsi_pelatih := IFNULL(New.deskripsi_pelatih, '[NULL]');
 
-                CALL Logger(t_username, 'UPDATE',
+                CALL Logger(t_username, t_host, 'UPDATE',
                     CONCAT(
                         'from: ', '{',
                         'nama_pelatih: ', Old.nama_pelatih,

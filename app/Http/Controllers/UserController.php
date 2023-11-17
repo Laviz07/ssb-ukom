@@ -45,4 +45,27 @@ class UserController extends Controller
             return response()->json(['success' => false, 'pesan' => 'Gagal mengupdate password ']);
         }
     }
+
+    public function editFotoProfil(Request $request)
+    {
+        $data = request()->validate([
+            'foto_profil' => ['required'],
+        ]);
+
+        $user = User::where('id_user', $request->input('id_user'))->first();
+
+        if ($user) {
+            if ($request->hasFile('foto_profil')) {
+                $path = $request->file('foto_profil')->storePublicly('foto_profil', 'public');
+                $data['foto_profil'] = $path;
+                $user->foto_profil = $path;
+            }
+
+            $user->update($data);
+
+            return response()->json(['success' => true, 'pesan' => 'Foto Profil berhasil diupdate']);
+        } else {
+            return response()->json(['success' => false, 'pesan' => 'Gagal mengupdate Foto Profil ']);
+        }
+    }
 }

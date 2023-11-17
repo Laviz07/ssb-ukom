@@ -16,6 +16,7 @@
             <tr>
                 <th>No</th>
                 <th>User</th>
+                <th>Host</th>
                 <th>Action</th>
                 <th>Log</th>
                 <th>Created At</th>
@@ -29,8 +30,9 @@
   
             <tr idUS="{{$log->id}}" >
                 <td class="col-1" style=" width: 50px; text-align:center;">{{$no++}}</td>
-                <td class="col-2">{{$log->username}}</td>
-                <td class="col-2">{{$log->action}}</td>
+                <td class="col-1">{{$log->username}}</td>
+                <td class="col-1">{{$log->host}}</td>
+                <td class="col-1">{{$log->action}}</td>
                 <td class="col-6">{{$log->log}}</td>
                 <td class="col-2">{{$log->created_at}}</td>
               

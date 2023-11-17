@@ -39,11 +39,12 @@
                                     <i class="bi bi-person-circle"  style="font-size: 40px;"></i> 
                                 @endif
                             </td>
-                            <td class="col-5 text-capitalize text-center "> {{$tm->nama_tim}} </td>
+                            <td class="col-4 text-capitalize text-center "> {{$tm->nama_tim}} </td>
                             <td class="col-3" style="text-align: center"> {{$tm->pelatih->nama_pelatih}} </td>
                             <td style="text-align: center">
                                
 
+                            @if (Auth::user()['role']=='admin' || Auth::user()['role']=='pelatih' )
                                 <div class="dropdown dropend" style="display: inline-block; vertical-align: middle;">
                                     <button class="btn btn-primary" id="navbarDropdownMenuLink" data-bs-toggle='dropdown' data-bs-offset="-10,20">
                                         Action
@@ -60,7 +61,6 @@
                                         <strong class="ms-1">Lihat Detail Tim</strong> 
                                        </a>
 
-                                    @if (Auth::user()['role']=='admin')
                                         <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$tm->id_tim}}" 
                                             style="cursor: pointer" idTM = {{$tm->id_tim}} > 
                                             <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
@@ -71,12 +71,19 @@
                                             <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
                                             <strong class="ms-1">Hapus Data Tim</strong> 
                                         </a>
-                                    @endif
+                                  
 
                                     </div> 
 
                                 </div>
+                                @endif
 
+                                @if (Auth::user()['role']=='pemain')
+                                <a href="{{ url('tim', ['detail', $tm->id_tim]) }}" class="btn btn-primary" >
+                                    Lihat Detail
+                                    <i class="bi bi-search ms-2"  style="font-size: 15px; vertical-align: middle; "></i> 
+                                </a>
+                            @endif
                             </td>
                         </tr>
 
@@ -118,6 +125,40 @@
                                                 </textarea>
                                             </div>
 
+                                            <div class="row">
+                                                <div class="col-md-4 mt-3 align-items-center">
+                                                    <label for="fileUpload">Upload Gambar</label>
+                                                    <input type="file" name="foto_tim" id="fileUpload" onchange="previewImage()"
+                                                    class="btn w-auto btn-outline-primary form-control">
+                                                    <img src="#" id="imagePreview" alt="preview" 
+                                                    style="width: 345px; height: 200px; display: none" 
+                                                    class="mt-2 rounded ">
+                                                   
+                                                </div>
+            
+                                                <script>
+                                                    function previewImage(){
+                                                        var input = document.getElementById("fileUpload");
+                                                        var preview = document.getElementById("imagePreview")
+                
+                                                        if(input.files && input.files[0]){
+                                                            var reader = new FileReader();
+                
+                                                            reader.onload = function(e){
+                                                                preview.src = e.target.result;
+                                                                preview.style.display = 'block';
+                                                            }
+                
+                                                            reader.readAsDataURL(input.files[0]);
+                                                        } else {
+                                                            preview.src = "#";
+                                                            preview.style.display = "none";
+                                                        }
+                                                    }
+                                                </script>
+            
+                                            </div>
+
                                             <input type="hidden" name="id_tim" value="{{$tm->id_tim}}">
 
 
@@ -144,7 +185,7 @@
 <div class="col d-flex justify-content-end mb-2 mt-3">
     @if (Auth::check() && Auth::user()->role == 'admin')
     <a href="{{ url('tim', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
-        <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 45px; margin: 30px; color:#003459;"></i>
+        <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 35px; margin: 30px; color:#003459;"></i>
     </a>@endif
 </div>
 @endsection
@@ -160,7 +201,9 @@
                 e.preventDefault();
                 let data = Object.fromEntries(new FormData(e.target));
                 data['nisn_pemain'] = idTM;
-                axios.post(`/tim/edit/${idTM}`, data)
+                axios.post(`/tim/edit/${idTM}`, data, {
+                    headers:{ 'Content-Type' : 'multipart/form-data'}
+                })
                     .then(() => {
                         $(`#edit-modal-${idTM}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
