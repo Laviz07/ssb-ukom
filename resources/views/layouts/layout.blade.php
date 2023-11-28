@@ -110,7 +110,7 @@
             <a class="nav-link mx-2 text-uppercase" aria-current="page" href="{{ url('', []) }}">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="{{ url('berita', []) }}">Berita Sekolah</a>
+            <a class="nav-link mx-2 text-uppercase" href="{{ url('berita', []) }}">Berita</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2 text-uppercase" href="{{ url('galeri', []) }}">Galeri</a>
