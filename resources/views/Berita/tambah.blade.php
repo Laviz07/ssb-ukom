@@ -96,12 +96,12 @@
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {
-            swal.fire('Selamat!', 'Data berhasil ditambah.', 'success').then(function () {
+            swal.fire('Selamat!', 'Berita berhasil ditambahkan.', 'success').then(function () {
                 window.location.href = '/berita'; 
             })
         })
         .catch((err) => {
-            swal.fire('Maaf!', 'Data gagal ditambah.', 'warning');
+            swal.fire('Berita gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
         });
     });
     </script>

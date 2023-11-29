@@ -184,12 +184,12 @@
                 axios.post(`/pemain/edit/${idPM}`, data)
                     .then(() => {
                         $(`#edit-modal-${idPM}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Selamat!', 'Pemain berhasil diedit.', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Waduh!', 'Pemain gagal diedit.', 'warning');
                     })
             })
         })
@@ -199,7 +199,8 @@
         a.preventDefault();
         let idPM = $(this).closest('.hapusBtn').attr('idPM');
         swal.fire({
-                title : "Apakah anda ingin menghapus data ini?",
+                title: "Yakin ingin menghapus pemain?",
+                text: 'Pemain yang sudah dihapus, tidak bisa dikembalikan.',
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,
@@ -211,18 +212,18 @@
                     axios.delete('/pemain/hapus/' + idPM).then(function(response){
                         console.log(response);
                         if(response.data.success){
-                            swal.fire('Berhasil di hapus!', '', 'success').then(function(){
+                            swal.fire('Selamat!', 'Pemain berhasil dihapus.', 'success').then(function(){
                                     //Refresh Halaman
                                     location.reload();
                                 });
                         }else{
-                            swal.fire('Gagal di hapus!', '', 'warning').then(function(){
+                            swal.fire('Waduh!', 'Pemain gagal dihapus.', 'warning').then(function(){
                                     //Refresh Halaman
                                     location.reload();
                                 });
                         }
                     }).catch(function(error){
-                        swal.fire('Data gagal di hapus!', '', 'error').then(function(){
+                        swal.fire('Waduh!', 'Pemain gagal dihapus.', 'error').then(function(){
                                     //Refresh Halaman
                                    
                                 });

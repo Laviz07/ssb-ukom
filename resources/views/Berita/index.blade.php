@@ -162,7 +162,8 @@
             e.preventDefault();
             let idBR = $(this).attr('idBR');
             swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
+                title: "Yakin ingin menghapus berita?",
+                text: 'Berita yang sudah dihapus, tidak bisa dikembalikan.',
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,
@@ -173,18 +174,18 @@
                     .then(function(response) {
                         console.log(response);
                         if (response.data.success) {
-                            swal.fire('Selamat!', 'Data berhasil dihapus.', 'success').then(function() {
+                            swal.fire('Selamat!', 'Berita berhasil dihapus.', 'success').then(function() {
                                 // Refresh Halaman
                                 location.reload();
                             });
                         } else {
-                            swal.fire('Maaf!', 'Gagal dihapus.', 'warning').then(function() {
+                            swal.fire('Waduh!', 'Gagal dihapus.', 'warning').then(function() {
                                 // Refresh Halaman
                                 location.reload();
                             });
                         }
                     }).catch(function(error) {
-                        swal.fire('Data gagal dihapus!', '', 'error').then(function() {
+                        swal.fire('Waduh!', 'Berita gagal dihapus.', 'error').then(function() {
                             // Refresh Halaman
                         });
                     });
@@ -205,12 +206,12 @@
                 })
                     .then(() => {
                         $(`#edit-modal-${idBR}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Selamat!', 'Data berhasil dihapus.', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Maaf!', 'Gagal dihapus.', 'warning');
                     })
             })
         })

@@ -154,12 +154,12 @@
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {
-            swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+            swal.fire('Selamat!', 'Pelatih berhasil ditambahkan.', 'success').then(function () {
                 window.location.href = '/pelatih'; 
             })
         })
         .catch((err) => {
-            swal.fire('Gagal tambah data!', '', 'warning');
+            swal.fire('Pelatih gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
         });
     });
     </script>

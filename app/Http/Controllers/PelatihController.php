@@ -34,6 +34,17 @@ class PelatihController extends Controller
     }
 
     /**
+     * Menampilkan halaman cetak data pelatih
+     */
+    public function cetakPelatih()
+        {
+            $data = [
+                'pelatih'=> Pelatih::all(),
+            ];
+            return view('Pelatih.cetak', $data);
+        }
+
+    /**
      * Menampilkan halaman detail pelatih
      */
     public function indexDetail(Request $request)

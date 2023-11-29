@@ -159,7 +159,8 @@
             e.preventDefault();
             let idGL = $(this).attr('idGL');
             swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
+                title: "Yakin ingin menghapus galeri?",
+                text: 'Galeri yang sudah dihapus, tidak bisa dikembalikan.',
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,
@@ -170,18 +171,18 @@
                     .then(function(response) {
                         console.log(response);
                         if (response.data.success) {
-                            swal.fire('Berhasil dihapus!', '', 'success').then(function() {
+                            swal.fire('Selamat!', 'Galeri berhasil dihapus.', 'success').then(function() {
                                 // Refresh Halaman
                                 location.reload();
                             });
                         } else {
-                            swal.fire('Gagal dihapus!', '', 'warning').then(function() {
+                            swal.fire('Waduh!', 'Gagal dihapus.', 'warning').then(function() {
                                 // Refresh Halaman
                                 location.reload();
                             });
                         }
                     }).catch(function(error) {
-                        swal.fire('Data gagal dihapus!', '', 'error').then(function() {
+                        swal.fire('Waduh!', 'Galeri gagal dihapus.', 'error').then(function() {
                             // Refresh Halaman
                         });
                     });
@@ -202,12 +203,12 @@
                 })
                     .then(() => {
                         $(`#edit-modal-${idGL}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Selamat!', 'Data berhasil diedit.', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Maaf!', 'Data gagal dihapus.', 'warning');
                     })
             })
         })

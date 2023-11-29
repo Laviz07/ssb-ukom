@@ -193,12 +193,12 @@
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {
-            swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+            swal.fire('Selamat!', 'Pemain berhasil ditambahkan.', 'success').then(function () {
                 window.location.href = '/pemain'; 
             })
         })
         .catch((err) => {
-            swal.fire('Gagal tambah data!', '', 'warning');
+            swal.fire('Pemain gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
         });
     });
     </script>

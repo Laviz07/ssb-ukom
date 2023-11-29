@@ -183,7 +183,7 @@
     </div>
 </div>
 <div class="col d-flex justify-content-end mb-2 mt-3">
-    @if (Auth::check() && Auth::user()->role == 'admin' || Auth::user()->role == 'pelatih')
+    @if (Auth::check() && Auth::user()->role == 'admin')
     <a href="{{ url('tim', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
         <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 35px; margin: 30px; color:#003459;"></i>
     </a>@endif
@@ -206,22 +206,23 @@
                 })
                     .then(() => {
                         $(`#edit-modal-${idTM}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Selamat!', 'Tim berhasil diedit.', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Tim gagal diedit!', 'Pastikan mengisi data seluruhnya.', 'warning');
                     })
             })
         })
         
-    //     //delete pop up
+        //delete pop up
         $('.DataTable tbody').on('click','.hapusBtn',function(a){
         a.preventDefault();
         let idTM = $(this).closest('.hapusBtn').attr('idTM');
         swal.fire({
-                title : "Apakah anda ingin menghapus data ini?",
+                title: "Yakin ingin menghapus tim?",
+                text: 'Tim yang sudah dihapus, tidak bisa dikembalikan.',
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,
@@ -233,18 +234,18 @@
                     axios.delete('/tim/hapus/' + idTM).then(function(response){
                         console.log(response);
                         if(response.data.success){
-                            swal.fire('Berhasil di hapus!', '', 'success').then(function(){
+                            swal.fire('Selamat!', 'Tim berhasil dihapus.', 'success').then(function(){
                                     //Refresh Halaman
                                     location.reload();
                                 });
                         }else{
-                            swal.fire('Gagal di hapus!', '', 'warning').then(function(){
+                            swal.fire('Waduh!', 'Tim gagal dihapus.', 'warning').then(function(){
                                     //Refresh Halaman
                                     location.reload();
                                 });
                         }
                     }).catch(function(error){
-                        swal.fire('Data gagal di hapus!', '', 'error').then(function(){
+                        swal.fire('Waduh!', 'Tim gagal dihapus.', 'error').then(function(){
                                     //Refresh Halaman
                                    
                                 });
