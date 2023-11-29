@@ -166,16 +166,17 @@
                 <div class="form-group">
                     <label>Alamat:</label>
                     <textarea required name="alamat" id="" class="form-control" rows="3" 
-                    placeholder="Deskripsi Diri" style="resize: none">{{$user->pemain->alamat}}</textarea>
+                    placeholder="Alamat" style="resize: none">{{$user->pemain->alamat}}</textarea>
     
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mt-2">
                     <label>No. Telepon:</label>
-                    <input placeholder="example" type="number" class="form-control mb-3"
-                            name="no_telp"
-                            value="{{$user->pemain->no_telp}}"
-                            required/>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text" >+62</span>
+                        <input  type="number" class="form-control" placeholder="example" "
+                        name="no_telp"  value="{{$user->pemain->no_telp}}" required/>
+                      </div>
                 </div>
 
                 <div class="form-group">
@@ -189,7 +190,7 @@
 
                 <div class="form-group">
                     <label>Deskripsi Diri:</label>
-                    <textarea required name="deskripsi_pemain" id="" 
+                    <textarea name="deskripsi_pemain" id="" required placeholder="deskripsi diri anda"
                         class="form-control" rows="5" placeholder="Deskripsi Diri" 
                         style="resize: none">{{$user->pemain->deskripsi_pemain}}
                     </textarea> 
@@ -210,7 +211,7 @@
 </div>
 
 {{-- EDIT PROFIL PEMAIN --}}
-<div class="modal fade" id="editProfil-modal-{{$user->pemain->nisn_pemain}}" tabindex="-1"
+{{-- <div class="modal fade" id="editProfil-modal-{{$user->pemain->nisn_pemain}}" tabindex="-1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered">
@@ -268,14 +269,14 @@
                     Cancel
                 </button>
                 <button type="submit" class="btn btn-primary edit-btn"
-                        form="edit-pl-form-{{$user->pemain->nisn_pemain}}">
+                        form="edit-pm-form-{{$user->pemain->nisn_pemain}}">
                     Edit
                 </button>
             </div>
         </div>
     </div>
 </div>
-</div>
+</div> --}}
 
  {{-- EDIT USERNAME--}}
  <div class="modal fade" id="editUsername-modal-{{$user->id_user}}" tabindex="-1"
@@ -408,12 +409,12 @@
                 axios.post(`/profil/pemain/edit/${idPM}`, data)
                     .then(() => {
                         $(`#edit-modal-${idPM}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Berhasil edit profil!', '', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Gagal edit profil!', '', 'warning');
                     })
             })
         })
@@ -429,12 +430,12 @@
                 axios.post(`/profil/edit/username/${idUser}`, data)
                     .then(() => {
                         $(`#editUsername-modal-${idUser}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Berhasil edit username!', '', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Gagal edit username!', '', 'warning');
                     })
             })
         })
@@ -450,12 +451,12 @@
                 axios.post(`/profil/edit/password/${idUser}`, data)
                     .then(() => {
                         $(`#editPassword-modal-${idUser}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Berhasil ganti password!', '', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Gagal ganti password!', '', 'warning');
                     })
             })
         })
@@ -473,12 +474,12 @@
                 })
                     .then(() => {
                         $(`#editFotoProfil-modal-${idUser}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Berhasil edit foto profil!', '', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Gagal edit foto profil!', '', 'warning');
                     })
             })
         })

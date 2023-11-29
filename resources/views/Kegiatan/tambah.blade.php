@@ -48,7 +48,7 @@
                                         <div class="form-group mt-2">
                                             <label >Tipe Kegiatan:</label>
                                             <select required name="tipe_kegiatan" class="form-select mb-3">
-                                                <option value="" selected disabled>Pilih Posisi</option>
+                                                <option value="" selected disabled>Pilih Tipe Kegiatan</option>
                                                 <option value="pertandingan">pertandingan</option>
                                                 <option value="latihan">latihan</option>
                                             </select>
@@ -77,10 +77,10 @@
                                     <textarea required name="detail_kegiatan"class="form-control" rows="3" placeholder="Detail Kegiatan" style="resize: none"></textarea>
                                 </div>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label >Laporan Kegiatan:</label>
                                     <textarea required name="laporan_kegiatan" class="form-control" rows="3" placeholder="Laporan Kegiatan" style="resize: none"></textarea>
-                                </div>
+                                </div> --}}
 
                                 {{--   <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
@@ -110,7 +110,7 @@
     $('.addBtn').on('click', function (e) {
         e.preventDefault();
         let data = new FormData(e.target.form);
-        axios.post(`/jadwal/kegiatan/tambah/${data.get('id_jadwal')}`, data, {
+        axios.post(`/jadwal/${data.get('id_jadwal')}/kegiatan/tambah`, data, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {

@@ -23,7 +23,7 @@
             </a>
 
             @if (Auth::user()['role']=='admin')
-            <a href="{{ url('jadwal', ['kegiatan',  'tambah', $jadwal->id_jadwal])}}" class="justify-content-end">
+            <a href="{{ url('jadwal', [$jadwal->id_jadwal, 'kegiatan',  'tambah' ])}}" class="justify-content-end">
                 <btn class="btn btn-success">Tambah </btn>
             </a>
             @endif
@@ -34,8 +34,10 @@
                     <thead>
                         <tr style="text-align: center; font-size: 17px; font-weight: 600;">
                             <td>No</td>
+                            <td>Nama Kegiatan</td>
                             <td>Jam</td>
-                            <td>Judul Kegiatan</td>
+                            <td>Tipe Kegiatan</td>
+                            <td>Pelatih</td>
                             <td>Action</td>
                         </tr>
                     </thead>
@@ -47,10 +49,18 @@
                 @foreach ($jadwal->kegiatan as $kg)
                     
                         <tr style="vertical-align: middle; font-size: 17px;" idKG={{$kg->id_kegiatan}}>
-                            <td class="col-1" style="text-align: center;"> {{$no++}} </td>
-                            <td class="col-3" style="text-align: center"> {{$kg->jam_mulai}} </td>
-                            <td class="col-5 text-capitalize text-center "> {{$kg->tipe_kegiatan}} </td>
-                            <td style="text-align: center">
+                            <td class="col-0" style="text-align: center;"> {{$no++}} </td>
+                            <td class="col-3 text-capitalize text-center "> {{$kg->nama_kegiatan}} </td>
+                            <td class="col-3" style="text-align: center"> 
+                                {{-- {{$kg->jam_mulai}}  --}}
+                                {{\Carbon\Carbon::createFromFormat('H:i:s',$kg->jam_mulai)->format('g:i a')}}
+                                -
+                                {{-- {{$kg->jam_selesai}}  --}}
+                                {{\Carbon\Carbon::createFromFormat('H:i:s',$kg->jam_selesai)->format('g:i a')}}
+                            </td>
+                            <td class="col-2 text-capitalize text-center "> {{$kg->tipe_kegiatan}} </td>
+                            <td class="col-2 text-capitalize text-center "> {{$kg->pelatih->nama_pelatih}} </td>
+                            <td class="col-3" style="text-align: center">
                                
 
                             @if (Auth::user()['role']=='admin' || Auth::user()['role']=='pelatih')
@@ -71,14 +81,14 @@
                                        </a>
 
                                         <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$kg->id_kegiatan}}" 
-                                            style="cursor: pointer" idKG = {{$kg->id_kegiatan}} > 
+                                            style="cursor: pointer" idKG={{$kg->id_kegiatan}} > 
                                             <i class="bi bi-pencil"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                            <strong class="ms-1" >Edit Data Jadwal</strong> 
+                                            <strong class="ms-1" >Edit Data Kegiatan</strong> 
                                         </a>
 
                                         <a class="dropdown-item hapusBtn" idKG={{$kg->id_kegiatan}} style="cursor: pointer"> 
                                             <i class="bi bi-trash"  style="font-size: 20px; vertical-align: middle; "></i> 
-                                            <strong class="ms-1">Hapus Data Jadwal</strong> 
+                                            <strong class="ms-1">Hapus Data Kegiatan</strong> 
                                         </a>
 
                                     </div>
@@ -96,7 +106,7 @@
                             </td>
                         </tr>
 
-                         {{-- EDIT PEMAIN --}}
+                         {{-- EDIT KEGIATAN --}}
                         <div class="modal fade" id="edit-modal-{{$kg->id_kegiatan}}" tabindex="-1"
                                 aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
@@ -106,19 +116,73 @@
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Kegiatan</h1>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="edit-jw-form-{{$kg->id_kegiatan}}">
+                                        <form id="edit-kg-form-{{$kg->id_kegiatan}}"  method="POST">
                                             <div class="form-group">
-                                                <label>Jam:</label>
+                                                <label>Nama Kegiatan:</label>
                                                 <input placeholder="example" type="text" class="form-control mb-3"
-                                                        name="jam_mulai"
-                                                        value="{{$kg->jam_mulai}}"
+                                                        name="nama_kegiatan"
+                                                        value="{{$kg->nama_kegiatan}}"
                                                         required/>
                                                 @csrf
                                             </div>
-                                            <div class="form-group mt-2">
-                                                <label>Tipe Kegiatan:</label>
-                                                <input placeholder="{{$kg->tipe_kegiatan}}" type="text" id="kegiatan" name="tipe_kegiatan" class="form-control">
+
+                                            <input type="hidden" name="id_jadwal" value="{{$jadwal->id_jadwal}}">
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group ">
+                                                            <label >Jam Mulai:</label>
+                                                            <input type="time" class="form-control" 
+                                                                required name="jam_mulai"
+                                                                value="{{$kg->jam_mulai}}"
+                                                            >
+                                                    </div>
+                                                </div>
+                
+                                                <div class="col-md-6">
+                                                    <div class="form-group ">
+                                                            <label >Jam Selesai:</label>
+                                                            <input type="time" class="form-control" 
+                                                            required name="jam_selesai"
+                                                            value="{{$kg->jam_selesai}}"
+                                                            >
+                                                    </div>
+                                                </div>
                                             </div>
+
+                                            <div class="form-group mt-3">
+                                                <label>Nama Pelatih:</label>
+                                                <select name="nik_pelatih" id="pilihPelatih" class="form-select mb-3">
+                                                    <option value="" disabled selected>Pilih Pelatih</option>
+                                                    @foreach ($pelatih as $pl)
+                                                        <option value="{{$pl->nik_pelatih}}" {{ $kg->nik_pelatih === $pl->nik_pelatih ? 'selected' : '' }}>
+                                                            {{$pl->nama_pelatih}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group mt-3">
+                                                <label>Tipe Kegiatan:</label>
+                                                <select name="tipe_kegiatan" id="pilihPelatih" class="form-select mb-3">
+                                                    <option value="" disabled selected>Pilih Tipe Kegiatan</option>
+                                                    <option value="latihan" {{ $kg->tipe_kegiatan === "latihan" ? 'selected' : '' }}>
+                                                        Latihan
+                                                    </option>
+                                                    <option value="pertandingan" {{ $kg->tipe_kegiatan === "pertandingan" ? 'selected' : '' }}>
+                                                        Pertandingan
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Detail Kegiatan:</label>
+                                                <textarea required name="detail_kegiatan" id="" 
+                                                    class="form-control" rows="5" placeholder="Detail Kegiatan" 
+                                                    style="resize: none">{{$kg->detail_kegiatan}}
+                                                </textarea>
+                                            </div>
+
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -126,7 +190,7 @@
                                             Cancel
                                         </button>
                                         <button type="submit" class="btn btn-primary edit-btn"
-                                                form="edit-jw-form-{{$kg->id_jadwal}}" >
+                                                form="edit-kg-form-{{$kg->id_kegiatan}}" >
                                             Edit
                                         </button>
                                     </div>
@@ -157,7 +221,7 @@
                 e.preventDefault();
                 let data = Object.fromEntries(new FormData(e.target));
                 data['id_kegiatan'] = idKG;
-                axios.post(`/kegiatan/edit/${idKG}`, data)
+                axios.post(`/jadwal/kegiatan/edit/${idKG}`, data)
                     .then(() => {
                         $(`#edit-modal-${idKG}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
@@ -184,7 +248,7 @@
             }).then((result)=>{
                 if(result.isConfirmed){
                     //dilakukan proses hapus
-                    axios.delete('/kegiatan/hapus/' + idKG).then(function(response){
+                    axios.delete('/jadwal/kegiatan/hapus/' + idKG).then(function(response){
                         console.log(response);
                         if(response.data.success){
                             swal.fire('Berhasil di hapus!', '', 'success').then(function(){

@@ -13,7 +13,8 @@ class KegiatanController extends Controller
     {
         $data = [
             'jadwal' => Jadwal::where('id_jadwal', $request->id)->first(),
-            'kegiatan' => Kegiatan::all()
+            'kegiatan' => Kegiatan::all(),
+            'pelatih' => Pelatih::all(),
         ];
 
         return view('Kegiatan.index', $data);
@@ -30,17 +31,17 @@ class KegiatanController extends Controller
 
     public function create(Request $request)
     {
-        $this -> validate($request, [
+        $this->validate($request, [
             // Menambah ke tabel pelatih
-            'nama_pelatih' => ['required'],
-            'nik_kegiatan' => ['required'],
+            'nik_pelatih' => ['required'],
+            'nama_kegiatan' => ['required'],
             'id_jadwal' => ['required'],
             'tipe_kegiatan' => ['required'],
             'jam_mulai' => ['required'],
             'jam_selesai' => ['required'],
             // 'foto_kegiatan' => ['required'],
             'detail_kegiatan' => ['required'],
-            'laporan_kegiatan' => ['required'],
+            // 'laporan_kegiatan' => ['required'],
 
         ]);
 
@@ -50,8 +51,19 @@ class KegiatanController extends Controller
 
         $dataInsert = Kegiatan::create($request->all());
         if ($dataInsert) {
-            return redirect()->to('/jadwal/kegiatan/{id}')->with('success', 'kegiatan berhasil ditambah');
+            // return redirect()->to('/jadwal/kegiatan/{id}')->with('success', 'kegiatan berhasil ditambah');
+            $pesan = [
+                'success' => true,
+                'pesan' => 'Kegiatan berhasil ditambah'
+            ];
+        } else {
+            $pesan = [
+                'success' => true,
+                'pesan' => 'Kegiatan gagal ditambah'
+            ];
         }
+
+        return response()->json($pesan);
     }
 
     public function store(Request $request)
@@ -69,17 +81,54 @@ class KegiatanController extends Controller
 
     public function edit(Request $request)
     {
+        \Log::info('Received data:', $request->all());
         $data = $request->validate([
+            'nik_pelatih' => ['required'],
+            'nama_kegiatan' => ['required'],
             'id_jadwal' => ['required'],
-            'tanggal_kegiatan' => ['required'],
-            'judul_kegiatan' => ['required']
+            'tipe_kegiatan' => ['required'],
+            'jam_mulai' => ['required'],
+            'jam_selesai' => ['required'],
+            'detail_kegiatan' => ['required'],
         ]);
 
-        $kegiatan = Kegiatan::where('id_jadwal', $request->input('id_kegiatan'))->first();
-        $kegiatan->fill($data);
-        $kegiatan->save();
+        $kegiatan = Kegiatan::find($request->input('id_kegiatan'));
 
-        return redirect()->to('/kegiatan')->with('success', 'jadwal Berhasil Diupdate');
+        if (!$kegiatan) {
+            return response()->json(['success' => false, 'pesan' => 'Kegiatan tidak ditemukan']);
+        }
+
+        $kegiatan->fill($data);
+
+        if ($kegiatan->save()) {
+            return response()->json(['success' => true, 'pesan' => 'Kegiatan berhasil diedit']);
+        } else {
+            return response()->json(['success' => false, 'pesan' => 'Kegiatan gagal diedit']);
+        }
+
+        // $kegiatan = Kegiatan::where('id_kegiatan', $request->input('id_kegiatan'))->first();
+
+        // $kegiatan->fill($data);
+        // $kegiatan->save();
+
+        // return redirect()->to('/jadwal/kegiatan/{id}')->with('success', 'kegiatan berhasil ditambah');
+
+        // $simpan = $kegiatan->save();
+        // if ($simpan) {   
+        //     $pesan = [
+        //         'success' => true,
+        //         'pesan' => 'Kegiatan berhasil diedit'
+        //     ];
+        // } else {
+        //     $pesan = [
+        //         'success' => true,
+        //         'pesan' => 'Kegiatan gagal diedit'
+        //     ];
+        // }
+
+        // return response()->json($pesan);
+
+        // return redirect()->to('/kegiatan')->with('success', 'kegiatan Berhasil Diupdate');
     }
 
     public function update(Request $request, $id)
@@ -91,9 +140,9 @@ class KegiatanController extends Controller
 
     public function delete(Kegiatan $kegiatan, Request $request)
     {
-        $id = $request->id;
+        $idKegiatan = $request->id;
 
-        $kegiatan = Kegiatan::where('id_jadwal', $id)->first();
+        $kegiatan = Kegiatan::where('id_kegiatan', $idKegiatan)->first();
 
         if ($kegiatan) {
 
@@ -102,22 +151,19 @@ class KegiatanController extends Controller
             //     Storage::disk('public')->delete($admin->user->foto_profil);
             // }
 
-
-
-            //menghapus user
-            $kegiatan = Kegiatan::where('id_jadwal', $kegiatan->id_jadwal)->first();
+            $kegiatan = Kegiatan::where('id_kegiatan', $kegiatan->id_kegiatan)->first();
             if ($kegiatan) {
                 $kegiatan->delete();
             }
 
             $pesan = [
                 'success' => true,
-                'pesan' => 'Admin Berhasil Dihapus'
+                'pesan' => 'Kegiatan Berhasil Dihapus'
             ];
         } else {
             $pesan = [
                 'success' => false,
-                'pesan' => 'Admin Gagal Dihapus'
+                'pesan' => 'Kegiatan Gagal Dihapus'
             ];
         }
 

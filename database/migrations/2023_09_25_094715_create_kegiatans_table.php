@@ -21,7 +21,7 @@ return new class extends Migration
             $table->time('jam_selesai')->nullable(false);
             // $table->string('foto_kegiatan', 255)->nullable(true);
             $table->text('detail_kegiatan')->nullable(false);
-            $table->string('laporan_kegiatan', 255)->nullable(false);
+            $table->string('laporan_kegiatan', 255)->nullable(true);
 
             $table->foreign('id_jadwal')->references('id_jadwal')->on('jadwal')
                 ->onDelete('cascade')->onUpdate("cascade");

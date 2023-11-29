@@ -49,7 +49,7 @@
                                                 <span class="input-group-text" >+62</span>
                                                 <input  type="number" class="form-control" placeholder="81234567890"
                                                 name="no_telp" required/>
-                                              </div>
+                                            </div>
                                             
                                         </div>
                                     </div>

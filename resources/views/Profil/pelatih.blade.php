@@ -326,12 +326,12 @@
                 axios.post(`/profil/pelatih/edit/${idPL}`, data)
                     .then(() => {
                         $(`#edit-modal-${idPL}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Berhasil edit profil!', '', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Gagal edit profil!', '', 'warning');
                     })
             })
         })
@@ -347,12 +347,12 @@
                 axios.post(`/profil/edit/username/${idUser}`, data)
                     .then(() => {
                         $(`#editUsername-modal-${idUser}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Berhasil edit username!', '', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Gagal edit username!', '', 'warning');
                     })
             })
         })
@@ -368,12 +368,12 @@
                 axios.post(`/profil/edit/password/${idUser}`, data)
                     .then(() => {
                         $(`#editPassword-modal-${idUser}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Berhasil edit password!', '', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Gagal edit password!', '', 'warning');
                     })
             })
         })
@@ -391,12 +391,12 @@
                 })
                     .then(() => {
                         $(`#editFotoProfil-modal-${idUser}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Berhasil edit foto profil!', '', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Gagal edit foto profil!', '', 'warning');
                     })
             })
         })
