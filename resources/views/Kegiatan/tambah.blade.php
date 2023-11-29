@@ -48,7 +48,7 @@
                                         <div class="form-group mt-2">
                                             <label >Tipe Kegiatan:</label>
                                             <select required name="tipe_kegiatan" class="form-select mb-3">
-                                                <option value="" selected disabled>Pilih Posisi</option>
+                                                <option value="" selected disabled>Pilih Tipe Kegiatan</option>
                                                 <option value="pertandingan">pertandingan</option>
                                                 <option value="latihan">latihan</option>
                                             </select>
@@ -77,19 +77,43 @@
                                     <textarea required name="detail_kegiatan"class="form-control" rows="3" placeholder="Detail Kegiatan" style="resize: none"></textarea>
                                 </div>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label >Laporan Kegiatan:</label>
                                     <textarea required name="laporan_kegiatan" class="form-control" rows="3" placeholder="Laporan Kegiatan" style="resize: none"></textarea>
-                                </div>
+                                </div> --}}
 
-                                {{--   <div class="row">
+                                  <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
-                                        <label for="fileUpload" class="">Upload Foto (masukkan frame 1:1) :</label>
-                                        <input type="file" name="foto_kegiatan" id="fileUpload" class="btn w-auto btn-outline-primary form-control">
+                                        <label for="fileUpload" class="">Upload Foto:</label>
+                                        <input type="file" name="foto_kegiatan" id="fileUpload" 
+                                            class="btn w-auto btn-outline-primary form-control" onchange="previewImage()">
+                                        <img src="#" id="imagePreview" alt="preview" 
+                                            style=" height: 300px; display: none" 
+                                            class="mt-2 rounded ">
                                     </div>
+                                    <script>
+                                        function previewImage(){
+                                            var input = document.getElementById("fileUpload");
+                                            var preview = document.getElementById("imagePreview")
+    
+                                            if(input.files && input.files[0]){
+                                                var reader = new FileReader();
+    
+                                                reader.onload = function(e){
+                                                    preview.src = e.target.result;
+                                                    preview.style.display = 'block';
+                                                }
+    
+                                                reader.readAsDataURL(input.files[0]);
+                                            } else {
+                                                preview.src = "#";
+                                                preview.style.display = "none";
+                                            }
+                                        }
+                                    </script>
                                 </div>
                             </div>
-                        </div>   --}}
+                        </div>  
                             <hr>
                         <div class="row">
                             <div class="col-md-4">
@@ -110,7 +134,7 @@
     $('.addBtn').on('click', function (e) {
         e.preventDefault();
         let data = new FormData(e.target.form);
-        axios.post(`/jadwal/kegiatan/tambah/${data.get('id_jadwal')}`, data, {
+        axios.post(`/jadwal/${data.get('id_jadwal')}/kegiatan/tambah`, data, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {

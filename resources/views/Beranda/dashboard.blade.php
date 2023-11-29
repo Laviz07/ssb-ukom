@@ -105,7 +105,7 @@
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    {!! $beritaChart->container() !!}
+                    {!! $timChart->container() !!}
                 </div>
             </div>
         </div>
@@ -131,4 +131,8 @@
     <script src="{{ $userBulananChart->cdn() }}"></script>
 
     {{ $userBulananChart->script() }} 
+
+    <script src="{{ $timChart->cdn() }}"></script>
+
+    {{ $timChart->script() }} 
 @endsection

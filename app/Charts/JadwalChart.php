@@ -4,6 +4,7 @@ namespace App\Charts;
 
 
 use App\Models\Jadwal;
+use Carbon\Carbon;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class JadwalChart
@@ -17,19 +18,16 @@ class JadwalChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
     {
-        $jadwals = Jadwal::all();
+        // $jadwals = Jadwal::all();
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         $data = [];
 
         foreach ($months as $month) {
-            $jadwalsInMonth = $jadwals->filter(function ($jadwal) use ($month) {
-                $idJadwal = $jadwal->id_berita;
-                $formattedMonth = date('F', strtotime($idJadwal));
-
-                return $formattedMonth === $month;
-            });
-
-            $data[] = $jadwalsInMonth->count();
+            $beritas = Jadwal::whereMonth('created_at', Carbon::parse($month)->month)  
+                              ->whereYear('created_at', Carbon::now()->year)
+                              ->get();                          
+            
+            $data[] = $beritas->count();
         }
 
         return $this->chart->barChart()

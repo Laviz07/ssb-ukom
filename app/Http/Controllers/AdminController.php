@@ -58,7 +58,7 @@ class AdminController extends Controller
 
 
             // Menambah ke tabel user
-            'username' => ['nullable'],
+            'username' => ['required'],
             'password' => ['required'],
             'role' => ['required'],
             'foto_profil' => ['nullable', 'mimes:png,jpg,jpeg', 'max:2048']

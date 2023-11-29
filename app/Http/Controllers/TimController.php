@@ -87,6 +87,7 @@ class TimController extends Controller
         $tim = Tim::query()->find($request->input('id_tim'));
 
         if ($request->hasFile('foto_tim')) {
+            Storage::disk('public')->delete($tim->foto_tim);
             $path = $request->file('foto_tim')->storePublicly('foto_tim', 'public');
             $data['foto_tim'] = $path;
             $tim->foto_tim = $path;
