@@ -101,6 +101,7 @@ class GaleriController extends Controller
         // dd($request->all());
 
         if ($request->hasFile('foto')) {
+            Storage::disk('public')->delete($galeri->foto);
             $path = $request->file('foto')->store('foto_galeri', 'public');
             $galeri->foto = $path;
         }

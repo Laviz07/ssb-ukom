@@ -105,19 +105,20 @@ class BeritaController extends Controller
     {
         //
         $data = $request->validate([
-            'judul_berita'=> ['required'],
-            'foto_berita' => ['nullable'], 
+            'judul_berita' => ['required'],
+            'foto_berita' => ['nullable'],
             'isi_berita`' => ['nullable']
         ]);
 
         $berita = Berita::where('id_berita', $request->input('id_berita'));
         // Cek apakah pengguna mengunggah foto berita baru
         if ($request->hasFile('foto_berita')) {
+            Storage::disk('public')->delete($berita->foto_berita);
             $path = $request->file('foto_berita')->storePublicly('foto_berita', 'public');
             $data['foto_berita'] = $path;
             $berita->foto_berita = $path;
         }
-        
+
         $berita->update($data);
         // $berita->save();
 
