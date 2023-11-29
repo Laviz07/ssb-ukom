@@ -100,26 +100,26 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::delete('/jadwal/kegiatan/hapus/{id}', [KegiatanController::class, 'delete']);
         });
 
-        Route::middleware(['isPelatih'])->group(function () {
+        // Route::middleware(['isPelatih' || 'isAdmin'])->group(function () {
 
-            Route::get('/tim/tambah', [TimController::class, 'indexCreate']);
-            Route::post('/tim/tambah', [TimController::class, 'create']);
-            Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
-            Route::delete('/tim/hapus/{id}', [TimController::class, 'delete']);
+        //     Route::get('/tim/tambah', [TimController::class, 'indexCreate']);
+        //     Route::post('/tim/tambah', [TimController::class, 'create']);
+        //     Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
+        //     Route::delete('/tim/hapus/{id}', [TimController::class, 'delete']);
 
-            Route::post('/tim/tambah/anggota', [TimController::class, 'createAnggota']);
-            Route::delete('/tim/hapus/anggota/{id}', [TimController::class, 'deleteAnggota']);
+        //     Route::post('/tim/tambah/anggota', [TimController::class, 'createAnggota']);
+        //     Route::delete('/tim/hapus/anggota/{id}', [TimController::class, 'deleteAnggota']);
 
-            Route::get('/jadwal/tambah', [JadwalController::class, 'indexCreate']);
-            Route::post('/jadwal/tambah', [JadwalController::class, 'create']);
-            Route::post('/jadwal/edit/{id}', [JadwalController::class, 'edit']);
-            Route::delete('/jadwal/hapus/{id}', [JadwalController::class, 'delete']);
+        //     Route::get('/jadwal/tambah', [JadwalController::class, 'indexCreate']);
+        //     Route::post('/jadwal/tambah', [JadwalController::class, 'create']);
+        //     Route::post('/jadwal/edit/{id}', [JadwalController::class, 'edit']);
+        //     Route::delete('/jadwal/hapus/{id}', [JadwalController::class, 'delete']);
 
-            // Route::get('/jadwal/kegiatan/tambah/{id}', [KegiatanController::class, 'indexCreate']);
-            // Route::post('/jadwal/kegiatan/tambah/{id}', [KegiatanController::class, 'create']);
-            // Route::post('/jadwal/kegiatan/edit/{id}', [KegiatanController::class, 'edit']);
-            // Route::delete('/jadwal/kegiatan/hapus/{id}', [KegiatanController::class, 'delete']);
-        });
+        //     Route::get('/jadwal/kegiatan/tambah/{id}', [KegiatanController::class, 'indexCreate']);
+        //     Route::post('/jadwal/kegiatan/tambah/{id}', [KegiatanController::class, 'create']);
+        //     Route::post('/jadwal/kegiatan/edit/{id}', [KegiatanController::class, 'edit']);
+        //     Route::delete('/jadwal/kegiatan/hapus/{id}', [KegiatanController::class, 'delete']);
+        // });
     });
 
     // Route::middleware(['isPelatih'])->group(function () { });
