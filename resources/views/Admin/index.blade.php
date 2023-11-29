@@ -34,7 +34,7 @@
                     @foreach ($admin as $ad)
 
                         <tr style="vertical-align: middle; font-size: 17px;" idAD{{$ad->nik_admin}}>
-                            <td class="col-1" style="text-align: center;"> {{$no++}} </td>
+                            <td class="col-0" style="text-align: center;"> {{$no++}} </td>
                             <td class="col-1" style="text-align: center"> 
                                 @if ($ad->user && $ad->user->foto_profil)
                                     <img src="{{asset('storage/' . $ad->user->foto_profil) }}" alt="Foto Profil" style="width: 90px; height: 90px;" class="rounded-circle">

@@ -16,7 +16,7 @@
     
         @if ($berita->count() > 0)
         @foreach($berita as $br)
-            <div class="col-lg-4 col-md-12 mb-1 mb-lg-0">
+            <div class="col-lg-4 col-md-12 mb-1 mb-lg-0 berita-container">
                 <div idBR={{$br->id_berita}} >
                     <div class="col-md-3 card mt-4 align-items-center" style="width: 350px;">    
                     <a class="dropdown-item z-0 d-flex justify-content-center" href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
@@ -39,11 +39,13 @@
                                     </i>
                                     <div class="dropdown-menu z-2" style="width: 200px;" aria-labelledby="beritaDropdown">
                                         <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6>
+
                                         <a class="dropdown-item editBtn" data-bs-toggle="modal" data-bs-target="#edit-modal-{{$br->id_berita}}" 
                                             style="cursor: pointer" idBR="{{$br->id_berita}}"> 
                                             <i class="bi bi-pencil" style="font-size: 20px;"></i> 
                                             <strong class="ms-1">Edit Data Berita</strong> 
                                         </a>
+
                                         <a class="dropdown-item hapusBtn" idBR="{{$br->id_berita}}" style="cursor: pointer"> 
                                             <i class="bi bi-trash" style="font-size: 20px;"></i> 
                                             <strong class="ms-1">Hapus Data Berita</strong> 
@@ -156,7 +158,7 @@
 @section('footer')
     <script type="module">
          //delete pop up
-         $('.content').on('click', '.hapusBtn', function(e) {
+         $('.berita-container').on('click', '.hapusBtn', function(e) {
             e.preventDefault();
             let idBR = $(this).attr('idBR');
             swal.fire({
@@ -171,12 +173,12 @@
                     .then(function(response) {
                         console.log(response);
                         if (response.data.success) {
-                            swal.fire('Berhasil dihapus!', '', 'success').then(function() {
+                            swal.fire('Selamat!', 'Data berhasil dihapus.', 'success').then(function() {
                                 // Refresh Halaman
                                 location.reload();
                             });
                         } else {
-                            swal.fire('Gagal dihapus!', '', 'warning').then(function() {
+                            swal.fire('Maaf!', 'Gagal dihapus.', 'warning').then(function() {
                                 // Refresh Halaman
                                 location.reload();
                             });

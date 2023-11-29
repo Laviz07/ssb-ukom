@@ -112,7 +112,7 @@
           </li>
           @endif
           <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase" href="{{ url('berita', []) }}">Berita Sekolah</a>
+            <a class="nav-link mx-2 text-uppercase" href="{{ url('berita', []) }}">Berita</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-2 text-uppercase" href="{{ url('galeri', []) }}">Galeri</a>
