@@ -106,9 +106,11 @@
             <a class="nav-link mx-2 text-uppercase" aria-current="page" href="{{ url('dashboard', []) }}">Dashboard</a>
           </li>
           @endif
+          @if (Auth::check() && Auth::user()->role != 'admin')
           <li class="nav-item ">
             <a class="nav-link mx-2 text-uppercase" aria-current="page" href="{{ url('', []) }}">Beranda</a>
           </li>
+          @endif
           <li class="nav-item">
             <a class="nav-link mx-2 text-uppercase" href="{{ url('berita', []) }}">Berita Sekolah</a>
           </li>

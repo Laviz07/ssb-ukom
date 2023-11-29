@@ -3,6 +3,7 @@
 namespace App\Charts;
 
 use App\Models\Berita;
+use Carbon\Carbon;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 class BeritaChart
@@ -16,19 +17,23 @@ class BeritaChart
 
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
     {
-        $beritas = Berita::all();
         $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // menambahkan 6 bulan terakhir
+        // for ($i = 5; $i >= 0; $i--) {
+        //     $month = Carbon::now()->subMonths($i)->format('F'); 
+        //     $months[] = $month;
+        // }
+    
         $data = [];
-
-        foreach ($months as $month) {
-            $beritasInMonth = $beritas->filter(function ($berita) use ($month) {
-                $idBerita = $berita->id_berita;
-                $formattedMonth = date('F', strtotime($idBerita));
-
-                return $formattedMonth === $month;
-            });
-
-            $data[] = $beritasInMonth->count();
+    
+        foreach ($months as $month) {     
+    
+            $beritas = Berita::whereMonth('created_at', Carbon::parse($month)->month)  
+                              ->whereYear('created_at', Carbon::now()->year)
+                              ->get();                          
+            
+            $data[] = $beritas->count();
         }
 
         return $this->chart->barChart()
@@ -39,4 +44,9 @@ class BeritaChart
             ->addData('Berita', $data)
             ->setXAxis($months);
     }
+
+    // public function shouldResetChart() 
+    // {
+    //     return Carbon::now()->startOfYear()->eq(Carbon::now());
+    // }
 }
