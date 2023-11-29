@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('id_jadwal')->autoIncrement();
             $table->string('judul_kegiatan', 255)->nullable(false);
             $table->date('tanggal_kegiatan')->default('1960-01-01')->nullable(false);
+            $table->timestamp('created_at')->nullable(false)->useCurrent();
         });
     }
 

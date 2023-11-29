@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("nama_tim", 50)->nullable(false);
             $table->text("deskripsi_tim")->nullable(true);
             $table->string("foto_tim", 255)->nullable(true);
+            $table->timestamp('created_at')->nullable(false)->useCurrent();
 
             $table->foreign("nik_pelatih")->on("pelatih")->references("nik_pelatih")
                 ->onDelete("cascade")->onUpdate("cascade");

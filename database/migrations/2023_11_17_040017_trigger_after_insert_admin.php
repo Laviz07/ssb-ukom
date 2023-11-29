@@ -56,6 +56,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        DB::unprepared("DROP TRIGGER IF EXISTS $this->triggerName");
     }
 };

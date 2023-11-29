@@ -173,12 +173,12 @@
                     .then(function(response) {
                         console.log(response);
                         if (response.data.success) {
-                            swal.fire('Berhasil dihapus!', '', 'success').then(function() {
+                            swal.fire('Selamat!', 'Data berhasil dihapus.', 'success').then(function() {
                                 // Refresh Halaman
                                 location.reload();
                             });
                         } else {
-                            swal.fire('Gagal dihapus!', '', 'warning').then(function() {
+                            swal.fire('Maaf!', 'Gagal dihapus.', 'warning').then(function() {
                                 // Refresh Halaman
                                 location.reload();
                             });
