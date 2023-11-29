@@ -15,17 +15,16 @@ class JadwalController extends Controller
     public function index()
     {
         $data = [
-          'jadwal' => Jadwal::all()
+            'jadwal' => Jadwal::all()
         ];
         return view("Jadwal.index", $data);
-        
     }
 
     /**
      * Show the form for creating a new resource.
      */
 
-     public function indexDetail(Request $request)
+    public function indexDetail(Request $request)
     {
         $data = [
             'jadwal' => Jadwal::where('tanggal_kegiatan', $request->id)->first()
@@ -34,10 +33,10 @@ class JadwalController extends Controller
         return view('jadwal.detail', $data);
     }
 
-     public function indexCreate()
-     {
-         return view('Jadwal.tambah');
-     }
+    public function indexCreate()
+    {
+        return view('Jadwal.tambah');
+    }
 
     public function create(Request $request)
     {
@@ -51,7 +50,6 @@ class JadwalController extends Controller
         if ($dataInsert) {
             return redirect()->to('/jadwal')->with('success', 'Jadwal berhasil ditambah');
         }
-
     }
 
     /**
@@ -101,7 +99,7 @@ class JadwalController extends Controller
      */
     public function delete(Jadwal $jadwal, Request $request)
     {
-        
+
         $id = $request->id;
 
         $jadwal = Jadwal::where('id_jadwal', $id)->first();
@@ -113,7 +111,7 @@ class JadwalController extends Controller
             //     Storage::disk('public')->delete($admin->user->foto_profil);
             // }
 
-            
+
 
             //menghapus user
             $jadwal = Jadwal::where('id_jadwal', $jadwal->id_jadwal)->first();

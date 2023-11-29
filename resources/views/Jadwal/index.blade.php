@@ -103,7 +103,8 @@
                                             </div>
                                             <div class="form-group mt-2">
                                                 <label>Tanggal Kegiatan:</label>
-                                                <input placeholder="{{$jw->tanggal_kegiatan}}" type="date" id="tanggal" name="tanggal_kegiatan" class="form-control">
+                                                <input type="date" id="tanggal" name="tanggal_kegiatan" 
+                                                class="form-control" value="{{$jw->tanggal_kegiatan}}">
                                             </div>
                                         </form>
                                     </div>
