@@ -88,12 +88,12 @@
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {
-            swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+            swal.fire('Selamat!', 'Galeri berhasil ditambahkan.', 'success').then(function () {
                 window.location.href = '/galeri'; 
             })
         })
         .catch((err) => {
-            swal.fire('Gagal tambah data!', '', 'warning');
+            swal.fire('Galeri gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
         });
     });
     </script>

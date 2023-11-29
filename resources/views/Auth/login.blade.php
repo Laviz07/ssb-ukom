@@ -137,7 +137,7 @@
 
             console.log(response);
         } catch (error) {
-            swal.fire('Gagal Login!', '', 'warning');
+            swal.fire('Waduh!', 'Anda tidak bisa login, pastikan username dan password terisi dengan benar!', 'warning');
             console.error(error);
         }
     });

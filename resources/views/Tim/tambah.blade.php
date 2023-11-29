@@ -105,12 +105,12 @@
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {
-            swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+            swal.fire('Selamat!', 'Tim berhasil ditambahkan.', 'success').then(function () {
                 window.location.href = '/tim'; 
             })
         })
         .catch((err) => {
-            swal.fire('Gagal tambah data!', '', 'warning');
+            swal.fire('Tim gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
         });
     });
     </script>

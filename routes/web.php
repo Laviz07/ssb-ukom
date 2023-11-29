@@ -105,6 +105,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
     Route::get('/pelatih', [PelatihController::class, 'index']);
     Route::get('/pelatih/detail/{id}', [PelatihController::class, 'indexDetail']);
+    Route::get('/pelatih/cetak/{id}', [PelatihController::class, 'cetakPelatih']);
 
     Route::get('/pemain', [PemainController::class, 'index']);
     Route::get('/pemain/detail/{id}', [PemainController::class, 'indexDetail']);
@@ -114,6 +115,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::post('/tim/tambah', [TimController::class, 'create']);
     Route::get('/tim/detail/{id}', [TimController::class, 'indexDetail']);
     Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
+    Route::delete('/tim/hapus/{id}', [TimController::class, 'delete']);
 
     Route::post('/tim/tambah/anggota', [TimController::class, 'createAnggota']);
     Route::delete('/tim/hapus/anggota/{id}', [TimController::class, 'deleteAnggota']);

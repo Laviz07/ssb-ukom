@@ -180,12 +180,12 @@
                 axios.post(`/pelatih/edit/${idPL}`, data)
                     .then(() => {
                         $(`#edit-modal-${idPL}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Selamat!', 'Pelatih berhasil diedit.', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Waduh!', 'Pelatih gagal diedit.', 'warning');
                     })
             })
         })
@@ -195,7 +195,8 @@
         a.preventDefault();
         let idPL = $(this).closest('.hapusBtn').attr('idPL');
         swal.fire({
-                title : "Apakah anda ingin menghapus data ini?",
+                title: "Yakin ingin menghapus berita?",
+                text: 'Berita yang sudah dihapus, tidak bisa dikembalikan.',
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,
@@ -207,18 +208,18 @@
                     axios.delete('/pelatih/hapus/' + idPL).then(function(response){
                         console.log(response);
                         if(response.data.success){
-                            swal.fire('Berhasil di hapus!', '', 'success').then(function(){
+                            swal.fire('Selamat!', 'Pelatih berhasil dihapus.', 'success').then(function(){
                                     //Refresh Halaman
                                     location.reload();
                                 });
                         }else{
-                            swal.fire('Gagal di hapus!', '', 'warning').then(function(){
+                            swal.fire('Waduh!', 'Pelatih gagal dihapus.', 'warning').then(function(){
                                     //Refresh Halaman
                                     location.reload();
                                 });
                         }
                     }).catch(function(error){
-                        swal.fire('Data gagal di hapus!', '', 'error').then(function(){
+                        swal.fire('Waduh!', 'Pelatih gagal dihapus.', 'error').then(function(){
                                     //Refresh Halaman
                                    
                                 });
