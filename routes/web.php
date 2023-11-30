@@ -121,10 +121,12 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
     Route::get('/pelatih', [PelatihController::class, 'index']);
     Route::get('/pelatih/detail/{id}', [PelatihController::class, 'indexDetail']);
-    Route::get('/pelatih/cetak/{id}', [PelatihController::class, 'cetakPelatih']);
+    // Route::get('/pelatih/cetak/', [PelatihController::class, 'print']);
+    Route::get('/pelatih/cetak/', [PelatihController::class, 'cetakPelatih']);
 
     Route::get('/pemain', [PemainController::class, 'index']);
     Route::get('/pemain/detail/{id}', [PemainController::class, 'indexDetail']);
+    Route::get('/pemain/cetak/', [PemainController::class, 'cetakPemain']);
 
     Route::get('/tim', [TimController::class, 'index']);
     Route::get('/tim/detail/{id}', [TimController::class, 'indexDetail']);

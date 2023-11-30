@@ -163,6 +163,9 @@
     <a href="{{ url('pelatih', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
         <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 35px; margin: 30px; color:#003459;"></i>
     </a>@endif
+    <a href="{{url('pelatih', ['cetak'])}}" target="blank" class="position-fixed z-10  end-0 " style="bottom: 50px">
+        <i class="bi bi-printer-fill" style="font-size: 35px; margin: 30px; color:#003459;"></i>
+    </a>
 </div>
 @endsection
 

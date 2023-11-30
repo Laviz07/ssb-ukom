@@ -17,7 +17,7 @@
             @if ($kegiatan->foto_kegiatan)
                     <div class="text-center">
                         <img src="{{ asset('storage/' . $kegiatan->foto_kegiatan) }}" alt="{{$kegiatan->nama_kegiatan}}" 
-                        style="width: auto; height: 250px; border-radius: 10px">
+                        style="width: auto; height: 350px; border-radius: 10px">
                     </div>
             @endif
 
@@ -34,7 +34,8 @@
 
         <div class="container mt-2 mb-4 text-center " >
             <div class="row d-flex justify-content-between ">
-                <div class="card mt-3 p-3" style="width: 48%;">
+                <div class="card mt-3 p-3" 
+                style="width: 48%;">
                     <span style="font-size: 20px; font-weight: 500; text-align: left"> 
                         Detail Kegiatan
                     </span>
@@ -44,7 +45,8 @@
                     </span>
                 </div>
 
-                <div class="card mt-3 p-3" style="width: 48%;">
+                <div class="card mt-3 p-3" 
+                style="width: 48%;">
                     <span style="font-size: 20px; font-weight: 500; text-align: left"> 
                         Laporan Kegiatan
                     </span>

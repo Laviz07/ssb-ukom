@@ -191,4 +191,22 @@ class PemainController extends Controller
     {
         //
     }
+
+    public function cetakPemain()
+    {
+        $data = [
+            'pemain' => Pemain::get(),
+            'user' => User::get(),
+            'tim' => Tim::get()
+        ];
+        return view('Pemain.cetak', $data);
+    }
+
+    public function print()
+    {
+        $data = Pemain::limit(10)->get();
+        $pdf = PDF::loadView('pemain.cetak', compact('data'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('daftar-pemain.pdf');
+    }
 }

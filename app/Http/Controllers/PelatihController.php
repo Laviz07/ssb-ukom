@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pelatih;
 use App\Models\Tim;
 use App\Models\User;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -32,17 +33,6 @@ class PelatihController extends Controller
     {
         return view('Pelatih.tambah');
     }
-
-    /**
-     * Menampilkan halaman cetak data pelatih
-     */
-    public function cetakPelatih()
-        {
-            $data = [
-                'pelatih'=> Pelatih::all(),
-            ];
-            return view('Pelatih.cetak', $data);
-        }
 
     /**
      * Menampilkan halaman detail pelatih
@@ -192,5 +182,25 @@ class PelatihController extends Controller
         }
 
         return response()->json($pesan);
+    }
+
+    /**
+     * Menampilkan halaman cetak data pelatih
+     */
+    public function cetakPelatih()
+    {
+        $data = [
+            'pelatih' => Pelatih::get(),
+            'user' => User::get()
+        ];
+        return view('Pelatih.cetak', $data);
+    }
+
+    public function print()
+    {
+        $data = Pelatih::limit(10)->get();
+        $pdf = PDF::loadView('pelatih.cetak', compact('data'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('daftar-pelatih.pdf');
     }
 }
