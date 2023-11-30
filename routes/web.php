@@ -137,6 +137,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
 
     Route::get('/jadwal', [JadwalController::class, 'index']);
+    Route::get('/jadwal/cetak/', [JadwalController::class, 'cetakJadwal']);
 
     Route::get('/jadwal/kegiatan/{id}', [KegiatanController::class, 'index']);
     Route::get('/jadwal/kegiatan/detail/{id}', [KegiatanController::class, 'indexDetail']);
