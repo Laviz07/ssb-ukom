@@ -23,7 +23,7 @@
             </a>
 
             @if (Auth::user()['role']=='admin')
-            <a href="{{ url('jadwal', [$jadwal->id_jadwal, 'kegiatan',  'tambah' ])}}" class="justify-content-end">
+            <a href="{{ url('jadwal', ['kegiatan',  'tambah', $jadwal->id_jadwal])}}" class="justify-content-end">
                 <btn class="btn btn-success">Tambah </btn>
             </a>
             @endif
@@ -75,7 +75,7 @@
                                     <div class="dropdown-menu" style="width: 200px;" aria-labelledby="navbarDropdownMenuLink">
                                     
                                     <h6 class="dropdown-header">Apa Yang Akan Anda Lakukan?</h6> 
-                                       <a class="dropdown-item" href="{{ url('jadwal', ['kegiatan', 'detail', $kg->id_kegiatan]) }}"> 
+                                       <a class="dropdown-item" href="{{ url('kegiatan', ['detail', $kg->id_kegiatan]) }}"> 
                                         <i class="bi bi-eye"  style="font-size: 20px; vertical-align: middle; "></i> 
                                         <strong class="ms-1">Lihat Detail Kegiatan</strong> 
                                        </a>
@@ -97,10 +97,10 @@
                             @endif
 
                         @if (Auth::user()['role']=='pemain')
-                            <a href="{{ url('kegiatan', ['detail', $kg->id_kegiatan]) }}" class="btn btn-primary" >
-                                Lihat Detail
-                                <i class="bi bi-search ms-2"  style="font-size: 15px; vertical-align: middle; "></i> 
-                            </a>
+                        <a class="dropdown-item" href="{{ url('kegiatan', ['detail', $kg->id_kegiatan]) }}"> 
+                            <i class="bi bi-eye"  style="font-size: 20px; vertical-align: middle; "></i> 
+                            <strong class="ms-1">Lihat Detail Kegiatan</strong> 
+                           </a>
                         @endif
 
                             </td>
@@ -183,40 +183,6 @@
                                                 </textarea>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-md-4 mt-3 align-items-center">
-                                                    <label for="fileUpload">Upload Gambar</label>
-                                                    <input type="file" name="foto_kegiatan" id="fileUpload" onchange="previewImage()"
-                                                    class="btn w-auto btn-outline-primary form-control">
-                                                    <img src="#" id="imagePreview" alt="preview" 
-                                                    style="width: 345px; height: 200px; display: none" 
-                                                    class="mt-2 rounded ">
-                                                   
-                                                </div>
-            
-                                                <script>
-                                                    function previewImage(){
-                                                        var input = document.getElementById("fileUpload");
-                                                        var preview = document.getElementById("imagePreview")
-                
-                                                        if(input.files && input.files[0]){
-                                                            var reader = new FileReader();
-                
-                                                            reader.onload = function(e){
-                                                                preview.src = e.target.result;
-                                                                preview.style.display = 'block';
-                                                            }
-                
-                                                            reader.readAsDataURL(input.files[0]);
-                                                        } else {
-                                                            preview.src = "#";
-                                                            preview.style.display = "none";
-                                                        }
-                                                    }
-                                                </script>
-            
-                                            </div>
-
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -255,9 +221,7 @@
                 e.preventDefault();
                 let data = Object.fromEntries(new FormData(e.target));
                 data['id_kegiatan'] = idKG;
-                axios.post(`/jadwal/kegiatan/edit/${idKG}`, data, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                })
+                axios.post(`/jadwal/kegiatan/edit/${idKG}`, data)
                     .then(() => {
                         $(`#edit-modal-${idKG}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
