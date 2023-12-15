@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,7 +13,8 @@ return new class extends Migration
         Schema::create('pemain', function (Blueprint $table) {
             $table->bigInteger("nisn_pemain")->primary();
             $table->integer("id_user")->nullable(false);
-            $table->integer("id_tim")->nullable(true);
+            // $table->integer("id_tim")->nullable(true);
+            $table->string("id_tim", 7)->nullable(true);
             $table->string("nama_pemain", 50)->nullable(false);
             $table->date("tanggal_lahir")->default("2000-01-01")->nullable(false);
             $table->string("tempat_lahir", 255)->nullable(false);

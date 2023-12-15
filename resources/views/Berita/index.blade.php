@@ -18,10 +18,10 @@
         @foreach($berita as $br)
             <div class="col-lg-4 col-md-12 mb-1 mb-lg-0 berita-container">
                 <div idBR={{$br->id_berita}} >
-                    <div class="col-md-3 card mt-4 align-items-center" style="width: 350px;">    
+                    <div class="col-md-3 card mt-4 align-items-center" style="width: 290px;">    
                     <a class="dropdown-item z-0 d-flex justify-content-center" href="{{ url('berita', ['detail', $br->id_berita]) }}"> 
                         <img src="{{ asset('storage/' . $br->foto_berita) }}" alt="{{'storage/foto_berita/' . $br->foto_berita}}" 
-                            height="250" width="300" class="rounded p-2 pt-4" >
+                            height="220" width="260" class="rounded p-2 pt-4" >
                     </a>
 
                         <div class="col d-flex justify-content-between mb-3 mt-3 ps-4">
@@ -90,11 +90,11 @@
 
                         <div class="row">
                             <div class="col-md-4 mt-3 align-items-center">
-                                <label for="fileUpload">Upload Gambar</label>
+                                <label for="fileUpload">Upload Gambar (frame 1:1)</label>
                                 <input type="file" name="foto_berita" id="fileUpload" onchange="previewImage()"
                                     class="btn w-auto btn-outline-primary form-control">
                                 <img src="#" id="imagePreview" alt="preview" 
-                                    style="width: 345px; height: 200px; display: none" 
+                                    style="width: 345px; height: 200px; display: none; object-fit: cover;" 
                                     class="mt-2 rounded ">
                                     
                             <script>
@@ -179,7 +179,7 @@
                                 location.reload();
                             });
                         } else {
-                            swal.fire('Waduh!', 'Gagal dihapus.', 'warning').then(function() {
+                            swal.fire('Waduh!', 'Berita gagal dihapus.', 'warning').then(function() {
                                 // Refresh Halaman
                                 location.reload();
                             });
@@ -206,12 +206,12 @@
                 })
                     .then(() => {
                         $(`#edit-modal-${idBR}`).css('display', 'none')
-                        swal.fire('Selamat!', 'Data berhasil dihapus.', 'success').then(function () {
+                        swal.fire('Selamat!', 'Berita berhasil diedit.', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Maaf!', 'Gagal dihapus.', 'warning');
+                        swal.fire('Maaf!', 'Data gagal diedit.', 'warning');
                     })
             })
         })

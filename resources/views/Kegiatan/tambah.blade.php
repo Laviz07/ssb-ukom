@@ -15,7 +15,7 @@
             <div class="card ">
              
                 <div class="card-body" >
-                    <form action="{{ url('jadwal', ['kegiatan','tambah', $jadwal->id_jadwal])}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('jadwal', [ $jadwal->id_jadwal, 'kegiatan','tambah'])}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="">
@@ -84,11 +84,11 @@
 
                                   <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
-                                        <label for="fileUpload" class="">Upload Foto:</label>
+                                        <label for="fileUpload" class="">Upload Foto</label>
                                         <input type="file" name="foto_kegiatan" id="fileUpload" 
                                             class="btn w-auto btn-outline-primary form-control" onchange="previewImage()">
                                         <img src="#" id="imagePreview" alt="preview" 
-                                            style=" height: 300px; display: none" 
+                                            style=" height: 300px; display: none; object-fit: cover;" 
                                             class="mt-2 rounded ">
                                     </div>
                                     <script>
@@ -138,12 +138,12 @@
             headers: { 'Content-Type': 'multipart/form-data' }
         })
         .then((res) => {
-            swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+            swal.fire('Selamat!', 'Kegiatan berhasil ditambahkan.', 'success').then(function () {
                 window.location.href = `/jadwal/kegiatan/${data.get('id_jadwal')}`;
             })
         })
         .catch((err) => {
-            swal.fire('Gagal tambah data!', '', 'warning');
+            swal.fire('Kegiatan gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
         });
     });
 </script>

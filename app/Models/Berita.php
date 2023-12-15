@@ -29,7 +29,9 @@ class Berita extends Model
     use HasFactory;
     protected $table = "berita";
     protected $primaryKey = "id_berita";
+    protected $keyType = 'string';
     protected $fillable = [
+        "id_berita",
         "judul_berita",
         "isi_berita",
         "foto_berita",

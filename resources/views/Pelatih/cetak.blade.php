@@ -13,7 +13,7 @@
     <link rel="icon" href="{{ asset('/images/logo.png') }}">
 
     @vite(['resources/sass/app.scss','resources/js/app.js'])
-    <title>@yield('title')</title>
+    <title>Cetak Daftar Pelatih</title>
 
 </head>
 

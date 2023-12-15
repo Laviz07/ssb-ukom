@@ -23,12 +23,20 @@
 
             <div class="mt-4">
                 <a href="" class="btn btn-primary ">Mengisi Presensi</a>
-                
+
+                @if ($kegiatan->laporan_kegiatan)
                 <a class="btn btn-primary ms-3" data-bs-toggle="modal" 
-                    data-bs-target="#laporan-modal-{{$kegiatan->id_kegiatan}}" 
+                    data-bs-target="#edit-laporan-modal-{{$kegiatan->id_kegiatan}}" 
                     style="cursor: pointer" idKG={{$kegiatan->id_kegiatan}}>
-                    Mengisi Laporan
+                        Edit Kegiatan
                 </a>
+                @else
+                <a class="btn btn-primary ms-3" data-bs-toggle="modal" 
+                    data-bs-target="#tambah-laporan-modal-{{$kegiatan->id_kegiatan}}" 
+                    style="cursor: pointer" idKG={{$kegiatan->id_kegiatan}}>
+                        Mengisi Kegiatan
+                </a>
+                @endif
             </div>
         </div>
 
@@ -65,13 +73,13 @@
     </div>
 
       {{-- TAMBAH LAPORAN --}}
-      <div class="modal fade" id="laporan-modal-{{$kegiatan->id_kegiatan}}" tabindex="-1"
+      <div class="modal fade" id="tambah-laporan-modal-{{$kegiatan->id_kegiatan}}" tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Jadwal</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Laporan Kegiatan</h1>
             </div>
             <div class="modal-body">
                 <form id="add-lk-form-{{$kegiatan->id_kegiatan}}">
@@ -79,7 +87,7 @@
                         <label>Laporan Kegiatan:</label>
                         <textarea required name="laporan_kegiatan" id="" 
                             class="form-control" rows="5" placeholder="Laporan Kegiatan" 
-                            style="resize: none"> {{$kegiatan->laporan_kegiatan}}
+                            style="resize: none">
                         </textarea>
                        @csrf
                     </div>
@@ -97,6 +105,41 @@
             </div>
         </div>
     </div>
+</div>
+
+{{-- EDIT LAPORAN --}}
+<div class="modal fade" id="edit-laporan-modal-{{$kegiatan->id_kegiatan}}" tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Laporan Kegiatan</h1>
+        </div>
+        <div class="modal-body">
+            <form id="edit-lk-form-{{$kegiatan->id_kegiatan}}">
+                <div class="form-group">
+                    <label>Laporan Kegiatan:</label>
+                    <textarea required name="laporan_kegiatan" id="" 
+                        class="form-control" rows="5" placeholder="Laporan Kegiatan" 
+                        style="resize: none"> {{$kegiatan->laporan_kegiatan}}
+                    </textarea>
+                   @csrf
+                </div>
+                <input type="hidden" name="id_kegiatan" value="{{$kegiatan->id_kegiatan}}">
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-primary editBtn"
+                    form="edit-lk-form-{{$kegiatan->id_kegiatan}}" >
+                Simpan
+            </button>
+        </div>
+    </div>
+</div>
 </div>
 
 
@@ -225,12 +268,26 @@
         let data = new FormData(e.target.form);
         axios.post(`/jadwal/kegiatan/tambah/laporan-kegiatan/`, data)
             .then((res) => {
-                swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+                swal.fire('Selamat!', 'Laporan Kegiatan berhasil ditambahkan.', 'success').then(function () {
                     location.reload();
                 });
             })
             .catch((err) => {
-                swal.fire('Gagal tambah data!', '', 'warning');
+                swal.fire('Laporan Kegiatan gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
+            });
+    });
+
+    $('.editBtn').on('click', function (e) {
+        e.preventDefault();
+        let data = new FormData(e.target.form);
+        axios.post(`/jadwal/kegiatan/tambah/laporan-kegiatan/`, data)
+            .then((res) => {
+                swal.fire('Selamat!', 'Laporan Kegiatan berhasil diedit.', 'success').then(function () {
+                    location.reload();
+                });
+            })
+            .catch((err) => {
+                swal.fire('Laporan Kegiatan gagal diedit!', 'Pastikan mengisi data seluruhnya.', 'warning');
             });
     });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Galeri;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class GaleriController extends Controller
@@ -18,6 +19,8 @@ class GaleriController extends Controller
         $data = [
             'galeri' => Galeri::all()
         ];
+
+        // return $data;
 
         return view("Galeri.index", $data);
     }
@@ -41,10 +44,14 @@ class GaleriController extends Controller
             'keterangan_foto' => ['required'],
         ]);
 
+        // Memanggil fungsi untuk mendapatkan ID kustom
+        $customId = DB::selectOne("SELECT function_id_galeri() as custom_id")->custom_id;
+        $data['id_galeri'] = $customId;
+
         $path = $request->file('foto')->storePublicly('foto_galeri', 'public');
         $data['foto'] = $path;
 
-        $galeri = new Galeri($data);
+        $galeri = Galeri::create($data);
         $galeri->save();
 
         return redirect('/galeri')
@@ -97,8 +104,6 @@ class GaleriController extends Controller
 
 
         $galeri = Galeri::find($request->input('id_galeri'));
-
-        // dd($request->all());
 
         if ($request->hasFile('foto')) {
             Storage::disk('public')->delete($galeri->foto);

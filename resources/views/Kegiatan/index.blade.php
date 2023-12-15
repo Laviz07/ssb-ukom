@@ -22,7 +22,7 @@
                 <btn class="btn btn-primary">Kembali</btn>
             </a>
 
-            @if (Auth::user()['role']=='admin')
+            @if (Auth::user()['role']=='admin' || Auth::user()['role']=='pelatih')
             <a href="{{ url('jadwal', [$jadwal->id_jadwal, 'kegiatan',  'tambah' ])}}" class="justify-content-end">
                 <btn class="btn btn-success">Tambah </btn>
             </a>
@@ -189,7 +189,7 @@
                                                     <input type="file" name="foto_kegiatan" id="fileUpload" onchange="previewImage()"
                                                     class="btn w-auto btn-outline-primary form-control">
                                                     <img src="#" id="imagePreview" alt="preview" 
-                                                    style="width: 345px; height: 200px; display: none" 
+                                                    style="width: 345px; height: 200px; display: none; object-fit: cover;" 
                                                     class="mt-2 rounded ">
                                                    
                                                 </div>
@@ -260,12 +260,12 @@
                 })
                     .then(() => {
                         $(`#edit-modal-${idKG}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                        swal.fire('Selamat!', 'Kegiatan berhasil diedit.', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit data!', '', 'warning');
+                        swal.fire('Waduh!', 'Gagal mengedit kegiatan.', 'warning');
                     })
             })
         })

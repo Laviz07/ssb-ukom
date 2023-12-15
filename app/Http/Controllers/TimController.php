@@ -61,6 +61,10 @@ class TimController extends Controller
             'foto_tim' => ['nullable'],
         ]);
 
+        // Memanggil fungsi untuk mendapatkan ID kustom
+        $customId = DB::selectOne("SELECT function_id_tim() as custom_id")->custom_id;
+        $data['id_tim'] = $customId;
+
         $path = $request->file('foto_tim')->storePublicly('foto_tim', 'public');
         $data['foto_tim'] = $path;
 

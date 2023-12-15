@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\Berita;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
@@ -43,6 +44,9 @@ class BeritaController extends Controller
             'nik_admin' => ['required'],
         ]);
 
+        // Memanggil fungsi untuk mendapatkan ID kustom
+        $customId = DB::selectOne("SELECT function_id_berita() as custom_id")->custom_id;
+        $data['id_berita'] = $customId;
 
         $path = $request->file('foto_berita')->storePublicly('foto_berita', 'public');
         $data['foto_berita'] = $path;
@@ -113,7 +117,7 @@ class BeritaController extends Controller
         $berita = Berita::where('id_berita', $request->input('id_berita'));
         // Cek apakah pengguna mengunggah foto berita baru
         if ($request->hasFile('foto_berita')) {
-            Storage::disk('public')->delete($berita->foto_berita);
+            // Storage::disk('public')->delete($berita->foto_berita);
             $path = $request->file('foto_berita')->storePublicly('foto_berita', 'public');
             $data['foto_berita'] = $path;
             $berita->foto_berita = $path;

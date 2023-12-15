@@ -153,12 +153,12 @@
 
         axios.post(`/tim/tambah/anggota/`, data)
             .then((res) => {
-                swal.fire('Berhasil tambah data!', '', 'success').then(function () {
+                swal.fire('Selamat!', 'Anggota Tim berhasil ditambahkan.', 'succes').then(function () {
                     location.reload();
                 });
             })
             .catch((err) => {
-                swal.fire('Gagal tambah data!', '', 'warning');
+                swal.fire('Anggota Tim gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
             });
     });
 

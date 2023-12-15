@@ -111,10 +111,12 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::delete('/jadwal/hapus/{id}', [JadwalController::class, 'delete']);
 
             /* ----------------------------- Route Kegiatan ----------------------------- */
-            Route::get('/jadwal/kegiatan/tambah/{id}', [KegiatanController::class, 'indexCreate']);
-            Route::post('/jadwal/kegiatan/tambah/{id}', [KegiatanController::class, 'create']);
+            Route::get('/jadwal/{id}/kegiatan/tambah', [KegiatanController::class, 'indexCreate']);
+            Route::post('/jadwal/{id}/kegiatan/tambah/', [KegiatanController::class, 'create']);
             Route::post('/jadwal/kegiatan/edit/{id}', [KegiatanController::class, 'edit']);
             Route::delete('/jadwal/kegiatan/hapus/{id}', [KegiatanController::class, 'delete']);
+
+            Route::post('/jadwal/kegiatan/tambah/laporan-kegiatan', [KegiatanController::class, 'createLaporan']);
         });
     });
 

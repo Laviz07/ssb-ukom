@@ -4,16 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('kegiatan', function (Blueprint $table) {
-            $table->integer('id_kegiatan')->autoIncrement();
+            // $table->integer('id_kegiatan')->autoIncrement();
             $table->integer('id_jadwal')->nullable(false);
+            $table->string('id_kegiatan', 7)->primary();
+            // $table->string('id_jadwal', 4)->nullable(false);
             $table->bigInteger('nik_pelatih')->nullable(false);
             $table->text('nama_kegiatan')->nullable(false);
             $table->enum('tipe_kegiatan', ['latihan', 'pertandingan'])->nullable(false);

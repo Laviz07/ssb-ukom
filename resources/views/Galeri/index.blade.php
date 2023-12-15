@@ -14,7 +14,9 @@
             <div class="row mt-4 mb-4">
                 @if ($galeri->count() > 0)
                     
+                {{-- <pre>{{ print_r($galeri) }}</pre> --}}
                 @foreach($galeri as $gl)
+                {{-- <p>{{$gl->id_galeri}}</p> --}}
 
                 <div class="col-lg-4 col-md-12 mb-4 mt-4 mb-lg-0">
 
@@ -26,6 +28,7 @@
                         <div class="overlay ">
                             <span class="caption text-white" style="font-size: 20px; text-align: center;"> 
                                 {{$gl->keterangan_foto}} 
+                                {{$gl->id_galeri}} 
                             </span>
                         </div>
 
@@ -87,11 +90,12 @@
 
                                 <div class="row">
                                     <div class="col-md-4 mt-3 align-items-center">
-                                        <label for="fileUpload">Upload Gambar</label>
+                                        <label for="fileUpload">Upload Gambar (frame 1:1)
+                                        </label>
                                         <input type="file" name="foto" id="fileUpload" onchange="previewImage()"
                                         class="btn w-auto btn-outline-primary form-control">
                                         <img src="#" id="imagePreview" alt="preview" 
-                                        style="width: 345px; height: 200px; display: none" 
+                                        style="width: 345px; height: 200px; display: none; object-fit: cover;" 
                                         class="mt-2 rounded ">
                                        
                                     </div>
@@ -176,7 +180,7 @@
                                 location.reload();
                             });
                         } else {
-                            swal.fire('Waduh!', 'Gagal dihapus.', 'warning').then(function() {
+                            swal.fire('Waduh!', 'Galeri gagal dihapus.', 'warning').then(function() {
                                 // Refresh Halaman
                                 location.reload();
                             });
@@ -203,12 +207,12 @@
                 })
                     .then(() => {
                         $(`#edit-modal-${idGL}`).css('display', 'none')
-                        swal.fire('Selamat!', 'Data berhasil diedit.', 'success').then(function () {
+                        swal.fire('Selamat!', 'Galeri berhasil diedit.', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Maaf!', 'Data gagal dihapus.', 'warning');
+                        swal.fire('Waduh!', 'Galeri gagal diedit.', 'warning');
                     })
             })
         })

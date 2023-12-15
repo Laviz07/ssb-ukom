@@ -6,6 +6,7 @@ use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use App\Models\Kegiatan;
 use App\Models\Pelatih;
+use Illuminate\Support\Facades\DB;
 use Storage;
 
 class KegiatanController extends Controller
@@ -54,6 +55,10 @@ class KegiatanController extends Controller
             // 'laporan_kegiatan' => ['required'],
 
         ]);
+
+         // Memanggil fungsi untuk mendapatkan ID kustom
+         $customId = DB::selectOne("SELECT function_id_kegiatan() as custom_id")->custom_id;
+         $data['id_kegiatan'] = $customId;
 
         //Upload foto kegiatan
         if ($request->hasFile('foto_kegiatan')) {

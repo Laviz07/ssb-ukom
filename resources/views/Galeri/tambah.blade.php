@@ -28,11 +28,11 @@
                         </div>
                     <div class="row">
                         <div class="col-md-4 mt-3 align-items-center">
-                            <label for="fileUpload">Upload Gambar</label>
+                            <label for="fileUpload">Upload Gambar (frame 1:1)</label>
                             <input type="file" name="foto" id="fileUpload" onchange="previewImage()"
                                 class="btn w-auto btn-outline-primary form-control">
                             <img src="#" id="imagePreview" alt="preview" 
-                            style="width: 345px; height: 200px; display: none" 
+                            style="width: 345px; height: 200px; display: none; object-fit: cover;" 
                             class="mt-2 rounded ">
                         </div>
 

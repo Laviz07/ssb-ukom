@@ -4,15 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('tim', function (Blueprint $table) {
-            $table->integer("id_tim")->autoIncrement();
+            $table->string("id_tim", 7)->primary();
+            // $table->integer("id_tim")->autoIncrement();
             $table->bigInteger("nik_pelatih")->nullable(false);
             $table->string("nama_tim", 50)->nullable(false);
             $table->text("deskripsi_tim")->nullable(true);

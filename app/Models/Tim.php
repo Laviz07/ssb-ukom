@@ -31,28 +31,30 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Tim extends Model
 {
-    use HasFactory;
-    protected $table = "tim";
-    protected $primaryKey = "id_tim";
-    protected $fillable = [
-        "nik_pelatih",
-        "nama_tim",
-        "deskripsi_tim",
-        "foto_tim"
-    ];
-    public $timestamps = false;
+  use HasFactory;
+  protected $table = "tim";
+  protected $primaryKey = "id_tim";
+  protected $keyType = 'string';
+  protected $fillable = [
+    "nik_pelatih",
+    "id_tim",
+    "nama_tim",
+    "deskripsi_tim",
+    "foto_tim"
+  ];
+  public $timestamps = false;
 
-    public function pelatih(): BelongsTo
-    {
-        return $this->belongsTo(Pelatih::class, "nik_pelatih");
-    }
+  public function pelatih(): BelongsTo
+  {
+    return $this->belongsTo(Pelatih::class, "nik_pelatih");
+  }
 
-    public function pemain(): HasMany
-    {
-        return $this->hasMany(Pemain::class, "id_tim");
-    }
+  public function pemain(): HasMany
+  {
+    return $this->hasMany(Pemain::class, "id_tim");
+  }
 
-    public function getPemainCountAttribute()
+  public function getPemainCountAttribute()
   {
     return $this->pemain()->count();
   }

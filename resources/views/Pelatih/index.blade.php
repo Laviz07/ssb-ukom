@@ -40,7 +40,7 @@
                                 @endif
                             </td>
                             <td class="col-5 text-capitalize text-center"> {{$pl->nama_pelatih}} </td>
-                            <td class="col-3" style="text-align: center"> {{$pl->nik_pelatih}} </td>
+                            <td class="col-2" style="text-align: center"> {{$pl->nik_pelatih}} </td>
                             <td style="text-align: center">
                                 
                             @if (Auth::user()['role']=='admin')
@@ -159,13 +159,14 @@
     </div>
 </div>
 <div class="col d-flex justify-content-end mb-2 mt-3">
-    @if (Auth::check() && Auth::user()->role == 'admin')
+    @if (Auth::check() && Auth::user()->role == 'admin' )
     <a href="{{ url('pelatih', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
         <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 35px; margin: 30px; color:#003459;"></i>
     </a>@endif
+    @if (Auth::check() && Auth::user()->role == 'admin' || Auth::user()->role == 'pelatih')
     <a href="{{url('pelatih', ['cetak'])}}" target="blank" class="position-fixed z-10  end-0 " style="bottom: 50px">
         <i class="bi bi-printer-fill" style="font-size: 35px; margin: 30px; color:#003459;"></i>
-    </a>
+    </a>@endif
 </div>
 @endsection
 
@@ -198,8 +199,8 @@
         a.preventDefault();
         let idPL = $(this).closest('.hapusBtn').attr('idPL');
         swal.fire({
-                title: "Yakin ingin menghapus berita?",
-                text: 'Berita yang sudah dihapus, tidak bisa dikembalikan.',
+                title: "Yakin ingin menghapus pelatih?",
+                text: 'Pelatih yang sudah dihapus, tidak bisa dikembalikan.',
                 showCancelButton: true,
                 confirmButtonText: 'Setuju',
                 cancelButtonText: `Batal`,

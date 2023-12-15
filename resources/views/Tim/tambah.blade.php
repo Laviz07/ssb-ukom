@@ -54,7 +54,7 @@
                                         <input type="file" name="foto_tim" id="fileUpload" onchange="previewImage()"
                                             class="btn w-auto btn-outline-primary form-control">
                                         <img src="#" id="imagePreview" alt="preview" 
-                                            style="width: 345px; height: 200px; display: none" 
+                                            style="width: 345px; height: 200px; display: none; object-fit: cover;" 
                                             class="mt-2 rounded ">
                                     </div>
                                 </div>

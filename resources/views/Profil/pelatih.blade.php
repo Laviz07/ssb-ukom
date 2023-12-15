@@ -326,12 +326,12 @@
                 axios.post(`/profil/pelatih/edit/${idPL}`, data)
                     .then(() => {
                         $(`#edit-modal-${idPL}`).css('display', 'none')
-                        swal.fire('Berhasil edit profil!', '', 'success').then(function () {
+                        swal.fire('Selamat!', 'Pelatih berhasil diedit.', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit profil!', '', 'warning');
+                        swal.fire('Pelatih gagal diedit!', 'Pastikan mengisi data seluruhnya.', 'warning');
                     })
             })
         })

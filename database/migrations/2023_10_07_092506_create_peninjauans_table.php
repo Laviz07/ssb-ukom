@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,7 +13,8 @@ return new class extends Migration
         Schema::create('peninjauan', function (Blueprint $table) {
             $table->integer('id_peninjauan')->autoIncrement();
             $table->bigInteger('nisn_pemain')->nullable(false);
-            $table->integer('id_kegiatan')->nullable(false);
+            // $table->integer('id_kegiatan')->nullable(false);
+            $table->string('id_kegiatan', 7)->nullable(false);
             $table->date('tanggal_peninjauan')->default('1960-01-01')->nullable(false);
             $table->text('evaluasi')->nullable(false);
             $table->integer('nilai')->nullable(false);

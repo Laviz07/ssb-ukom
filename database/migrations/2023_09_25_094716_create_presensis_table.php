@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,7 +12,8 @@ return new class extends Migration
     {
         Schema::create('presensi', function (Blueprint $table) {
             $table->integer('id_presensi')->autoIncrement();
-            $table->integer('id_kegiatan')->nullable(false);
+            // $table->integer('id_kegiatan')->nullable(false);
+            $table->string('id_kegiatan', 7)->nullable(false);
             $table->date('hari_tanggal_hadir')->default('1960-01-01')->nullable(false);
 
             $table->foreign('id_kegiatan')->references('id_kegiatan')->on('kegiatan')

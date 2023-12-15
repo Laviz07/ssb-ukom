@@ -174,7 +174,7 @@
                     <label>No. Telepon:</label>
                     <div class="input-group mb-2">
                         <span class="input-group-text" >+62</span>
-                        <input  type="number" class="form-control" placeholder="example" "
+                        <input  type="number" class="form-control" placeholder="example" 
                         name="no_telp"  value="{{$user->pemain->no_telp}}" required/>
                       </div>
                 </div>
@@ -409,12 +409,12 @@
                 axios.post(`/profil/pemain/edit/${idPM}`, data)
                     .then(() => {
                         $(`#edit-modal-${idPM}`).css('display', 'none')
-                        swal.fire('Berhasil edit profil!', '', 'success').then(function () {
+                        swal.fire('Selamat!', 'Pemain berhasil diedit.', 'success').then(function () {
                             location.reload();
                         })
                     })
                     .catch(() => {
-                        swal.fire('Gagal edit profil!', '', 'warning');
+                        swal.fire('Pemain gagal diedit!', 'Pastikan mengisi data seluruhnya.', 'warning');
                     })
             })
         })

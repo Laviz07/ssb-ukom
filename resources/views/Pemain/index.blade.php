@@ -40,7 +40,7 @@
                                 @endif
                             </td>
                             <td class="col-5 text-capitalize text-center "> {{$pm->nama_pemain}} </td>
-                            <td class="col-3" style="text-align: center"> {{$pm->nisn_pemain}} </td>
+                            <td class="col-2" style="text-align: center"> {{$pm->nisn_pemain}} </td>
                             <td style="text-align: center">
                                
 
@@ -167,9 +167,10 @@
     <a href="{{ url('pemain', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
         <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 35px; margin: 30px; color:#003459;"></i>
     </a>@endif
+    @if (Auth::check() && Auth::user()->role == 'admin' || Auth::user()->role == 'pelatih')
     <a href="{{url('pemain', ['cetak'])}}" target="blank" class="position-fixed z-10 end-0" style="bottom: 50px">
         <i class="bi bi-printer-fill" style="font-size: 35px; margin: 30px; color:#003459;"></i>
-    </a>
+    </a> @endif
 </div>
 @endsection
 
