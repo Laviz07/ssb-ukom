@@ -137,4 +137,20 @@ class JadwalController extends Controller
     //     $jadwal = Kegiatan::where('tanggal_kegiatan', $jadwal)->get();
     //     return view('jadwal.kegiatan', compact('activities', 'tanggal'));
     // }
+
+    public function cetakJadwal()
+    {
+        $data = [
+            'jadwal' => jadwal::get()
+        ];
+        return view('Jadwal.cetak', $data);
+    }
+
+    public function print()
+    {
+        $data = Jadwal::limit(10)->get();
+        $pdf = PDF::loadView('jadwal.cetak', compact('data'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('daftar-jadwal.pdf');
+    }
 }
