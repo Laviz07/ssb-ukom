@@ -129,10 +129,11 @@
     @if (Auth::check() && Auth::user()->role == 'admin' || Auth::user()->role == 'pelatih')
     <a href="{{ url('jadwal', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
         <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 35px; margin: 30px; color:#003459;"></i>
-    </a>@endif
+    </a>
     <a href="{{url('jadwal', ['cetak'])}}" target="blank" class="position-fixed z-10  end-0 " style="bottom: 50px">
         <i class="bi bi-printer-fill" style="font-size: 35px; margin: 30px; color:#003459;"></i>
     </a>
+    @endif
 </div>
 @endsection
 

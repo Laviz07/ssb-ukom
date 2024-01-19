@@ -28,7 +28,7 @@
                         <div class="overlay ">
                             <span class="caption text-white" style="font-size: 20px; text-align: center;"> 
                                 {{$gl->keterangan_foto}} 
-                                {{$gl->id_galeri}} 
+                                {{-- {{$gl->id_galeri}}  --}}
                             </span>
                         </div>
 

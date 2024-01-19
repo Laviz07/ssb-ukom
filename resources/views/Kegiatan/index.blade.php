@@ -97,7 +97,7 @@
                             @endif
 
                         @if (Auth::user()['role']=='pemain')
-                            <a href="{{ url('kegiatan', ['detail', $kg->id_kegiatan]) }}" class="btn btn-primary" >
+                            <a href="{{ url('jadwal', ['kegiatan', 'detail', $kg->id_kegiatan]) }}" class="btn btn-primary" >
                                 Lihat Detail
                                 <i class="bi bi-search ms-2"  style="font-size: 15px; vertical-align: middle; "></i> 
                             </a>

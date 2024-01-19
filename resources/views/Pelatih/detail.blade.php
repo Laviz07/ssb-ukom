@@ -14,7 +14,7 @@
                     </div>
                     <div class="row">
                         <span >No. Telp:
-                            <a href="https://wa.me/62{{$pelatih->no_telp}}" style="text-decoration: none">
+                            <a href="https://wa.me/62{{$pelatih->no_telp}}" target="blank" style="text-decoration: none">
                                 0{{$pelatih->no_telp}}
                             </a>
                         </span>

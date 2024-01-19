@@ -45,7 +45,11 @@
                             <td class="col-2 text-capitalize text-center"> {{$ad->nama_admin}} </td>
                             <td class="col-1 text-capitalize text-center"> {{$ad->user->username}} </td>
                             <td class="col-1" style="text-align: center"> {{$ad->nik_admin}} </td>
-                            <td class="col-2" style="text-align: center"> 0{{$ad->no_telp}} </td>
+                            <td class="col-1" style="text-align: center">
+                                 <a href="https://wa.me/62{{$ad->no_telp}} " target="blank" style="text-decoration: none; font-size: 18px">
+                                    0{{$ad->no_telp}} 
+                                </a>
+                            </td>
                             <td class="col-2" style="text-align: center"> {{$ad->email}} </td>
                             <td style="text-align: center">
                                 

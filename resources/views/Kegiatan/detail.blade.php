@@ -24,19 +24,22 @@
             <div class="mt-4">
                 <a href="" class="btn btn-primary ">Mengisi Presensi</a>
 
+            @if (Auth::check() && Auth::user()->role == 'admin' || Auth::user()->role == 'pelatih')
                 @if ($kegiatan->laporan_kegiatan)
                 <a class="btn btn-primary ms-3" data-bs-toggle="modal" 
                     data-bs-target="#edit-laporan-modal-{{$kegiatan->id_kegiatan}}" 
                     style="cursor: pointer" idKG={{$kegiatan->id_kegiatan}}>
-                        Edit Kegiatan
+                        Edit Laporan Kegiatan
                 </a>
                 @else
                 <a class="btn btn-primary ms-3" data-bs-toggle="modal" 
                     data-bs-target="#tambah-laporan-modal-{{$kegiatan->id_kegiatan}}" 
                     style="cursor: pointer" idKG={{$kegiatan->id_kegiatan}}>
-                        Mengisi Kegiatan
+                        Mengisi Laporan Kegiatan
                 </a>
                 @endif
+            @endif
+                
             </div>
         </div>
 

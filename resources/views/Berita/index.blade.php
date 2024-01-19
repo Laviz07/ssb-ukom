@@ -86,9 +86,9 @@
                                 required class="form-control" style="resize: none">{{$br->isi_berita}}
                             </textarea>
                         </div>
-                        <input type="hidden" name="id_berita" value="{{$br->id_berita}}">
+                        {{-- <input type="hidden" name="id_berita" value="{{$br->id_berita}}"> --}}
 
-                        <div class="row">
+                        <div class="row"> 
                             <div class="col-md-4 mt-3 align-items-center">
                                 <label for="fileUpload">Upload Gambar (frame 1:1)</label>
                                 <input type="file" name="foto_berita" id="fileUpload" onchange="previewImage()"

@@ -111,7 +111,7 @@ class BeritaController extends Controller
         $data = $request->validate([
             'judul_berita' => ['required'],
             'foto_berita' => ['nullable'],
-            'isi_berita`' => ['nullable']
+            'isi_berita' => ['required']
         ]);
 
         $berita = Berita::where('id_berita', $request->input('id_berita'));
