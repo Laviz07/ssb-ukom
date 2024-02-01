@@ -38,7 +38,7 @@
 }
 
 .overlay span {
-    display: block;
+    display: block; 
 }
 
 .image-container:hover .image {

@@ -99,7 +99,7 @@
 
   <nav class="navbar navbar-expand-lg p-2 shadow-sm" style="background-color:#007EA7;">
     <div class="container">
-    
+      {{-- <div style="max-height: 400px; overflow-y: auto;"> --}}
         <ul class="navbar-nav" >
           @if (Auth::check() && Auth::user()->role == 'admin')
           <li class="nav-item ">
@@ -146,11 +146,8 @@
             @endif
           @endif
 
-          
-         
-
         </ul>
-        
+      {{-- </div> --}}
       </div>
     </div>
   </nav>
