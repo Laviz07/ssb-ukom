@@ -1,3 +1,4 @@
+{{-- @extends('layouts.layout') --}}
 @extends('layouts.sidebar')
 @section('title', 'Beranda')
 @section('content')   

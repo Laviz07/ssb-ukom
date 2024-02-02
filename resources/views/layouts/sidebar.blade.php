@@ -139,13 +139,15 @@
                     <i class="fs-5 bi bi-person-fill"></i>
                     <span class="ms-2 d-none d-sm-inline">User</span> 
                 </a>
-                <ul class="collapse show nav flex-column ms-3 mt-1" id="usermenu" data-bs-parent="#menu">
-                    <li class="nav-item w-100 " >
-                        <a href="{{ url('admin', []) }}" class="nav-link text-truncate " style="font-size: 18px;">
-                            <i class="fs-5 bi bi-person-fill"></i>
-                            <span class="ms-2 d-none d-sm-inline">Admin</span>
-                        </a>
-                    </li>
+                <ul class="collapse nav flex-column ms-3 mt-1" id="usermenu" data-bs-parent="#menu">
+                    @if (Auth::check() && Auth::user()->role == 'admin')
+                        <li class="nav-item w-100 " >
+                            <a href="{{ url('admin', []) }}" class="nav-link text-truncate " style="font-size: 18px;">
+                                <i class="fs-5 bi bi-person-fill"></i>
+                                <span class="ms-2 d-none d-sm-inline">Admin</span>
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-item w-100 " >
                         <a href="{{ url('pelatih', []) }}" class="nav-link text-truncate " style="font-size: 18px;">
                             <i class="fs-5 bi bi-person-fill"></i>
@@ -190,7 +192,7 @@
         
         <div id="bottomDropdown" class="position-absolute bottom-0 w-100 p-2">
             <div class="dropdown dropup " >
-                <a href="#" class="drop-profil d-flex align-items-center text-decoration-none dropdown-toggle ps-2 pe-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="#" class="drop-profil d-flex align-items-center text-decoration-none dropdown-toggle ps-2 pe-2 pt-2 pb-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     @if (Auth::check())
                         @if (!Auth::user()->foto_profil)
                             <i class="bi bi-person-circle" style="font-size: 30px; vertical-align: middle;"></i>
@@ -204,7 +206,7 @@
                         @endif
                     </span>
                 </a>
-                <div class="dropdown-menu dropdown-menu text-small shadow mb-2 w-100 p-0" style=" " aria-labelledby="dropdownUser1">
+                <div class="dropdown-menu dropdown-menu text-small shadow mb-2 w-100" style=" " aria-labelledby="dropdownUser1">
                     <div>
                         <div class="col">
                             <div class="d-flex align-items-center">

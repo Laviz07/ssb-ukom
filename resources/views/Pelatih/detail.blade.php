@@ -1,4 +1,5 @@
-@extends('layouts.layout')
+{{-- @extends('layouts.layout') --}}
+@extends('layouts.sidebar')
 @section('title', 'Detail Pelatih')
 @section('content')
 <div class="container mt-4 mb-4">
