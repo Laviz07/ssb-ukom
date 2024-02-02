@@ -1,4 +1,5 @@
-@extends('layouts.layout')
+{{-- @extends('layouts.layout') --}}
+@extends('layouts.sidebar')
 @section('title', 'Tambah Admin')
 
 @section('content')
