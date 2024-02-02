@@ -32,7 +32,16 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', function () {
-    return redirect('/beranda');
+    if (Auth::check()) {
+        if (Auth::user()->role == 'admin') {
+            return redirect('/dashboard');
+        } else {
+            return redirect('/beranda');
+        }
+    } else {
+        return redirect('/beranda');
+    }
+
 });
 
 Route::get('/beranda', [DashboardController::class, 'index']);

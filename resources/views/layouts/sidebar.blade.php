@@ -26,6 +26,11 @@
       font-size:13px;
     }
 
+    .nav-item{
+        transition: all 400ms ease;
+        border-radius: 10px;
+    }
+
     .nav-item:hover{
         background-color: #fff;
         border-radius: 10px;
@@ -56,17 +61,29 @@
         color: #007EA7;
     }
 
+    .offcanvas-btn{
+        border-radius: 5px;
+        border-radius: 10px;
+        transition: all 400ms ease;
+    }
+
     .offcanvas-btn:hover{
         background-color: #fff;
         color: black;
         border-radius: 5px;
+        transition: all 400ms ease;
     }
 
     .drop-profil{
         color: white;
     }
 
-    .drop-profil:hover {
+    .clicked {
+        transition: all 400ms ease;
+        border-radius: 10px;
+    }
+
+    .drop-profil:hover, .clicked.active {
         background-color: #fff;
         border-radius: 10px;
         color: black;
@@ -113,12 +130,24 @@
     <div class="offcanvas-body px-0 py-0"  style="position: relative;">
         <div  style="max-height: 70vh; overflow-x: hidden; overflow-y: auto;">
             <ul class="nav nav-pills flex-column mb-sm-auto ps-2 pe-2 mb-0 align-items-start" id="menu">
-            <li class="nav-item w-100 " >
-                <a href="{{ url('', []) }}" class="nav-link text-truncate " style="font-size: 18px;">
-                    <i class="fs-5 bi bi-house-door-fill"></i>
-                    <span class="ms-2 d-none d-sm-inline">Home</span>
-                </a>
-            </li>
+            @if (Auth::check() && Auth::user()->role == 'admin')
+                <li class="nav-item w-100 " >
+                    <a href="{{ url('dashboard', []) }}" class="nav-link text-truncate " style="font-size: 18px;">
+                        <i class="fs-5 bi bi-speedometer"></i>
+                        <span class="ms-2 d-none d-sm-inline">Dashboard</span>
+                    </a>
+                </li>
+                    
+                @else
+                    <li class="nav-item w-100 " >
+                        <a href="{{ url('', []) }}" class="nav-link text-truncate " style="font-size: 18px;">
+                            <i class="fs-5 bi bi-house-door-fill"></i>
+                            <span class="ms-2 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+            @endif
+            
+           
 
             <li class="nav-item w-100 " >
                 <a href="{{ url('berita', []) }}" class="nav-link text-truncate " style="font-size: 18px;">
@@ -192,7 +221,7 @@
         
         <div id="bottomDropdown" class="position-absolute bottom-0 w-100 p-2">
             <div class="dropdown dropup " >
-                <a href="#" class="drop-profil d-flex align-items-center text-decoration-none dropdown-toggle ps-2 pe-2 pt-2 pb-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="#" class="drop-profil clicked d-flex align-items-center text-decoration-none dropdown-toggle ps-2 pe-2 pt-2 pb-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     @if (Auth::check())
                         @if (!Auth::user()->foto_profil)
                             <i class="bi bi-person-circle" style="font-size: 30px; vertical-align: middle;"></i>
@@ -205,7 +234,27 @@
                             {{Auth::user()->username}}
                         @endif
                     </span>
-                </a>
+                </a>  
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var dropProfil = document.querySelector('.drop-profil');
+                
+                        document.addEventListener('click', function (event) {
+                            var isClickInside = dropProfil.contains(event.target);
+                
+                            if (!isClickInside) {
+                                dropProfil.classList.remove('active');
+                            }
+                        });
+                
+                        dropProfil.addEventListener('click', function (event) {
+                            event.stopPropagation(); // Menghentikan peristiwa klik agar tidak mencapai dokumen
+                            this.classList.toggle('active');
+                        });
+                    });
+                </script>
+
                 <div class="dropdown-menu dropdown-menu text-small shadow mb-2 w-100" style=" " aria-labelledby="dropdownUser1">
                     <div>
                         <div class="col">
@@ -244,6 +293,8 @@
     </div>
     </div>
 
+
+
     <div class="superNav p-0 bg-light " >
     <div class="shadow-sm p-2 mb-5 bg-body">
         <div class="container " >
@@ -259,7 +310,12 @@
 
                 <div class="d-flex align-items-center " style="background-color: ; font-size: 16px; ">
                     <div class="nav-item-top">
-                        <a class="nav-link mx-2 text-uppercase " aria-current="page" href="{{ url('/', []) }}">Home</a>
+                        @if (Auth::check() && Auth::user()->role == 'admin')
+                            <a class="nav-link mx-2 text-uppercase " aria-current="page" href="{{ url('dashboard', []) }}">Dashboard</a>
+                        @else
+                            <a class="nav-link mx-2 text-uppercase " aria-current="page" href="{{ url('/', []) }}">Home</a>
+                        @endif
+                        
                     </div>
 
                     <div class="nav-item-top">
