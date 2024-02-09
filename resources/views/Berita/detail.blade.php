@@ -21,7 +21,7 @@
                 
                 <div class="text-center">
                     
-                    <img src="{{ asset('storage/' . $berita->foto_berita) }}" alt="{{$berita->nama_detail_berita}}" style="width: 570px; border-radius: 30px">
+                    <img src="{{ asset('storage/' . $berita->foto_berita) }}" alt="{{$berita->nama_detail_berita}}" style="width: 370px; border-radius: 30px">
                 </div>
             </div>
         </div>
