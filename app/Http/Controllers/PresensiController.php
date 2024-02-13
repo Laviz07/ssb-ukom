@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kegiatan;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
 
@@ -12,15 +13,29 @@ class PresensiController extends Controller
      */
     public function index()
     {
-        //
+        //mengirimkan data ke view dengan isi array data presensi
+        $data = [
+            'presensi' => Presensi::all(),
+            'kegiatan' => Kegiatan::all(),
+        ];
+        return view('Presensi.index', $data);
+    }
+
+    public function indexCreate()
+    {
+        return view('Presensi.tambah');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data = $request->validate([
+            // Menambah ke tabel jadwal
+            'kegiatan' => ['required'],
+            'tanggal' => ['required'],
+        ]);
     }
 
     /**

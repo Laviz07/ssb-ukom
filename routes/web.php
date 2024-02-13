@@ -10,6 +10,7 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PemainController;
+use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\TimController;
 use App\Http\Controllers\UserController;
@@ -26,11 +27,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/* ------------------------------- Route Login ------------------------------ */
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+
+/* ------------------------------ Route Logout ------------------------------ */
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+/* ------------------------ Redirect jika URL kosong ------------------------ */
 Route::get('/', function () {
     if (Auth::check()) {
         if (Auth::user()->role == 'admin') {
@@ -41,7 +46,6 @@ Route::get('/', function () {
     } else {
         return redirect('/beranda');
     }
-
 });
 
 Route::get('/beranda', [DashboardController::class, 'index']);
@@ -51,6 +55,7 @@ Route::get('/berita/detail/{id}', [BeritaController::class, 'indexDetail']);
 
 Route::get('/galeri', [GaleriController::class, 'index']);
 
+/* ------------------------------ Route Profil ------------------------------ */
 Route::get('/profil', [ProfilController::class, 'index']);
 Route::post('/profil/pemain/edit/{id}', [ProfilController::class, 'editPemain']);
 Route::post('/profil/pelatih/edit/{id}', [ProfilController::class, 'editPelatih']);
@@ -124,8 +129,13 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::post('/jadwal/{id}/kegiatan/tambah/', [KegiatanController::class, 'create']);
             Route::post('/jadwal/kegiatan/edit/{id}', [KegiatanController::class, 'edit']);
             Route::delete('/jadwal/kegiatan/hapus/{id}', [KegiatanController::class, 'delete']);
+            Route::post('/jadwal/{id}/kegiatan/presensi/', [KegiatanController::class, 'create']);
 
             Route::post('/jadwal/kegiatan/tambah/laporan-kegiatan', [KegiatanController::class, 'createLaporan']);
+
+            /* ----------------------------- Route Presensi ----------------------------- */
+            Route::get("/presensi", [PresensiController::class, 'index']);
+            Route::get("/presensi/tambah", [PresensiController::class, 'indexCreate']);
         });
     });
 

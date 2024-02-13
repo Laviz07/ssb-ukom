@@ -1,23 +1,16 @@
-{{-- @extends('layouts.layout') --}}
 @extends('layouts.sidebar')
 @section('title', $user->username)
 
 @section('content')
 
-@if (Auth::user()['role']=='pemain' )
+    @if (Auth::user()['role'] == 'pemain')
+        @include('Profil.pemain')
+    @elseif(Auth::user()['role'] == 'pelatih')
+        @yield('pelatih')
 
-    @include('Profil.pemain')
-
-@elseif(Auth::user()['role']=='pelatih')
-
-@yield('pelatih')
-   
-    @include('Profil.pelatih')
-
-@else
-    
-{{-- @yield('name') --}}
-
-@endif
+        @include('Profil.pelatih')
+    @else
+        {{-- @yield('name') --}}
+    @endif
 
 @endsection
