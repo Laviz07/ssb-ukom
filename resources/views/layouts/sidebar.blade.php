@@ -243,8 +243,8 @@
                             @if (!Auth::user()->foto_profil)
                                 <i class="bi bi-person-circle" style="font-size: 30px; vertical-align: middle;"></i>
                             @else
-                                <img src="{{ asset('storage/' . Auth::user()->foto_profil) }}" class="rounded-circle"
-                                    style="width: 40px;" />
+                                <img src="{{ asset('storage/' . Auth::user()->foto_profil) }}" class="rounded-circle object-fit-cover "
+                                    style="width: 40px; height: 40px;" />
                             @endif
                         @endif
                         <span class="d-none d-sm-inline ms-3 text-capitalize overflow-hidden w-75 "
@@ -285,7 +285,7 @@
                                                 style="font-size: 40px; vertical-align: middle;"></i>
                                         @else
                                             <img src="{{ asset('storage/' . Auth::user()->foto_profil) }}"
-                                                class="rounded-circle ms-3" style="width: 60px;" />
+                                                class="rounded-circle ms-3 object-fit-cover " style="width: 60px; height: 60px;" />
                                         @endif
                                         <div class="ms-0 row">
 

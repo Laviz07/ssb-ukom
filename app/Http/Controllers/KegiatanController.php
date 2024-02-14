@@ -6,6 +6,7 @@ use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use App\Models\Kegiatan;
 use App\Models\Pelatih;
+use App\Models\Presensi;
 use Illuminate\Support\Facades\DB;
 use Storage;
 
@@ -36,6 +37,7 @@ class KegiatanController extends Controller
         $data = [
             'kegiatan' => Kegiatan::where('id_kegiatan', $request->id)->first(),
             'pelatih' => Pelatih::all(),
+            'presensi' => Presensi::where('id_kegiatan', $request->id)->first(),
         ];
         return view('Kegiatan.detail', $data);
     }
@@ -56,9 +58,9 @@ class KegiatanController extends Controller
 
         ]);
 
-         // Memanggil fungsi untuk mendapatkan ID kustom
-         $customId = DB::selectOne("SELECT function_id_kegiatan() as custom_id")->custom_id;
-         $data['id_kegiatan'] = $customId;
+        // Memanggil fungsi untuk mendapatkan ID kustom
+        $customId = DB::selectOne("SELECT function_id_kegiatan() as custom_id")->custom_id;
+        $data['id_kegiatan'] = $customId;
 
         //Upload foto kegiatan
         if ($request->hasFile('foto_kegiatan')) {

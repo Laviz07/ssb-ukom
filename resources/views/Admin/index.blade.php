@@ -36,8 +36,10 @@
                                 <td class="col-0" style="text-align: center;"> {{ $no++ }} </td>
                                 <td class="col-1" style="text-align: center">
                                     @if ($ad->user && $ad->user->foto_profil)
+                                    {{-- <div style="background-color: #00171F;"> --}}
                                         <img src="{{ asset('storage/' . $ad->user->foto_profil) }}" alt="Foto Profil"
-                                            style="width: 90px; height: 90px;" class="rounded-circle">
+                                            style="width: 90px; height: 90px;" class="rounded-circle object-fit-cover ">
+                                    {{-- </div> --}}
                                     @else
                                         <i class="bi bi-person-circle" style="font-size: 40px;"></i>
                                     @endif

@@ -11,6 +11,7 @@ use App\Http\Controllers\LogsController;
 use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PemainController;
 use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\PresensiDetailController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\TimController;
 use App\Http\Controllers\UserController;
@@ -135,7 +136,8 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
             /* ----------------------------- Route Presensi ----------------------------- */
             Route::get("/presensi", [PresensiController::class, 'index']);
-            Route::get("/presensi/tambah", [PresensiController::class, 'indexCreate']);
+            Route::post("/presensi/tambah", [PresensiController::class, 'create']);
+            Route::get('/presensi/detail/{id}', [PresensiDetailController::class, 'index']);
         });
     });
 
@@ -162,4 +164,6 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
     Route::get('/jadwal/kegiatan/{id}', [KegiatanController::class, 'index']);
     Route::get('/jadwal/kegiatan/detail/{id}', [KegiatanController::class, 'indexDetail']);
+
+    Route::post('/jadwal/kegiatan/presensi/', [PresensiDetailController::class, 'create']);
 });

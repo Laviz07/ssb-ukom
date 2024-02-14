@@ -85,6 +85,6 @@ class Pemain extends Model
      */
     public function presensi(): HasMany
     {
-        return $this->hasMany(Presensi_detail::class, "id_presensi_detail");
+        return $this->hasMany(PresensiDetail::class, "id_presensi_detail");
     }
 }

@@ -3,10 +3,10 @@
         <div class="row mt-4 d-flex justify-content-between">
             <div class="col-md-4 card">
                 <div class="row p-4 d-flex flex-column align-items-center justify-content-center">
-                    <div class="text-center">
+                    <div class="text-center" >
                         <img src="{{ asset('storage/' . $user->pelatih->user->foto_profil) }}"
-                            alt="{{ $user->pelatih->nama_pelatih }}" class="rounded-circle"
-                            style="width: 170px; height: 170px;">
+                            alt="{{ $user->pelatih->nama_pelatih }}" class="rounded-circle object-fit-cover "
+                            style="width: 170px; height: 170px; ">
                     </div>
                     <div class="mt-4 ">
                         <div class="row">

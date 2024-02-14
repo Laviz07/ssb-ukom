@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
 use App\Models\Presensi;
+use DB;
 use Illuminate\Http\Request;
 
 class PresensiController extends Controller
@@ -18,12 +19,8 @@ class PresensiController extends Controller
             'presensi' => Presensi::all(),
             'kegiatan' => Kegiatan::all(),
         ];
-        return view('Presensi.index', $data);
-    }
 
-    public function indexCreate()
-    {
-        return view('Presensi.tambah');
+        return view('Presensi.index', $data);
     }
 
     /**
@@ -33,9 +30,30 @@ class PresensiController extends Controller
     {
         $data = $request->validate([
             // Menambah ke tabel jadwal
-            'kegiatan' => ['required'],
-            'tanggal' => ['required'],
+            'id_kegiatan' => ['required'],
+            'hari_tanggal_hadir' => ['required'],
         ]);
+
+        // Memanggil fungsi untuk mendapatkan ID kustom
+        $customId = DB::selectOne("SELECT function_id_presensi() as custom_id")->custom_id;
+        $data['id_presensi'] = $customId;
+
+        $presensi = new Presensi($data);
+        $presensi->save();
+
+        if ($presensi) {
+            $pesan = [
+                'success' => true,
+                'pesan' => 'Presensi berhasil ditambah'
+            ];
+        } else {
+            $pesan = [
+                'success' => true,
+                'pesan' => 'Presensi gagal ditambah'
+            ];
+        }
+
+        return response()->json($pesan);
     }
 
     /**

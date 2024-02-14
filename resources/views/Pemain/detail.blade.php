@@ -7,7 +7,7 @@
                 <div class="row p-4 d-flex flex-column align-items-center justify-content-center">
                     <div class="text-center">
                         <img src="{{ asset('storage/' . $pemain->user->foto_profil) }}" alt="{{ $pemain->nama_pemain }}"
-                            class="rounded-circle" style="width: 170px; height: 170px;">
+                            class="rounded-circle object-fit-cover " style="width: 170px; height: 170px;">
                     </div>
                     <div class="mt-4 text-center">
                         <div>

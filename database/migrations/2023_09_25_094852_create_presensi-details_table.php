@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presensi-detail', function (Blueprint $table) {
-            $table->integer('id_presensi_detail')->autoIncrement();
-            $table->integer('id_presensi')->nullable(false);
-            $table->bigInteger('nisn_pemain')->nullable(false);
-            $table->bigInteger('nik_pelatih')->nullable(false);
+        Schema::create('presensi_detail', function (Blueprint $table) {
+            $table->string('id_presensi_detail', 7)->primary();
+            $table->string('id_presensi', 7)->nullable(false);
+            $table->bigInteger('nisn_pemain')->nullable(true);
+            $table->bigInteger('nik_pelatih')->nullable(true);
             $table->enum('keterangan', ['hadir', 'sakit', 'izin'])->nullable(false);
 
             $table->foreign('id_presensi')->references('id_presensi')->on('presensi')
