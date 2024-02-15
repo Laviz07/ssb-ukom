@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    private $sfName = 'function_id_presensi_detail';
+    private $sfName = 'function_id_presensi_pelatih';
     /**
      * Run the migrations.
      */
@@ -19,7 +19,7 @@ return new class extends Migration
                 DECLARE max_id INT;
 
                 -- Ambil ID terbesar dari tabel
-                SELECT MAX(CAST(SUBSTRING(id_presensi_detail, 4) AS SIGNED)) INTO max_id FROM presensi_detail;
+                SELECT MAX(CAST(SUBSTRING(id_presensi_pelatih, 4) AS SIGNED)) INTO max_id FROM presensi_pelatih;
 
                 -- check jika tabel kosong, maka angka selanjutnya 1
                 IF max_id IS NULL THEN

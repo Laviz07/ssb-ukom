@@ -21,10 +21,9 @@ class JadwalController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      */
-
-    public function indexDetail(Request $request)
+    public function show(Request $request)
     {
         $data = [
             'jadwal' => Jadwal::where('tanggal_kegiatan', $request->id)->first()
@@ -33,12 +32,18 @@ class JadwalController extends Controller
         return view('jadwal.detail', $data);
     }
 
-    public function indexCreate()
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
         return view('Jadwal.tambah');
     }
 
-    public function create(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
         $data = $request->validate([
             // Menambah ke tabel jadwal
@@ -53,26 +58,11 @@ class JadwalController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Update the specified resource in storage.
      */
-    public function store(Request $request)
+    public function update(Request $request)
     {
         //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Jadwal $jadwal)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request)
-    {
         $data = $request->validate([
             'id_jadwal' => ['required'],
             'tanggal_kegiatan' => ['required'],
@@ -84,14 +74,6 @@ class JadwalController extends Controller
         $jadwal->save();
 
         return redirect()->to('/jadwal')->with('success', 'jadwal Berhasil Diupdate');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Jadwal $jadwal)
-    {
-        //
     }
 
     /**
@@ -110,8 +92,6 @@ class JadwalController extends Controller
             // if ($admin->user->foto_profil) {
             //     Storage::disk('public')->delete($admin->user->foto_profil);
             // }
-
-
 
             //menghapus user
             $jadwal = Jadwal::where('id_jadwal', $jadwal->id_jadwal)->first();
@@ -138,7 +118,7 @@ class JadwalController extends Controller
     //     return view('jadwal.kegiatan', compact('activities', 'tanggal'));
     // }
 
-    public function cetakJadwal()
+    public function cetak()
     {
         $data = [
             'jadwal' => jadwal::get()

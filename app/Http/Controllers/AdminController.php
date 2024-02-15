@@ -24,29 +24,17 @@ class AdminController extends Controller
     }
 
     /**
-     * Menampilkan halaman tambah pelatih
+     * Show the form for creating a new resource.
      */
-    public function indexCreate()
+    public function create()
     {
         return view('Admin.tambah');
     }
 
     /**
-     * Menampilkan halaman detail pelatih
+     * Store a newly created resource in storage.
      */
-    public function indexDetail(Request $request)
-    {
-        // $data = [
-        //     'admin' => Admin::where('nik_admin', $request->id)->first()
-        // ];
-
-        // return view('Admin.detail', $data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         //
         $data = $request->validate([
@@ -93,25 +81,9 @@ class AdminController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Update the specified resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admin $pelatih)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request)
+    public function update(Request $request)
     {
         //
         $data = $request->validate([
@@ -126,13 +98,6 @@ class AdminController extends Controller
         $admin->save();
 
         return redirect()->to('/admin')->with('success', 'Admin Berhasil Diupdate');
-    }
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Admin $pelatih)
-    {
-        //
     }
 
     /**

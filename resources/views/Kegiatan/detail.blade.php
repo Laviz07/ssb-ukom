@@ -49,11 +49,11 @@
                                 {{-- /* -------------------------------- PRESENSI PEMAIN -------------------------------- */ --}}
                                 @if (Auth::user()->role == 'pemain')
                                     <div class="mt-4 ">
-                                        <a href="#presensi-pemain-modal-" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#presensi-pemain-modal-">Mengisi Presensi</a>
+                                        <a href="#presensi-pemain-modal" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#presensi-pemain-modal">Mengisi Presensi</a>
                                     </div>
                                     
-                                    <div class="modal fade " id="presensi-pemain-modal-" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    <div class="modal fade " id="presensi-pemain-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                                         aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered w-50">
                                             <div class="modal-content">
@@ -61,14 +61,14 @@
                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">Presensi</h1>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form id="presensi-form-" method="POST" enctype="multipart/form-data">
+                                                    <form id="presensi-pemain-form" method="POST" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="form-group mt-2">
                                                             <input type="hidden" name="nisn_pemain"
                                                                 value="{{ Auth::user()->pemain['nisn_pemain'] }}">
 
                                                             <input type="hidden" name="id_presensi"
-                                                                value="{{ $kegiatan->presensi->id_presensi}}">
+                                                                value="{{ $presensi->id_presensi}}">
 
                                                             <select name="keterangan" id="keterangan" class="form-select mb-3">
                                                                 <option value="" selected disabled>Keterangan</option>
@@ -83,7 +83,7 @@
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                         Cancel
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary presensiBtn" form="edit-br-form-">
+                                                    <button type="submit" class="btn btn-primary presensiPemainBtn" form="presensi-pemain-form">
                                                         Simpan
                                                     </button>
 
@@ -129,7 +129,7 @@
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                         Cancel
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary presensiBtn" form="presensi-pelatih-form">
+                                                    <button type="submit" class="btn btn-primary presensiPelatihBtn" form="presensi-pelatih-form">
                                                         Simpan
                                                     </button>
 
@@ -148,11 +148,20 @@
                             </div>
                         
                         @else
+                            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'pelatih' )
                             <div class="mt-4 ms-4">
-                                <a href="{{ url('presensi', []) }}" class="btn btn-primary disabled ">
-                                    Belum ada Presensi
+                                <a href="{{ url('presensi', []) }}" class="btn btn-primary  ">
+                                    Buat Presensi
                                 </a>
                             </div>
+                            @else
+                                <div class="mt-4 ms-4">
+                                    <a href="{{ url('presensi', []) }}" class="btn btn-primary disabled ">
+                                        Belum Ada Presensi
+                                    </a>
+                                </div>
+                            @endif
+                            
                         @endif
                     
                 </div>
@@ -353,11 +362,26 @@
                 });
         });
 
-        // presensi pop up
-        $('.presensiBtn').on('click', function(e) {
+        // presensi pelatih pop up
+        $('.presensiPelatihBtn').on('click', function(e) {
             e.preventDefault();
             let data = new FormData(e.target.form);
-            axios.post(`/jadwal/kegiatan/presensi/`, data)
+            axios.post(`/jadwal/kegiatan/presensi-pelatih/`, data)
+                .then((res) => {
+                    swal.fire('Selamat!', 'Presensi berhasil disimpan.', 'success').then(function() {
+                        location.reload();
+                    });
+                })
+                .catch((err) => {
+                    swal.fire('Presensi gagal disimpan!', 'Pastikan sudah mengisi presensi.', 'warning');
+                });
+        });
+
+        // presensi pemain pop up
+        $('.presensiPemainBtn').on('click', function(e) {
+            e.preventDefault();
+            let data = new FormData(e.target.form);
+            axios.post(`/jadwal/kegiatan/presensi-pemain/`, data)
                 .then((res) => {
                     swal.fire('Selamat!', 'Presensi berhasil disimpan.', 'success').then(function() {
                         location.reload();

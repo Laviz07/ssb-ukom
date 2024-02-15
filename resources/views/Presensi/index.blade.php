@@ -28,11 +28,10 @@
                         ?>
 
                         @foreach ($presensi as $pr)
-                        {{-- {{dd($pr)}} --}}
                             <tr style="vertical-align: middle; font-size: 17px;" idPr={{ $pr->id_presensi }}>
                                 <td class="col-1" style="text-align: center;"> {{ $no++ }} </td>
                                 <td class="col-5 text-capitalize text-center ">
-                                    {{ $pr->kegiatan->nama_kegiatan }} {{ $pr->id_presensi}}
+                                    {{ $pr->kegiatan->nama_kegiatan }}
                                 </td>
                                 <td class="col-4" style="text-align: center">
                                     {{-- {{ $pr->hari_tanggal_hadir }} --}}
@@ -63,13 +62,13 @@
                                                     <strong class="ms-1">Lihat Detail Presensi</strong>
                                                 </a>
 
-                                                <a class="dropdown-item editBtn" data-bs-toggle="modal"
+                                                {{-- <a class="dropdown-item editBtn" data-bs-toggle="modal"
                                                     data-bs-target="#edit-modal-{{ $pr->id_presensi }}"
                                                     style="cursor: pointer" idPR={{ $pr->id_presensi }}>
                                                     <i class="bi bi-pencil"
                                                         style="font-size: 20px; vertical-align: middle; "></i>
                                                     <strong class="ms-1">Edit Data Presensi</strong>
-                                                </a>
+                                                </a> --}}
 
                                                 <a class="dropdown-item hapusBtn" idPR={{ $pr->id_presensi }}
                                                     style="cursor: pointer">
@@ -96,20 +95,24 @@
                                         <div class="modal-body">
                                             <form id="edit-pr-form-{{ $pr->id_presensi }}">
 
-                                                <div class="form-group">
-                                                    <label>Email:</label>
-                                                    <input placeholder="example" type="email" class="form-control mb-3"
-                                                        name="email" value="{{ $pr->email }}" required />
-
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-2">
+                                                        <label for="tanggal">Tanggal:</label>
+                                                        <input type="date" id="tanggal" name="hari_tanggal_hadir"
+                                                            class="form-control">
+                                                    </div>
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label>Deskripsi Diri:</label>
-                                                    <textarea required name="deskripsi_pemain" id="" class="form-control" rows="5"
-                                                        placeholder="Deskripsi Diri" style="resize: none">{{ $pr->deskripsi_pemain }}
-                                                </textarea>
-
-
+                                                <div class="col-md-6">
+                                                    <div class="form-group mt-2">
+                                                        <label for="kegiatan">Kegiatan:</label>
+                                                        <select name="id_kegiatan" id="kegiatan" class="form-select mb-3">
+                                                            <option value="" selected disabled>Pilih Kegiatan</option>
+                                                            @foreach ($kegiatan as $kg)
+                                                                <option value="{{ $kg->id_kegiatan }}">{{ $kg->nama_kegiatan }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -206,5 +209,69 @@
                     swal.fire('Presensi gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
                 });
         });
+
+        //edit pop up
+        $('.editBtn').on('click', function(e) {
+            e.preventDefault();
+            let idPr = $(this).attr('idPr');
+            $(`#edit-pr-form-${idPr}`).on('submit', function(e) {
+                e.preventDefault();
+                let data = Object.fromEntries(new FormData(e.target));
+                data['id_presensi'] = idPr;
+                axios.post(`/presensi/edit/${idPr}`, data, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    .then(() => {
+                        $(`#edit-modal-${idPr}`).css('display', 'none')
+                        swal.fire('Selamat!', 'Presensi berhasil diedit.', 'success').then(function() {
+                            location.reload();
+                        })
+                    })
+                    .catch(() => {
+                        swal.fire('Waduh!', 'Gagal mengedit presensi.', 'warning');
+                    })
+            })
+        })
+
+        //delete pop up
+        $('.DataTable tbody').on('click', '.hapusBtn', function(a) {
+            a.preventDefault();
+            let idPr = $(this).closest('.hapusBtn').attr('idPr');
+            swal.fire({
+                title: "Apakah anda ingin menghapus data ini?",
+                showCancelButton: true,
+                confirmButtonText: 'Setuju',
+                cancelButtonText: `Batal`,
+                confirmButtonColor: 'red'
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //dilakukan proses hapus
+                    axios.delete('/presensi/hapus/' + idPr).then(function(response) {
+                        console.log(response);
+                        if (response.data.success) {
+                            swal.fire('Selamat!', 'Berita berhasil dihapus.', 'success').then(function() {
+                                //Refresh Halaman
+                                location.reload();
+                            });
+                        } else {
+                            swal.fire('Waduh!', 'Berita gagal dihapus.', 'warning').then(function() {
+                                //Refresh Halaman
+                                location.reload();
+                            });
+                        }
+                    }).catch(function(error) {
+                        swal.fire('Waduh!', 'Berita gagal dihapus.', 'error').then(function() {
+                            //Refresh Halaman
+
+                        });
+                    });
+                }
+            });
+        });
+
+        $('.DataTable').DataTable();
     </script>
 @endsection

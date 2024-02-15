@@ -24,9 +24,9 @@ class PresensiController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $data = $request->validate([
             // Menambah ke tabel jadwal
@@ -57,22 +57,6 @@ class PresensiController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Presensi $presensi)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Presensi $presensi)
@@ -80,12 +64,52 @@ class PresensiController extends Controller
         //
     }
 
+
+    public function delete(Request $request)
+    {
+        $idPresensi = $request->id;
+
+        $presensi = Presensi::where('id_presensi', $idPresensi)->first();
+
+        if ($presensi) {
+
+            $presensi = Presensi::where('id_presensi', $presensi->id_presensi)->first();
+            if ($presensi) {
+                $presensi->delete();
+            }
+
+            $pesan = [
+                'success' => true,
+                'pesan' => 'Presensi Berhasil Dihapus'
+            ];
+        } else {
+            $pesan = [
+                'success' => false,
+                'pesan' => 'Presensi Gagal Dihapus'
+            ];
+        }
+
+        return response()->json($pesan);
+    }
+
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Presensi $presensi)
     {
-        //
+        $data = $request->validate([
+            'id_presensi' => ['required'],
+            'hari_tanggal_hadir' => ['required'],
+        ]);
+
+        $presensi->fill($data);
+
+        if ($presensi->save()) {
+            return response()->json(['success' => true, 'pesan' => 'Presensi berhasil diedit']);
+        } else {
+            return response()->json(['success' => false, 'pesan' => 'Presensi gagal diedit']);
+        }
     }
 
     /**

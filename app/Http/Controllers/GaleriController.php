@@ -26,17 +26,18 @@ class GaleriController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
      * Menampilkan halaman tambah foto untuk galeri
      */
-    public function indexCreate()
+    public function create()
     {
         return view('Galeri.tambah');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         //
         $data = $request->validate([
@@ -58,6 +59,33 @@ class GaleriController extends Controller
             ->with('success', 'Foto berhasil ditambahkan');
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        //
+        // Validate request data
+        $data = $request->validate([
+            'keterangan_foto' => ['nullable'],
+            'foto' => ['nullable'],
+        ]);
+
+
+        $galeri = Galeri::find($request->input('id_galeri'));
+
+        if ($request->hasFile('foto')) {
+            Storage::disk('public')->delete($galeri->foto);
+            $path = $request->file('foto')->store('foto_galeri', 'public');
+            $galeri->foto = $path;
+        }
+
+        $galeri->keterangan_foto = $request->input('keterangan_foto');
+        $galeri->save();
+
+        return redirect()->to('/galeri')->with('success', 'Galeri berhasil diupdate');
+        // return response()->json($galeri);
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -90,56 +118,5 @@ class GaleriController extends Controller
 
         return response()->json($pesan);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request)
-    {
-        // Validate request data
-        $data = $request->validate([
-            'keterangan_foto' => ['nullable'],
-            'foto' => ['nullable'],
-        ]);
-
-
-        $galeri = Galeri::find($request->input('id_galeri'));
-
-        if ($request->hasFile('foto')) {
-            Storage::disk('public')->delete($galeri->foto);
-            $path = $request->file('foto')->store('foto_galeri', 'public');
-            $galeri->foto = $path;
-        }
-
-        $galeri->keterangan_foto = $request->input('keterangan_foto');
-        $galeri->save();
-
-        return redirect()->to('/galeri')->with('success', 'Galeri berhasil diupdate');
-        // return response()->json($galeri);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Galeri $galeri)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Galeri $galeri)
-    {
-        //
-    }
+    
 }

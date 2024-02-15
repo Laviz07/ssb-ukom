@@ -23,6 +23,7 @@
                             <td>No</td>
                             <td>Nama Kegiatan</td>
                             <td>Nama Pelatih</td>
+                            <td>Jam Presensi</td>
                             <td>Keterangan</td>
                             <td>Action</td>
                         </tr>
@@ -32,25 +33,25 @@
                         $no = 1;
                         ?>
 
-                        @foreach ($presensiDetail as $pdi)
-                            @if ($pdi->nik_pelatih != null)
-                                <tr style="vertical-align: middle; font-size: 17px;" idpdi={{ $pdi->id_kegiatan }}>
+                        @foreach ($presensiPelatih as $pdl)
+                                <tr style="vertical-align: middle; font-size: 17px;" idPdl={{ $pdl->id_kegiatan }}>
                                     <td class="col-0" style="text-align: center;"> {{ $no++ }} </td>
-                                    <td class="col-3 text-capitalize text-center "> {{ $presensi->kegiatan->nama_kegiatan }}
+                                    <td class="col-3 text-capitalize text-center "> {{ $presensi->kegiatan->nama_kegiatan }}</td>
+                                    <td class="col-5 text-capitalize text-center "> {{ $pdl->pelatih->nama_pelatih }} </td>
+                                    <td class="col-5 text-capitalize text-center "> 
+                                        {{ \Carbon\Carbon::parse($pdl->created_at)->format('j F Y H:i') }}
                                     </td>
-                                    <td class="col-5 text-capitalize text-center "> {{ $pdi->pelatih->nama_pelatih }} </td>
-                                    <td class="col-2 text-capitalize text-center "> {{ $pdi->keterangan }} </td>
+                                    <td class="col-2 text-capitalize text-center "> {{ $pdl->keterangan }} </td>
                                     <td class="col-3" style="text-align: center">
                                         <div style="width: 200px;">
                                             <a href="{{ url('pemain', ['']) }}" class="btn btn-primary">
-                                                Peninjauan pepe
+                                                Peninjauan 
                                                 <i class="bi bi-search ms-2"
                                                     style="font-size: 15px; vertical-align: middle; "></i>
                                             </a>
                                         </div>
                                     </td>
                                 </tr>
-                            @endif
                         @endforeach
 
                     </tbody>
@@ -64,6 +65,7 @@
                             <td>No</td>
                             <td>Nama Kegiatan</td>
                             <td>Nama Peserta</td>
+                            <td>Jam Presensi</td>
                             <td>Keterangan</td>
                             <td>Action</td>
                         </tr>
@@ -73,26 +75,26 @@
                         $no = 1;
                         ?>
 
-                        @foreach ($presensiDetail as $pdi)
-                            @if ($pdi->nisn_pemain != null)
-                                <tr style="vertical-align: middle; font-size: 17px;" idpdi={{ $pdi->id_kegiatan }}>
+                        @foreach ($presensiPemain as $pdm)
+                                <tr style="vertical-align: middle; font-size: 17px;" idPdm={{ $pdm->id_kegiatan }}>
                                     <td class="col-0" style="text-align: center;"> {{ $no++ }} </td>
                                     <td class="col-3 text-capitalize text-center "> {{ $presensi->kegiatan->nama_kegiatan }}
                                     </td>
-                                    <td class="col-5 text-capitalize text-center "> {{ $pdi->pemain->nama_pemain }} </td>
-                                    <td class="col-2 text-capitalize text-center "> {{ $pdi->keterangan }} </td>
+                                    <td class="col-5 text-capitalize text-center "> {{ $pdm->pemain->nama_pemain }} </td>
+                                    <td class="col-5 text-capitalize text-center "> 
+                                        {{ \Carbon\Carbon::parse($pdm->created_at)->format('j F Y H:i') }}
+                                    </td>
+                                    <td class="col-2 text-capitalize text-center "> {{ $pdm->keterangan }} </td>
                                     <td class="col-3" style="text-align: center">
                                         <div style="width: 200px;">
                                             <a href="{{ url('pemain', ['']) }}" class="btn btn-primary">
-                                                Peninjauan pepe
+                                                Peninjauan
                                                 <i class="bi bi-search ms-2"
                                                     style="font-size: 15px; vertical-align: middle; "></i>
                                             </a>
                                         </div>
                                     </td>
                                 </tr>
-                            @else
-                            @endif
                         @endforeach
 
                     </tbody>

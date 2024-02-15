@@ -24,9 +24,21 @@ class BeritaController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Request $request)
+    {
+        $data = [
+            'berita' => Berita::where('id_berita', $request->id)->first()
+        ];
+
+        return view('Berita.detail', $data);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
-    public function indexCreate()
+    public function create()
     {
         return view('Berita.tambah');
     }
@@ -34,7 +46,7 @@ class BeritaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         //
         $data = $request->validate([
@@ -67,7 +79,34 @@ class BeritaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Berita $berita)
+    {
+        //
+        $data = $request->validate([
+            'judul_berita' => ['required'],
+            'foto_berita' => ['nullable'],
+            'isi_berita' => ['required']
+        ]);
+
+        $berita = Berita::where('id_berita', $request->input('id_berita'));
+        // Cek apakah pengguna mengunggah foto berita baru
+        if ($request->hasFile('foto_berita')) {
+            // Storage::disk('public')->delete($berita->foto_berita);
+            $path = $request->file('foto_berita')->storePublicly('foto_berita', 'public');
+            $data['foto_berita'] = $path;
+            $berita->foto_berita = $path;
+        }
+
+        $berita->update($data);
+        // $berita->save();
+
+        return redirect()->to('/berita')->with('success', 'Berita berhasil diupdate');
+    }
+
+    /**
+     * Remove the specified resource from storage.
      */
     public function delete(Request $request)
     {
@@ -100,52 +139,5 @@ class BeritaController extends Controller
         }
 
         return response()->json($pesan);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request, Berita $berita)
-    {
-        //
-        $data = $request->validate([
-            'judul_berita' => ['required'],
-            'foto_berita' => ['nullable'],
-            'isi_berita' => ['required']
-        ]);
-
-        $berita = Berita::where('id_berita', $request->input('id_berita'));
-        // Cek apakah pengguna mengunggah foto berita baru
-        if ($request->hasFile('foto_berita')) {
-            // Storage::disk('public')->delete($berita->foto_berita);
-            $path = $request->file('foto_berita')->storePublicly('foto_berita', 'public');
-            $data['foto_berita'] = $path;
-            $berita->foto_berita = $path;
-        }
-
-        $berita->update($data);
-        // $berita->save();
-
-        return redirect()->to('/berita')->with('success', 'Berita berhasil diupdate');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function indexDetail(Request $request)
-    {
-        $data = [
-            'berita' => Berita::where('id_berita', $request->id)->first()
-        ];
-
-        return view('Berita.detail', $data);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Berita $berita)
-    {
-        //
     }
 }

@@ -25,7 +25,10 @@ class TimController extends Controller
         return view('Tim.index', $data);
     }
 
-    public function indexCreate()
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
         $data = [
             'pelatih' => Pelatih::all(),
@@ -34,9 +37,10 @@ class TimController extends Controller
     }
 
     /**
+     * Display the specified resource.
      * Menampilkan halaman detail tim
      */
-    public function indexDetail(Request $request)
+    public function show(Request $request)
     {
         $data = [
             'tim' => Tim::where('id_tim', $request->id)->first(),
@@ -49,9 +53,9 @@ class TimController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $data = $request->validate([
             'nik_pelatih' => ['required'],
@@ -76,9 +80,9 @@ class TimController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified resource in storage.
      */
-    public function edit(Request $request)
+    public function update(Request $request)
     {
         //
         $data = $request->validate([
@@ -169,28 +173,4 @@ class TimController extends Controller
         }
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tim $tim)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Tim $tim)
-    {
-        //
-    }
 }
