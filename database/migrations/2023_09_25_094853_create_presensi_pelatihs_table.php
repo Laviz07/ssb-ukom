@@ -24,6 +24,9 @@ return new class extends Migration
 
             $table->foreign('nik_pelatih')->references('nik_pelatih')->on('pelatih')
                 ->onDelete('cascade')->onUpdate("cascade");
+
+            // Validasi unik untuk id_presensi dan nik_pelatih
+            $table->unique(['id_presensi', 'nik_pelatih']);
         });
     }
 

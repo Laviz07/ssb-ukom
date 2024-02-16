@@ -33,7 +33,7 @@
                         $no = 1;
                         ?>
 
-                        @foreach ($presensiPelatih as $pdl)
+                            @foreach ($presensiPelatih as $pdl)
                                 <tr style="vertical-align: middle; font-size: 17px;" idPdl={{ $pdl->id_kegiatan }}>
                                     <td class="col-0" style="text-align: center;"> {{ $no++ }} </td>
                                     <td class="col-3 text-capitalize text-center "> {{ $presensi->kegiatan->nama_kegiatan }}</td>

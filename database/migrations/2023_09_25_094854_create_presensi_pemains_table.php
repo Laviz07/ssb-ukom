@@ -24,6 +24,9 @@ return new class extends Migration
 
             $table->foreign('nisn_pemain')->references('nisn_pemain')->on('pemain')
                 ->onDelete('cascade')->onUpdate("cascade");
+
+            // Validasi unik untuk id_presensi dan nisn_pemain
+            $table->unique(['id_presensi', 'nisn_pemain']);
         });
     }
 

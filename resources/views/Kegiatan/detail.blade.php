@@ -18,152 +18,155 @@
                     <div class="text-center">
                         <img src="{{ asset('storage/' . $kegiatan->foto_kegiatan) }}" alt="{{ $kegiatan->nama_kegiatan }}"
                             style="width: auto; height: 350px; border-radius: 10px">
-            </div>
+                    </div>
                 @endif
 
-                <div class="container mt-2 mb-4 text-center d-flex justify-content-center align-items-center">  
-                        <div class="ms-4">
-                            @if ((Auth::user()->role == 'admin') || Auth::user()->role == 'pelatih')
-                                @if ($kegiatan->laporan_kegiatan)
-                                    <div class="mt-4 ">
-                                        <a  class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#edit-laporan-modal-{{ $kegiatan->id_kegiatan }}" style="cursor: pointer"
-                                            idKG={{ $kegiatan->id_kegiatan }}>
-                                            Edit Laporan Kegiatan
-                                        </a>
-                                    </div>
-                                @else
-                                    <div class="mt-4  ">
-                                        <a class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#tambah-laporan-modal-{{ $kegiatan->id_kegiatan }}" style="cursor: pointer"
-                                            idKG={{ $kegiatan->id_kegiatan }}>
-                                            Mengisi Laporan Kegiatan
-                                        </a>
-                                    </div>
-                                @endif
+                <div class="container mt-2 mb-4 text-center d-flex justify-content-center align-items-center">
+                    <div class="ms-4">
+                        @if (Auth::user()->role == 'admin' || Auth::user()->role == 'pelatih')
+                            @if ($kegiatan->laporan_kegiatan)
+                                <div class="mt-4 ">
+                                    <a class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#edit-laporan-modal-{{ $kegiatan->id_kegiatan }}"
+                                        style="cursor: pointer" idKG={{ $kegiatan->id_kegiatan }}>
+                                        Edit Laporan Kegiatan
+                                    </a>
+                                </div>
+                            @else
+                                <div class="mt-4  ">
+                                    <a class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#tambah-laporan-modal-{{ $kegiatan->id_kegiatan }}"
+                                        style="cursor: pointer" idKG={{ $kegiatan->id_kegiatan }}>
+                                        Mengisi Laporan Kegiatan
+                                    </a>
+                                </div>
                             @endif
-                        </div>
+                        @endif
+                    </div>
 
-                        @if($presensi)
-                            <div class="ms-5">
-                                {{-- /* -------------------------------- PRESENSI PEMAIN -------------------------------- */ --}}
-                                @if (Auth::user()->role == 'pemain')
-                                    <div class="mt-4 ">
-                                        <a href="#presensi-pemain-modal" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#presensi-pemain-modal">Mengisi Presensi</a>
-                                    </div>
-                                    
-                                    <div class="modal fade " id="presensi-pemain-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered w-50">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Presensi</h1>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form id="presensi-pemain-form" method="POST" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <div class="form-group mt-2">
-                                                            <input type="hidden" name="nisn_pemain"
-                                                                value="{{ Auth::user()->pemain['nisn_pemain'] }}">
+                    @if ($presensi)
+                        <div class="ms-5">
+                            {{-- /* -------------------------------- PRESENSI PEMAIN -------------------------------- */ --}}
+                            @if (Auth::user()->role == 'pemain')
+                                <div class="mt-4 me-5">
+                                    <a href="#presensi-pemain-modal" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#presensi-pemain-modal">Mengisi Presensi</a>
+                                </div>
 
-                                                            <input type="hidden" name="id_presensi"
-                                                                value="{{ $presensi->id_presensi}}">
+                                <div class="modal fade " id="presensi-pemain-modal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered w-50">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Presensi</h1>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="presensi-pemain-form" method="POST"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="form-group mt-2">
+                                                        <input type="hidden" name="nisn_pemain"
+                                                            value="{{ Auth::user()->pemain['nisn_pemain'] }}">
 
-                                                            <select name="keterangan" id="keterangan" class="form-select mb-3">
-                                                                <option value="" selected disabled>Keterangan</option>
-                                                                <option value="hadir">Hadir</option>
-                                                                <option value="izin">Izin</option>
-                                                                <option value="sakit">Sakit</option>
-                                                            </select>
+                                                        <input type="hidden" name="id_presensi"
+                                                            value="{{ $presensi->id_presensi }}">
 
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                        Cancel
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary presensiPemainBtn" form="presensi-pemain-form">
-                                                        Simpan
-                                                    </button>
+                                                        <select name="keterangan" id="keterangan" class="form-select mb-3">
+                                                            <option value="" selected disabled>Keterangan</option>
+                                                            <option value="hadir">Hadir</option>
+                                                            <option value="izin">Izin</option>
+                                                            <option value="sakit">Sakit</option>
+                                                        </select>
 
-                                                </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Cancel
+                                                </button>
+                                                <button type="submit" class="btn btn-primary presensiPemainBtn"
+                                                    form="presensi-pemain-form">
+                                                    Simpan
+                                                </button>
+
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
                                 {{-- /* -------------------------------- PRESENSI PELATIH -------------------------------- */ --}}
-                                @elseif( Auth::user()->role == 'pelatih')
-                                    <div class="mt-4 me-5 ">
-                                        <a href="#presensi-pelatih-modal" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#presensi-pelatih-modal">Mengisi Presensi</a>
-                                    </div>
-        
-                                    <div class="modal fade " id="presensi-pelatih-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered w-50">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Presensi {{ $presensi->id_presensi}}</h1>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form id="presensi-pelatih-form" method="POST" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <div class="form-group mt-2">
-                                                            <input type="hidden" name="nik_pelatih"
-                                                                value="{{ Auth::user()->pelatih['nik_pelatih'] }}">
+                            @elseif(Auth::user()->role == 'pelatih')
+                                <div class="mt-4 me-5 ">
+                                    <a href="#presensi-pelatih-modal" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#presensi-pelatih-modal">Mengisi Presensi</a>
+                                </div>
 
-                                                            <input type="hidden" name="id_presensi"
-                                                                value="{{ $presensi->id_presensi}}">
+                                <div class="modal fade " id="presensi-pelatih-modal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered w-50">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Presensi
+                                                    {{ $presensi->id_presensi }}</h1>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="presensi-pelatih-form" method="POST"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="form-group mt-2">
+                                                        <input type="hidden" name="nik_pelatih"
+                                                            value="{{ Auth::user()->pelatih['nik_pelatih'] }}">
 
-                                                            <select name="keterangan" id="keterangan" class="form-select mb-3">
-                                                                <option value="" selected disabled>Keterangan</option>
-                                                                <option value="hadir">Hadir</option>
-                                                                <option value="izin">Izin</option>
-                                                                <option value="sakit">Sakit</option>
-                                                            </select>
+                                                        <input type="hidden" name="id_presensi"
+                                                            value="{{ $presensi->id_presensi }}">
 
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                        Cancel
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary presensiPelatihBtn" form="presensi-pelatih-form">
-                                                        Simpan
-                                                    </button>
+                                                        <select name="keterangan" id="keterangan" class="form-select mb-3">
+                                                            <option value="" selected disabled>Keterangan</option>
+                                                            <option value="hadir">Hadir</option>
+                                                            <option value="izin">Izin</option>
+                                                            <option value="sakit">Sakit</option>
+                                                        </select>
 
-                                                </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Cancel
+                                                </button>
+                                                <button type="submit" class="btn btn-primary presensiPelatihBtn"
+                                                    form="presensi-pelatih-form">
+                                                    Simpan
+                                                </button>
+
                                             </div>
                                         </div>
                                     </div>
-                                
-                                @else
-                                    <div class="mt-4">
-                                        <a href="{{ url('presensi', []) }}" class="btn btn-primary">
-                                            Lihat Daftar Presensi
-                                        </a>
-                                    </div>
-                                @endif
-                            </div>
-                        
-                        @else
-                            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'pelatih' )
+                                </div>
+                            @else
+                                <div class="mt-4">
+                                    <a href="{{ url('presensi', []) }}" class="btn btn-primary">
+                                        Lihat Daftar Presensi
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
+                    @else
+                        @if (Auth::user()->role == 'admin' || Auth::user()->role == 'pelatih')
                             <div class="mt-4 ms-4">
                                 <a href="{{ url('presensi', []) }}" class="btn btn-primary  ">
                                     Buat Presensi
                                 </a>
                             </div>
-                            @else
-                                <div class="mt-4 ms-4">
-                                    <a href="{{ url('presensi', []) }}" class="btn btn-primary disabled ">
-                                        Belum Ada Presensi
-                                    </a>
-                                </div>
-                            @endif
-                            
+                        @else
+                            <div class="mt-4 ms-4">
+                                <a href="{{ url('presensi', []) }}" class="btn btn-primary disabled ">
+                                    Belum Ada Presensi
+                                </a>
+                            </div>
                         @endif
-                    
+
+                    @endif
+
                 </div>
             </div>
         </div>
@@ -222,7 +225,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary addBtn" form="add-lk-form-{{ $kegiatan->id_kegiatan }}">
+                    <button type="submit" class="btn btn-primary addBtn"
+                        form="add-lk-form-{{ $kegiatan->id_kegiatan }}">
                         Simpan
                     </button>
                 </div>
@@ -373,7 +377,13 @@
                     });
                 })
                 .catch((err) => {
-                    swal.fire('Presensi gagal disimpan!', 'Pastikan sudah mengisi presensi.', 'warning');
+                    if (err.response && err.response.data && err.response.data.message === 'Presensi sudah diisi!') {
+                        swal.fire('Presensi sudah diisi!', 'Tidak diperkenankan mengisi presensi dua kali.',
+                            'warning');
+                    } else {
+                        swal.fire('Presensi gagal disimpan!', 'Pastikan mengisi data seluruhnya.', 'error');
+                    }
+
                 });
         });
 
@@ -388,7 +398,13 @@
                     });
                 })
                 .catch((err) => {
-                    swal.fire('Presensi gagal disimpan!', 'Pastikan sudah mengisi presensi.', 'warning');
+                    if (err.response && err.response.data && err.response.data.message === 'Presensi sudah diisi!') {
+                        swal.fire('Presensi sudah diisi!', 'Tidak diperkenankan mengisi presensi dua kali.',
+                            'warning');
+                    } else {
+                        swal.fire('Presensi gagal disimpan!', 'Pastikan mengisi data seluruhnya.', 'error');
+                    }
+
                 });
         });
 
@@ -406,44 +422,6 @@
                     swal.fire('Laporan Kegiatan gagal diedit!', 'Pastikan mengisi data seluruhnya.', 'warning');
                 });
         });
-
-        //       //delete pop up
-        //       $('.hapusBtn').on('click', function (e) {
-        //     e.preventDefault();
-        //     let idTM = $(this).attr('idTM');
-        //     let nisnPemain = $(this).data('nisn-pemain'); // Get nisn_pemain from data attribute
-
-        //     swal.fire({
-        //         title: "Apakah anda ingin menghapus data ini?",
-        //         showCancelButton: true,
-        //         confirmButtonText: 'Setuju',
-        //         cancelButtonText: `Batal`,
-        //         confirmButtonColor: 'red'
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             // Include nisn_pemain in the DELETE request
-        //             axios.delete(`/tim/hapus/anggota/${idTM}`, { data: { nisn_pemain: nisnPemain } })
-        //             .then(function (response) {
-        //                 console.log(response);
-        //                 // if (response.data.success) {
-        //                     swal.fire('Berhasil di hapus!', '', 'success').then(function () {
-        //                         // Refresh Halaman
-        //                         location.reload();
-        //                     });
-        //                 // } else {
-        //                     // swal.fire('Gagal di hapus!', '', 'warning').then(function () {
-        //                         // Refresh Halaman
-        //                         // location.reload();
-        //                     // });
-        //                 // }
-        //             }).catch(function (error) {
-        //                 swal.fire('Data gagal di hapus!', '', 'error').then(function () {
-        //                     // Refresh Halaman
-        //                 });
-        //             });
-        //         }
-        //     });
-        // });
 
         $('.DataTable').DataTable();
     </script>

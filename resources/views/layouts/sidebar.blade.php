@@ -214,6 +214,7 @@
                         </a>
                     </li>
 
+                    @if (Auth::check() && Auth::user()->role != 'pemain')
                     <li class="nav-item w-100 ">
                         <a href="{{ url('presensi', []) }}" class="nav-link text-truncate "
                             style="font-size: 18px;">
@@ -221,6 +222,7 @@
                             <span class="ms-2 d-none d-sm-inline">Presensi</span>
                         </a>
                     </li>
+                    @endif
 
                     @if (Auth::check() && Auth::user()->role == 'admin')
                         <li class="nav-item w-100 ">

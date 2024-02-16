@@ -21,8 +21,8 @@ class PresensiDetailController extends Controller
         $data = [
             // 'kegiatan' => Kegiatan::where('id_kegiatan', $request->id)->first(),
             'presensi' => Presensi::where('id_presensi', $request->id)->first(),
-            'presensiPelatih' => presensi_pelatih::all(),
-            'presensiPemain' => presensi_pemain::all(),
+            'presensiPelatih' => presensi_pelatih::where('id_presensi', $request->id)->get(),
+            'presensiPemain' => presensi_pemain::where('id_presensi', $request->id)->get(),
         ];
         return view('Presensi.detail', $data);
     }
@@ -40,25 +40,29 @@ class PresensiDetailController extends Controller
         ]);
 
         // Memanggil fungsi untuk mendapatkan ID kustom
-        $customId = DB::selectOne("SELECT function_id_presensi_pelatih() as custom_id")->custom_id;
+        $customId = DB::selectOne('SELECT function_id_presensi_pelatih() as custom_id')->custom_id;
         $data['id_presensi_pelatih'] = $customId;
+
+        $existingPresensi = presensi_pelatih::where('id_presensi', $data['id_presensi'])
+        ->where('nik_pelatih', $data['nik_pelatih'])
+        ->first();
+
+        if ($existingPresensi) {
+            return response()->json(['message' => 'Presensi sudah diisi!'], 422);
+        }
 
         $presensi_pelatih = new presensi_pelatih($data);
         $presensi_pelatih->save();
 
-        // $presensi = Presensi::find($data['id_presensi']);
-        // $presensi_pelatih = PresensiDetail::create($data);
-        // $presensi_pelatih->presensi()->save($presensi);
-
         if ($presensi_pelatih) {
             $pesan = [
                 'success' => true,
-                'pesan' => 'Presensi berhasil ditambah'
+                'pesan' => 'Presensi berhasil ditambah',
             ];
         } else {
             $pesan = [
                 'success' => true,
-                'pesan' => 'Presensi gagal ditambah'
+                'pesan' => 'Presensi gagal ditambah',
             ];
         }
 
@@ -78,31 +82,35 @@ class PresensiDetailController extends Controller
         ]);
 
         // Memanggil fungsi untuk mendapatkan ID kustom
-        $customId = DB::selectOne("SELECT function_id_presensi_pemain() as custom_id")->custom_id;
+        $customId = DB::selectOne('SELECT function_id_presensi_pemain() as custom_id')->custom_id;
         $data['id_presensi_pemain'] = $customId;
+
+        // Cek keberadaan presensi dengan id_presensi dan nisn_pemain yang sama
+        $existingPresensi = presensi_pemain::where('id_presensi', $data['id_presensi'])
+            ->where('nisn_pemain', $data['nisn_pemain'])
+            ->first();
+
+        if ($existingPresensi) {
+            return response()->json(['message' => 'Presensi sudah diisi!'], 422);
+        }
 
         $presensi_pemain = new presensi_pemain($data);
         $presensi_pemain->save();
 
-        // $presensi = Presensi::find($data['id_presensi']);
-        // $presensi_pemain = PresensiDetail::create($data);
-        // $presensi_pemain->presensi()->save($presensi);
-
         if ($presensi_pemain) {
             $pesan = [
                 'success' => true,
-                'pesan' => 'Presensi berhasil ditambah'
+                'pesan' => 'Presensi berhasil ditambah',
             ];
         } else {
             $pesan = [
                 'success' => true,
-                'pesan' => 'Presensi gagal ditambah'
+                'pesan' => 'Presensi gagal ditambah',
             ];
         }
 
         return response()->json($pesan);
     }
-
 
     /**
      * Display the specified resource.
