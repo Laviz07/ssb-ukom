@@ -1,54 +1,147 @@
-{{-- @extends('layouts.layout') --}}
 @extends('layouts.sidebar')
 @section('title', 'Detail Kegiatan')
 @section('content')
-<div class="container mt-4 mb-4 ">
-    <div class="row text-center">
-        <span style="font-size: 45px; font-weight: 600;" class="text-capitalize "> {{$kegiatan->nama_kegiatan}} </span>
-        <div class="mt-0" style="font-size: 16px; font-weight: 400;">
-            {{$kegiatan->pelatih->nama_pelatih}} &#8226; 
-            {{\Carbon\Carbon::createFromFormat('H:i:s',$kegiatan->jam_mulai)->format('g:i a')}}
-            -
-            {{\Carbon\Carbon::createFromFormat('H:i:s',$kegiatan->jam_selesai)->format('g:i a')}}
+    <div class="container mt-4 mb-4 ">
+        <div class="row text-center">
+            <span style="font-size: 45px; font-weight: 600;" class="text-capitalize "> {{ $kegiatan->nama_kegiatan }} </span>
+            <div class="mt-0" style="font-size: 16px; font-weight: 400;">
+                {{ $kegiatan->pelatih->nama_pelatih }} &#8226;
+                {{ \Carbon\Carbon::createFromFormat('H:i:s', $kegiatan->jam_mulai)->format('g:i a') }}
+                -
+                {{ \Carbon\Carbon::createFromFormat('H:i:s', $kegiatan->jam_selesai)->format('g:i a') }}
+            </div>
         </div>
-    </div>
-    <div class="row mt-1">
+        <div class="row mt-1">
 
-        <div class="row p-4 d-flex flex-column align-items-center justify-content-center text-center">
-            @if ($kegiatan->foto_kegiatan)
+            <div class="row p-4 d-flex flex-column align-items-center justify-content-center text-center">
+                @if ($kegiatan->foto_kegiatan)
                     <div class="text-center">
-                        <img src="{{ asset('storage/' . $kegiatan->foto_kegiatan) }}" alt="{{$kegiatan->nama_kegiatan}}" 
-                        style="width: auto; height: 350px; border-radius: 10px">
-                    </div>
-            @endif
-
-            <div class="mt-4">
-                <a href="" class="btn btn-primary ">Mengisi Presensi</a>
-
-            @if (Auth::check() && Auth::user()->role == 'admin' || Auth::user()->role == 'pelatih')
-                @if ($kegiatan->laporan_kegiatan)
-                <a class="btn btn-primary ms-3" data-bs-toggle="modal" 
-                    data-bs-target="#edit-laporan-modal-{{$kegiatan->id_kegiatan}}" 
-                    style="cursor: pointer" idKG={{$kegiatan->id_kegiatan}}>
-                        Edit Laporan Kegiatan
-                </a>
-                @else
-                <a class="btn btn-primary ms-3" data-bs-toggle="modal" 
-                    data-bs-target="#tambah-laporan-modal-{{$kegiatan->id_kegiatan}}" 
-                    style="cursor: pointer" idKG={{$kegiatan->id_kegiatan}}>
-                        Mengisi Laporan Kegiatan
-                </a>
+                        <img src="{{ asset('storage/' . $kegiatan->foto_kegiatan) }}" alt="{{ $kegiatan->nama_kegiatan }}"
+                            style="width: auto; height: 350px; border-radius: 10px">
+            </div>
                 @endif
-            @endif
-                
+
+                <div class="row justify-content-center">
+                    <div class="text-center row">
+                        @if ((Auth::user()->role == 'admin') || Auth::user()->role == 'pelatih')
+                            @if ($kegiatan->laporan_kegiatan)
+                                <div class="mt-4 w-25 ">
+                                    <a class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#edit-laporan-modal-{{ $kegiatan->id_kegiatan }}" style="cursor: pointer"
+                                        idKG={{ $kegiatan->id_kegiatan }}>
+                                        Edit Laporan Kegiatan
+                                    </a>
+                                </div>
+                            @else
+                                <div class="mt-4 w-25 ">
+                                    <a class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#tambah-laporan-modal-{{ $kegiatan->id_kegiatan }}" style="cursor: pointer"
+                                        idKG={{ $kegiatan->id_kegiatan }}>
+                                        Mengisi Laporan Kegiatan
+                                    </a>
+                                </div>
+                            @endif
+                        @endif
+                    
+                        @if (Auth::user()->role == 'pemain')
+                            <div class="mt-4 w-25 ">
+                                <a href="#presensi-pemain-modal-" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#presensi-pemain-modal-">Mengisi Presensi</a>
+                            </div>
+
+                            {{-- /* -------------------------------- PRESENSI PEMAIN -------------------------------- */ --}}
+                            <div class="modal fade " id="presensi-pemain-modal-" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered w-50">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Presensi</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="presensi-form-" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group mt-2">
+                                                    <input type="hidden" name="nisn_pemain"
+                                                        value="{{ Auth::user()->pemain['nisn_pemain'] }}">
+                                                    <select name="keterangan" id="keterangan" class="form-select mb-3">
+                                                        <option value="" selected disabled>Keterangan</option>
+                                                        <option value="hadir">Hadir</option>
+                                                        <option value="izin">Izin</option>
+                                                        <option value="sakit">Sakit</option>
+                                                    </select>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Cancel
+                                            </button>
+                                            <button type="submit" class="btn btn-primary presensiBtn" form="edit-br-form-">
+                                                Simpan
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        @elseif( Auth::user()->role == 'pelatih')
+                            <div class="mt-4 w-25 ">
+                                <a href="#presensi-pelatih-modal-" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#presensi-pelatih-modal-">Mengisi Presensi</a>
+                            </div>
+
+                            {{-- /* -------------------------------- PRESENSI PELATIH -------------------------------- */ --}}
+                            <div class="modal fade " id="presensi-pelatih-modal-" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered w-50">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Presensi</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="presensi-form-" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group mt-2">
+                                                    <input type="hidden" name="nisn_pelatih"
+                                                        value="{{ Auth::user()->pelatih['nik_pelatih'] }}">
+                                                    <select name="keterangan" id="keterangan" class="form-select mb-3">
+                                                        <option value="" selected disabled>Keterangan</option>
+                                                        <option value="hadir">Hadir</option>
+                                                        <option value="izin">Izin</option>
+                                                        <option value="sakit">Sakit</option>
+                                                    </select>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Cancel
+                                            </button>
+                                            <button type="submit" class="btn btn-primary presensiBtn" form="edit-br-form-">
+                                                Simpan
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        @else
+                            <div class="mt-4">
+                                <a href="#presensi-pemain-modal-" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#presensi-modal-">Lihat Daftar Presensi</a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="container mt-2 mb-4 text-center " >
+        <div class="container mt-2 mb-4 text-center ">
             <div class="row d-flex justify-content-between ">
-                <div class="card mt-3 p-3" 
-                style="width: 48%;">
-                    <span style="font-size: 20px; font-weight: 500; text-align: left"> 
+                <div class="card mt-3 p-3" style="width: 48%;">
+                    <span style="font-size: 20px; font-weight: 500; text-align: left">
                         Detail Kegiatan
                     </span>
 
@@ -57,9 +150,8 @@
                     </span>
                 </div>
 
-                <div class="card mt-3 p-3" 
-                style="width: 48%;">
-                    <span style="font-size: 20px; font-weight: 500; text-align: left"> 
+                <div class="card mt-3 p-3" style="width: 48%;">
+                    <span style="font-size: 20px; font-weight: 500; text-align: left">
                         Laporan Kegiatan
                     </span>
 
@@ -76,79 +168,74 @@
         </div>
     </div>
 
-      {{-- TAMBAH LAPORAN --}}
-      <div class="modal fade" id="tambah-laporan-modal-{{$kegiatan->id_kegiatan}}" tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Laporan Kegiatan</h1>
-            </div>
-            <div class="modal-body">
-                <form id="add-lk-form-{{$kegiatan->id_kegiatan}}">
-                    <div class="form-group">
-                        <label>Laporan Kegiatan:</label>
-                        <textarea required name="laporan_kegiatan" id="" 
-                            class="form-control" rows="5" placeholder="Laporan Kegiatan" 
-                            style="resize: none">
-                        </textarea>
-                       @csrf
-                    </div>
-                    <input type="hidden" name="id_kegiatan" value="{{$kegiatan->id_kegiatan}}">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cancel
-                </button>
-                <button type="submit" class="btn btn-primary addBtn"
-                        form="add-lk-form-{{$kegiatan->id_kegiatan}}" >
-                    Simpan
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- EDIT LAPORAN --}}
-<div class="modal fade" id="edit-laporan-modal-{{$kegiatan->id_kegiatan}}" tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Laporan Kegiatan</h1>
-        </div>
-        <div class="modal-body">
-            <form id="edit-lk-form-{{$kegiatan->id_kegiatan}}">
-                <div class="form-group">
-                    <label>Laporan Kegiatan:</label>
-                    <textarea required name="laporan_kegiatan" id="" 
-                        class="form-control" rows="5" placeholder="Laporan Kegiatan" 
-                        style="resize: none"> {{$kegiatan->laporan_kegiatan}}
-                    </textarea>
-                   @csrf
+    {{-- /* ----------------------------- TAMBAH LAPORAN ----------------------------- */ --}}
+    <div class="modal fade" id="tambah-laporan-modal-{{ $kegiatan->id_kegiatan }}" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Laporan Kegiatan</h1>
                 </div>
-                <input type="hidden" name="id_kegiatan" value="{{$kegiatan->id_kegiatan}}">
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                Cancel
-            </button>
-            <button type="submit" class="btn btn-primary editBtn"
-                    form="edit-lk-form-{{$kegiatan->id_kegiatan}}" >
-                Simpan
-            </button>
+                <div class="modal-body">
+                    <form id="add-lk-form-{{ $kegiatan->id_kegiatan }}">
+                        <div class="form-group">
+                            <label>Laporan Kegiatan:</label>
+                            <textarea required name="laporan_kegiatan" id="" class="form-control" rows="5"
+                                placeholder="Laporan Kegiatan" style="resize: none">
+                        </textarea>
+                            @csrf
+                        </div>
+                        <input type="hidden" name="id_kegiatan" value="{{ $kegiatan->id_kegiatan }}">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary addBtn" form="add-lk-form-{{ $kegiatan->id_kegiatan }}">
+                        Simpan
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
+
+    {{-- /* ------------------------------ EDIT LAPORAN ------------------------------ */ --}}
+    <div class="modal fade" id="edit-laporan-modal-{{ $kegiatan->id_kegiatan }}" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Laporan Kegiatan</h1>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-lk-form-{{ $kegiatan->id_kegiatan }}">
+                        <div class="form-group">
+                            <label>Laporan Kegiatan:</label>
+                            <textarea required name="laporan_kegiatan" id="" class="form-control" rows="5"
+                                placeholder="Laporan Kegiatan" style="resize: none"> {{ $kegiatan->laporan_kegiatan }}
+                    </textarea>
+                            @csrf
+                        </div>
+                        <input type="hidden" name="id_kegiatan" value="{{ $kegiatan->id_kegiatan }}">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary editBtn"
+                        form="edit-lk-form-{{ $kegiatan->id_kegiatan }}">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-       {{-- LIST ANGGOTA kegiatan --}}
-       {{-- <div>
+    {{-- LIST ANGGOTA kegiatan --}}
+    {{-- <div>
         <div class="card align-items-center" style="border: 2px solid #00171F;">
             <div class="card-body">
                 <span class="h3 text-uppercase "> <strong>Daftar Anggota Tim</strong></span>
@@ -173,8 +260,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
-                            $no = 1;
+                        <?php
+                        $no = 1;
                         ?>
 
                         @foreach ($tim->pemain as $pm)
@@ -224,115 +311,95 @@
            
     </div> --}}
 
-     {{-- TAMBAH ANGGOTA TIM --}}
-     {{-- <div class="modal fade" id="add-modal" tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Anggota Tim</h1>
-            </div>
-            <div class="modal-body">
-                <form id="add-pm-form" enctype="multipart/form-data">
-                   
 
-                    <select name="nisn_pemain" id="pilihPemain" class="form-select mb-3">
-                        <option value="" selected disabled>Pilih Anggota Tim</option>
-                        @foreach ($pemain as $pm)
-                            <option value="{{ $pm->nisn_pemain }}">{{ $pm->nama_pemain }}</option>
-                        @endforeach
-                        
-                    </select>
-
-                    <input type="hidden" name="id_tim" value="{{$tim->id_tim}}">
-
-                </form> 
-             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cancel
-                </button>
-                <button type="submit" class="btn btn-primary addBtn"
-                        form="add-pm-form" >
-                    Tambah
-                </button>
-            </div>
-        </div>
     </div>
-</div> --}}
-    
-</div>
 @endsection
 @section('footer')
-    <script type="module" >
-        // add pop up
-        $('.addBtn').on('click', function (e) {
-        e.preventDefault();
-        let data = new FormData(e.target.form);
-        axios.post(`/jadwal/kegiatan/tambah/laporan-kegiatan/`, data)
-            .then((res) => {
-                swal.fire('Selamat!', 'Laporan Kegiatan berhasil ditambahkan.', 'success').then(function () {
-                    location.reload();
+    <script type="module">
+        // add laporan kegiatan pop up
+        $('.addBtn').on('click', function(e) {
+            e.preventDefault();
+            let data = new FormData(e.target.form);
+            axios.post(`/jadwal/kegiatan/tambah/laporan-kegiatan/`, data)
+                .then((res) => {
+                    swal.fire('Selamat!', 'Laporan Kegiatan berhasil ditambahkan.', 'success').then(function() {
+                        location.reload();
+                    });
+                })
+                .catch((err) => {
+                    swal.fire('Laporan Kegiatan gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.',
+                        'warning');
                 });
-            })
-            .catch((err) => {
-                swal.fire('Laporan Kegiatan gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
-            });
-    });
+        });
 
-    $('.editBtn').on('click', function (e) {
-        e.preventDefault();
-        let data = new FormData(e.target.form);
-        axios.post(`/jadwal/kegiatan/tambah/laporan-kegiatan/`, data)
-            .then((res) => {
-                swal.fire('Selamat!', 'Laporan Kegiatan berhasil diedit.', 'success').then(function () {
-                    location.reload();
+        // presensi pop up
+        $('.presensiBtn').on('click', function(e) {
+            e.preventDefault();
+            let data = new FormData(e.target.form);
+            axios.post(`/jadwal/kegiatan/presensi/`, data)
+                .then((res) => {
+                    swal.fire('Selamat!', 'Presensi berhasil disimpan.', 'success').then(function() {
+                        location.reload();
+                    });
+                })
+                .catch((err) => {
+                    swal.fire('Presensi gagal disimpan!', 'Pastikan sudah mengisi presensi.', 'warning');
                 });
-            })
-            .catch((err) => {
-                swal.fire('Laporan Kegiatan gagal diedit!', 'Pastikan mengisi data seluruhnya.', 'warning');
-            });
-    });
+        });
 
-//       //delete pop up
-//       $('.hapusBtn').on('click', function (e) {
-//     e.preventDefault();
-//     let idTM = $(this).attr('idTM');
-//     let nisnPemain = $(this).data('nisn-pemain'); // Get nisn_pemain from data attribute
+        //edit pop up
+        $('.editBtn').on('click', function(e) {
+            e.preventDefault();
+            let data = new FormData(e.target.form);
+            axios.post(`/jadwal/kegiatan/tambah/laporan-kegiatan/`, data)
+                .then((res) => {
+                    swal.fire('Selamat!', 'Laporan Kegiatan berhasil diedit.', 'success').then(function() {
+                        location.reload();
+                    });
+                })
+                .catch((err) => {
+                    swal.fire('Laporan Kegiatan gagal diedit!', 'Pastikan mengisi data seluruhnya.', 'warning');
+                });
+        });
 
-//     swal.fire({
-//         title: "Apakah anda ingin menghapus data ini?",
-//         showCancelButton: true,
-//         confirmButtonText: 'Setuju',
-//         cancelButtonText: `Batal`,
-//         confirmButtonColor: 'red'
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             // Include nisn_pemain in the DELETE request
-//             axios.delete(`/tim/hapus/anggota/${idTM}`, { data: { nisn_pemain: nisnPemain } })
-//             .then(function (response) {
-//                 console.log(response);
-//                 // if (response.data.success) {
-//                     swal.fire('Berhasil di hapus!', '', 'success').then(function () {
-//                         // Refresh Halaman
-//                         location.reload();
-//                     });
-//                 // } else {
-//                     // swal.fire('Gagal di hapus!', '', 'warning').then(function () {
-//                         // Refresh Halaman
-//                         // location.reload();
-//                     // });
-//                 // }
-//             }).catch(function (error) {
-//                 swal.fire('Data gagal di hapus!', '', 'error').then(function () {
-//                     // Refresh Halaman
-//                 });
-//             });
-//         }
-//     });
-// });
+        //       //delete pop up
+        //       $('.hapusBtn').on('click', function (e) {
+        //     e.preventDefault();
+        //     let idTM = $(this).attr('idTM');
+        //     let nisnPemain = $(this).data('nisn-pemain'); // Get nisn_pemain from data attribute
 
-    $('.DataTable').DataTable();
+        //     swal.fire({
+        //         title: "Apakah anda ingin menghapus data ini?",
+        //         showCancelButton: true,
+        //         confirmButtonText: 'Setuju',
+        //         cancelButtonText: `Batal`,
+        //         confirmButtonColor: 'red'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             // Include nisn_pemain in the DELETE request
+        //             axios.delete(`/tim/hapus/anggota/${idTM}`, { data: { nisn_pemain: nisnPemain } })
+        //             .then(function (response) {
+        //                 console.log(response);
+        //                 // if (response.data.success) {
+        //                     swal.fire('Berhasil di hapus!', '', 'success').then(function () {
+        //                         // Refresh Halaman
+        //                         location.reload();
+        //                     });
+        //                 // } else {
+        //                     // swal.fire('Gagal di hapus!', '', 'warning').then(function () {
+        //                         // Refresh Halaman
+        //                         // location.reload();
+        //                     // });
+        //                 // }
+        //             }).catch(function (error) {
+        //                 swal.fire('Data gagal di hapus!', '', 'error').then(function () {
+        //                     // Refresh Halaman
+        //                 });
+        //             });
+        //         }
+        //     });
+        // });
+
+        $('.DataTable').DataTable();
     </script>
 @endsection

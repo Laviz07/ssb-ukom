@@ -1,14 +1,14 @@
 @extends('layouts.sidebar')
-@section('title', 'List Pemain')
+@section('title', 'List Presenazi')
 @section('content')
 
     <div class="container mt-4 mb-4">
 
-        {{-- /* ------------------------------- LIST PEMAIN ------------------------------ */ --}}
+        {{-- /* ------------------------------ LIST PRESENSI ----------------------------- */ --}}
         <div>
             <div class="card align-items-center" style="border: 2px solid #00171F;">
                 <div class="card-body">
-                    <span class="h3 text-uppercase "> <strong>Daftar Pemain</strong></span>
+                    <span class="h3 text-uppercase "> <strong>Daftar Presensi</strong></span>
                 </div>
             </div>
 
@@ -17,9 +17,8 @@
                     <thead>
                         <tr style="text-align: center; font-size: 17px; font-weight: 600;">
                             <td>No</td>
-                            <td>Foto</td>
-                            <td>Nama</td>
-                            <td>NISN</td>
+                            <td>Kegiatan</td>
+                            <td>Tanggal</td>
                             <td>Action</td>
                         </tr>
                     </thead>
@@ -28,19 +27,11 @@
                         $no = 1;
                         ?>
 
-                        @foreach ($pemain as $pm)
+                        @foreach ($presensi as $pr)
                             <tr style="vertical-align: middle; font-size: 17px;" idPm={{ $pm->nisn_pemain }}>
                                 <td class="col-1" style="text-align: center;"> {{ $no++ }} </td>
-                                <td class="col-1" style="text-align: center">
-                                    @if ($pm->user->foto_profil)
-                                        <img src="{{ asset('storage/' . $pm->user->foto_profil) }}" alt="Foto Profil"
-                                            style="width: 90px; height: 90px;" class="rounded-circle">
-                                    @else
-                                        <i class="bi bi-person-circle" style="font-size: 40px;"></i>
-                                    @endif
-                                </td>
-                                <td class="col-5 text-capitalize text-center "> {{ $pm->nama_pemain }} </td>
-                                <td class="col-2" style="text-align: center"> {{ $pm->nisn_pemain }} </td>
+                                <td class="col-5 text-capitalize text-center "> {{ $pm->kegiatan }} </td>
+                                <td class="col-2" style="text-align: center"> {{ $pm->tanggal }} </td>
                                 <td style="text-align: center">
 
 
@@ -82,8 +73,6 @@
                                                 </a>
 
                                             </div>
-
-                                        </div>
                                     @endif
 
                                     @if (Auth::user()['role'] != 'admin')
@@ -97,7 +86,7 @@
                                 </td>
                             </tr>
 
-                            {{-- /* ------------------------------- EDIT PEMAIN ------------------------------ */ --}}
+                            {{-- EDIT PRESENSI --}}
                             <div class="modal fade" id="edit-modal-{{ $pm->nisn_pemain }}" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
@@ -107,28 +96,6 @@
                                         </div>
                                         <div class="modal-body">
                                             <form id="edit-pm-form-{{ $pm->nisn_pemain }}">
-                                                <div class="form-group">
-                                                    <label>Nama Pemain:</label>
-                                                    <input placeholder="example" type="text" class="form-control mb-3"
-                                                        name="nama_pemain" value="{{ $pm->nama_pemain }}" required />
-                                                    @csrf
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Alamat:</label>
-                                                    <textarea required name="alamat" id="" class="form-control" rows="3" placeholder="Deskripsi Diri"
-                                                        style="resize: none">{{ $pm->alamat }}</textarea>
-
-                                                </div>
-
-                                                <div class="form-group mt-2">
-                                                    <label>No. Telepon:</label>
-                                                    <div class="input-group mb-2">
-                                                        <span class="input-group-text">+62</span>
-                                                        <input type="number" class="form-control" placeholder="81234567890"
-                                                            name="no_telp" value="{{ $pm->no_telp }}" required />
-                                                    </div>
-                                                </div>
 
                                                 <div class="form-group">
                                                     <label>Email:</label>
@@ -166,84 +133,56 @@
             </div>
         </div>
     </div>
-    <div class="col d-flex justify-content-end mb-2 mt-3">
-        @if (Auth::check() && Auth::user()->role == 'admin')
-            <a href="{{ url('pemain', ['tambah']) }}" class="position-fixed z-10 bottom-0 end-0">
-                <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 35px; margin: 30px; color:#003459;"></i>
-            </a>
-        @endif
-        @if ((Auth::check() && Auth::user()->role == 'admin') || Auth::user()->role == 'pelatih')
-            <a href="{{ url('pemain', ['cetak']) }}" target="blank" class="position-fixed z-10 end-0"
-                style="bottom: 50px">
-                <i class="bi bi-printer-fill" style="font-size: 35px; margin: 30px; color:#003459;"></i>
-            </a>
-        @endif
-    </div>
-@endsection
+    
+    @if (Auth::check() && Auth::user()->role == 'admin')
+        <a href="#presensi-modal-" class="position-fixed z-10 bottom-0 end-0" data-bs-toggle="modal"
+            data-bs-target="#presensi-modal-">
+            <i class="bi bi-plus-circle-fill bi-3x" style="font-size: 35px; margin: 30px; color:#003459;"></i>
+        </a>
 
-@section('footer')
-    <script type="module">
-        // edit pop up
-        $('.editBtn').on('click', function(e) {
-            e.preventDefault();
-            let idPM = $(this).attr('idPM');
-            $(`#edit-pm-form-${idPM}`).on('submit', function(e) {
-                e.preventDefault();
-                let data = Object.fromEntries(new FormData(e.target));
-                data['nisn_pemain'] = idPM;
-                axios.post(`/pemain/edit/${idPM}`, data)
-                    .then(() => {
-                        $(`#edit-modal-${idPM}`).css('display', 'none')
-                        swal.fire('Selamat!', 'Pemain berhasil diedit.', 'success').then(function() {
-                            location.reload();
-                        })
-                    })
-                    .catch(() => {
-                        swal.fire('Waduh!', 'Pemain gagal diedit.', 'warning');
-                    })
-            })
-        })
+        {{-- /* -------------------------------- TAMBAH PRESENSI -------------------------------- */ --}}
+        <div class="modal fade " id="presensi-modal-" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered w-50">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Presensi</h1>
+                    </div>
+                    <div class="modal-body">
+                        <form id="presensi-form-" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mt-2">
+                                        <label for="tanggal">Tanggal:</label>
+                                        <input type="date" id="tanggal" name="tanggal_kegiatan"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mt-2">
+                                        <label for="kegiatan">Kegiatan:</label>
+                                        <select name="id_kegiatan" id="kegiatan" class="form-select mb-3">
+                                            <option value="" selected disabled>Pilih Kegiatan</option>
+                                            @foreach ($kegiatan as $kg)
+                                                <option value="{{ $kg->id_kegiatan }}">{{ $kg->nama_kegiatan }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary presensiBtn" form="edit-br-form-">
+                            Simpan
+                        </button>
 
-        //delete pop up
-        $('.DataTable tbody').on('click', '.hapusBtn', function(a) {
-            a.preventDefault();
-            let idPM = $(this).closest('.hapusBtn').attr('idPM');
-            swal.fire({
-                title: "Yakin ingin menghapus pemain?",
-                text: 'Pemain yang sudah dihapus, tidak bisa dikembalikan.',
-                showCancelButton: true,
-                confirmButtonText: 'Setuju',
-                cancelButtonText: `Batal`,
-                confirmButtonColor: 'red'
-
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    //dilakukan proses hapus
-                    axios.delete('/pemain/hapus/' + idPM).then(function(response) {
-                        console.log(response);
-                        if (response.data.success) {
-                            swal.fire('Selamat!', 'Pemain berhasil dihapus.', 'success').then(
-                                function() {
-                                    //Refresh Halaman
-                                    location.reload();
-                                });
-                        } else {
-                            swal.fire('Waduh!', 'Pemain gagal dihapus.', 'warning').then(
-                        function() {
-                                //Refresh Halaman
-                                location.reload();
-                            });
-                        }
-                    }).catch(function(error) {
-                        swal.fire('Waduh!', 'Pemain gagal dihapus.', 'error').then(function() {
-                            //Refresh Halaman
-
-                        });
-                    });
-                }
-            });
-        });
-
-        $('.DataTable').DataTable();
-    </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
