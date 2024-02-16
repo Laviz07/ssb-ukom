@@ -206,7 +206,12 @@
                     })
                 })
                 .catch((err) => {
-                    swal.fire('Presensi gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'warning');
+                    if (err.response && err.response.data && err.response.data.message === 'Kegiatan sudah ada!') {
+                        swal.fire('Kegiatan sudah ada!', 'Tidak diperkenankan membuat 2 presensi dengan kegiatan yang sama.',
+                            'warning');
+                    } else {
+                        swal.fire('Presensi gagal ditambahkan!', 'Pastikan mengisi data seluruhnya.', 'error');
+                    }
                 });
         });
 

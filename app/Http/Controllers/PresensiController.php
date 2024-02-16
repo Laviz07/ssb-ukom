@@ -38,6 +38,13 @@ class PresensiController extends Controller
         $customId = DB::selectOne("SELECT function_id_presensi() as custom_id")->custom_id;
         $data['id_presensi'] = $customId;
 
+        $existingKegiatan = presensi::where('id_kegiatan', $data['id_kegiatan'])
+            ->first();
+
+        if ($existingKegiatan) {
+            return response()->json(['message' => 'Kegiatan sudah ada!'], 422);
+        }
+
         $presensi = new Presensi($data);
         $presensi->save();
 
