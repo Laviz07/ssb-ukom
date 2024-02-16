@@ -27,18 +27,20 @@ class PemainController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
      * Menampilkan halaman tambah pemain
      */
-    public function indexCreate()
+    public function create()
     {
         return view('Pemain.tambah');
     }
 
     /**
+     * Display the specified resource.
      * Menampilkan halaman detail pemain
      * mengirimkan data ke view dengan isi array data user dan pemain
      */
-    public function indexDetail(Request $request)
+    public function show(Request $request)
     {
         $data = [
             'pemain' => Pemain::where('nisn_pemain', $request->id)->first(),
@@ -49,9 +51,9 @@ class PemainController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         //
         $data = $request->validate([
@@ -106,9 +108,9 @@ class PemainController extends Controller
     }
 
     /**
-     * edit the specified resource.
+     * Update the specified resource in storage.
      */
-    public function edit(Request $request)
+    public function update(Request $request)
     {
         //
         $data = $request->validate([
@@ -167,32 +169,7 @@ class PemainController extends Controller
         return response()->json($pesan);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pemain $pemain)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pemain $pemain)
-    {
-        //
-    }
-
-    public function cetakPemain()
+    public function cetak()
     {
         $data = [
             'pemain' => Pemain::get(),

@@ -11,9 +11,11 @@ use App\Http\Controllers\LogsController;
 use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PemainController;
 use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\PresensiDetailController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\TimController;
 use App\Http\Controllers\UserController;
+use App\Models\Presensi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,7 +53,7 @@ Route::get('/', function () {
 Route::get('/beranda', [DashboardController::class, 'index']);
 
 Route::get('/berita', [BeritaController::class, 'index']);
-Route::get('/berita/detail/{id}', [BeritaController::class, 'indexDetail']);
+Route::get('/berita/detail/{id}', [BeritaController::class, 'show']);
 
 Route::get('/galeri', [GaleriController::class, 'index']);
 
@@ -72,47 +74,47 @@ Route::prefix('/')->middleware('auth')->group(function () {
         /* ---------------------------- Route Untuk Admin --------------------------- */
         Route::middleware(['isAdmin'])->group(function () {
 
-            Route::get('/dashboard', [DashboardController::class, 'indexDashboard']);
+            Route::get('/dashboard', [DashboardController::class, 'dashboard']);
 
             Route::get("/log", [LogsController::class, 'index']);
 
             /* ------------------------------- Route admin ------------------------------ */
             Route::get('admin', [AdminController::class, 'index']);
-            Route::get('/admin/tambah', [AdminController::class, 'indexCreate']);
-            Route::post('/admin/tambah', [AdminController::class, 'create']);
-            Route::post('/admin/edit/{id}', [AdminController::class, 'edit']);
+            Route::get('/admin/tambah', [AdminController::class, 'create']);
+            Route::post('/admin/tambah', [AdminController::class, 'store']);
+            Route::post('/admin/edit/{id}', [AdminController::class, 'update']);
             Route::delete('/admin/hapus/{id}', [AdminController::class, 'delete']);
 
             /* ------------------------------ Route pelatih ----------------------------- */
-            Route::get('/pelatih/tambah', [PelatihController::class, 'indexCreate']);
-            Route::post('/pelatih/tambah', [PelatihController::class, 'create']);
-            Route::post('/pelatih/edit/{id}', [PelatihController::class, 'edit']);
+            Route::get('/pelatih/tambah', [PelatihController::class, 'create']);
+            Route::post('/pelatih/tambah', [PelatihController::class, 'store']);
+            Route::post('/pelatih/edit/{id}', [PelatihController::class, 'update']);
             Route::delete('/pelatih/hapus/{id}', [PelatihController::class, 'delete']);
 
             /* ------------------------------ Route Pemain ------------------------------ */
-            Route::get('/pemain/tambah', [PemainController::class, 'indexCreate']);
-            Route::post('/pemain/tambah', [PemainController::class, 'create']);
-            Route::post('/pemain/edit/{id}', [PemainController::class, 'edit']);
+            Route::get('/pemain/tambah', [PemainController::class, 'create']);
+            Route::post('/pemain/tambah', [PemainController::class, 'store']);
+            Route::post('/pemain/edit/{id}', [PemainController::class, 'update']);
             Route::delete('/pemain/hapus/{id}', [PemainController::class, 'delete']);
 
             /* ------------------------------ Route Galeri ------------------------------ */
-            Route::get("/galeri/tambah", [GaleriController::class, 'indexCreate']);
-            Route::post("/galeri/tambah", [GaleriController::class, 'create']);
-            Route::post('/galeri/edit/{id}', [GaleriController::class, 'edit']);
+            Route::get("/galeri/tambah", [GaleriController::class, 'create']);
+            Route::post("/galeri/tambah", [GaleriController::class, 'store']);
+            Route::post('/galeri/edit/{id}', [GaleriController::class, 'update']);
             Route::delete("/galeri/hapus/{id}", [GaleriController::class, 'delete']);
 
             /* ------------------------------ Route Berita ------------------------------ */
-            Route::get("/berita/tambah", [BeritaController::class, 'indexCreate']);
-            Route::post('/berita/tambah', [BeritaController::class, 'create']);
-            Route::post('/berita/edit/{id}', [BeritaController::class, 'edit']);
+            Route::get("/berita/tambah", [BeritaController::class, 'create']);
+            Route::post('/berita/tambah', [BeritaController::class, 'store']);
+            Route::post('/berita/edit/{id}', [BeritaController::class, 'update']);
             Route::delete("/berita/hapus/{id}", [BeritaController::class, 'delete']);
         });
 
         Route::middleware(['isPelatihOrAdmin'])->group(function () {
             /* -------------------------------- Route Tim ------------------------------- */
-            Route::get('/tim/tambah', [TimController::class, 'indexCreate']);
-            Route::post('/tim/tambah', [TimController::class, 'create']);
-            Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
+            Route::get('/tim/tambah', [TimController::class, 'create']);
+            Route::post('/tim/tambah', [TimController::class, 'store']);
+            Route::post('/tim/edit/{id}', [TimController::class, 'update']);
             Route::delete('/tim/hapus/{id}', [TimController::class, 'delete']);
 
             /* ---------------------------- Route Anggota Tim --------------------------- */
@@ -120,47 +122,51 @@ Route::prefix('/')->middleware('auth')->group(function () {
             Route::delete('/tim/hapus/anggota/{id}', [TimController::class, 'deleteAnggota']);
 
             /* ------------------------------ Route Jadwal ------------------------------ */
-            Route::get('/jadwal/tambah', [JadwalController::class, 'indexCreate']);
-            Route::post('/jadwal/tambah', [JadwalController::class, 'create']);
-            Route::post('/jadwal/edit/{id}', [JadwalController::class, 'edit']);
+            Route::get('/jadwal/tambah', [JadwalController::class, 'create']);
+            Route::post('/jadwal/tambah', [JadwalController::class, 'store']);
+            Route::post('/jadwal/edit/{id}', [JadwalController::class, 'update']);
             Route::delete('/jadwal/hapus/{id}', [JadwalController::class, 'delete']);
 
             /* ----------------------------- Route Kegiatan ----------------------------- */
-            Route::get('/jadwal/{id}/kegiatan/tambah', [KegiatanController::class, 'indexCreate']);
-            Route::post('/jadwal/{id}/kegiatan/tambah/', [KegiatanController::class, 'create']);
-            Route::post('/jadwal/kegiatan/edit/{id}', [KegiatanController::class, 'edit']);
+            Route::get('/jadwal/{id}/kegiatan/tambah', [KegiatanController::class, 'create']);
+            Route::post('/jadwal/{id}/kegiatan/tambah/', [KegiatanController::class, 'store']);
+            Route::post('/jadwal/kegiatan/edit/{id}', [KegiatanController::class, 'update']);
             Route::delete('/jadwal/kegiatan/hapus/{id}', [KegiatanController::class, 'delete']);
-            Route::post('/jadwal/{id}/kegiatan/presensi/', [KegiatanController::class, 'create']);
+            Route::post('/jadwal/{id}/kegiatan/presensi/', [KegiatanController::class, 'store']);
 
             Route::post('/jadwal/kegiatan/tambah/laporan-kegiatan', [KegiatanController::class, 'createLaporan']);
 
             /* ----------------------------- Route Presensi ----------------------------- */
             Route::get("/presensi", [PresensiController::class, 'index']);
-            Route::get("/presensi/tambah", [PresensiController::class, 'indexCreate']);
+            Route::post("/presensi/tambah", [PresensiController::class, 'store']);
+            Route::post('/presensi/edit/{id}', [PresensiController::class, 'update']);
+            Route::get('/presensi/detail/{id}', [PresensiDetailController::class, 'index']);
+            Route::delete('/presensi/hapus/{id}', [PresensiController::class, 'delete']);
         });
     });
 
 
     Route::get('/pelatih', [PelatihController::class, 'index']);
-    Route::get('/pelatih/detail/{id}', [PelatihController::class, 'indexDetail']);
-    // Route::get('/pelatih/cetak/', [PelatihController::class, 'print']);
-    Route::get('/pelatih/cetak/', [PelatihController::class, 'cetakPelatih']);
+    Route::get('/pelatih/detail/{id}', [PelatihController::class, 'show']);
+    Route::get('/pelatih/cetak/', [PelatihController::class, 'cetak']);
 
     Route::get('/pemain', [PemainController::class, 'index']);
-    Route::get('/pemain/detail/{id}', [PemainController::class, 'indexDetail']);
-    Route::get('/pemain/cetak/', [PemainController::class, 'cetakPemain']);
+    Route::get('/pemain/detail/{id}', [PemainController::class, 'show']);
+    Route::get('/pemain/cetak/', [PemainController::class, 'cetak']);
 
     Route::get('/tim', [TimController::class, 'index']);
-    Route::get('/tim/detail/{id}', [TimController::class, 'indexDetail']);
-    Route::post('/tim/edit/{id}', [TimController::class, 'edit']);
+    Route::get('/tim/detail/{id}', [TimController::class, 'show']);
+    Route::post('/tim/edit/{id}', [TimController::class, 'update']);
 
     Route::post('/tim/tambah/anggota', [TimController::class, 'createAnggota']);
     Route::delete('/tim/hapus/anggota/{id}', [TimController::class, 'deleteAnggota']);
 
-
     Route::get('/jadwal', [JadwalController::class, 'index']);
-    Route::get('/jadwal/cetak/', [JadwalController::class, 'cetakJadwal']);
+    Route::get('/jadwal/cetak/', [JadwalController::class, 'cetak']);
 
     Route::get('/jadwal/kegiatan/{id}', [KegiatanController::class, 'index']);
-    Route::get('/jadwal/kegiatan/detail/{id}', [KegiatanController::class, 'indexDetail']);
+    Route::get('/jadwal/kegiatan/detail/{id}', [KegiatanController::class, 'show']);
+
+    Route::post('/jadwal/kegiatan/presensi-pelatih/', [PresensiDetailController::class, 'storePelatih']);
+    Route::post('/jadwal/kegiatan/presensi-pemain/', [PresensiDetailController::class, 'storePemain']);
 });

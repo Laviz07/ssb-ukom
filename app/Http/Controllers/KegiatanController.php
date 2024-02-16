@@ -6,11 +6,15 @@ use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use App\Models\Kegiatan;
 use App\Models\Pelatih;
+use App\Models\Presensi;
 use Illuminate\Support\Facades\DB;
 use Storage;
 
 class KegiatanController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         $data = [
@@ -22,7 +26,10 @@ class KegiatanController extends Controller
         return view('Kegiatan.index', $data);
     }
 
-    public function indexCreate(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Request $request)
     {
         $data = [
             'jadwal' => Jadwal::where('id_jadwal', $request->id)->first(),
@@ -31,16 +38,23 @@ class KegiatanController extends Controller
         return view('Kegiatan.tambah', $data);
     }
 
-    public function indexDetail(Request $request)
+    /**
+     * Display the specified resource.
+     */
+    public function show(Request $request)
     {
         $data = [
             'kegiatan' => Kegiatan::where('id_kegiatan', $request->id)->first(),
             'pelatih' => Pelatih::all(),
+            'presensi' => Presensi::where('id_kegiatan', $request->id)->first(),
         ];
         return view('Kegiatan.detail', $data);
     }
 
-    public function create(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
         $data = $request->validate([
             // Menambah ke tabel pelatih
@@ -56,9 +70,9 @@ class KegiatanController extends Controller
 
         ]);
 
-         // Memanggil fungsi untuk mendapatkan ID kustom
-         $customId = DB::selectOne("SELECT function_id_kegiatan() as custom_id")->custom_id;
-         $data['id_kegiatan'] = $customId;
+        // Memanggil fungsi untuk mendapatkan ID kustom
+        $customId = DB::selectOne("SELECT function_id_kegiatan() as custom_id")->custom_id;
+        $data['id_kegiatan'] = $customId;
 
         //Upload foto kegiatan
         if ($request->hasFile('foto_kegiatan')) {
@@ -84,6 +98,9 @@ class KegiatanController extends Controller
         return response()->json($pesan);
     }
 
+    /**
+     * Create a new report of kegiatan
+     */
     public function createLaporan(Request $request)
     {
         $data = $request->validate([
@@ -110,7 +127,10 @@ class KegiatanController extends Controller
         return response()->json($pesan);
     }
 
-    public function edit(Request $request)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
     {
         $data = $request->validate([
             'nik_pelatih' => ['required'],
@@ -141,6 +161,9 @@ class KegiatanController extends Controller
         }
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function delete(Kegiatan $kegiatan, Request $request)
     {
         $idKegiatan = $request->id;

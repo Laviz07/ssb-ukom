@@ -26,18 +26,20 @@ class PelatihController extends Controller
         return view('Pelatih.index', $data);
     }
 
-    /**
+     /**
+     * Show the form for creating a new resource.
      * Menampilkan halaman tambah pelatih
      */
-    public function indexCreate()
+    public function create()
     {
         return view('Pelatih.tambah');
     }
 
     /**
+     * Display the specified resource.
      * Menampilkan halaman detail pelatih
      */
-    public function indexDetail(Request $request)
+    public function show(Request $request)
     {
         $data = [
             'pelatih' => Pelatih::where('nik_pelatih', $request->id)->first(),
@@ -50,9 +52,9 @@ class PelatihController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      */
-    public function create(Request $request)
+    public function store(Request $request)
     {
         //
         $data = $request->validate([
@@ -100,25 +102,9 @@ class PelatihController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Update the specified resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pelatih $pelatih)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request)
+    public function update(Request $request)
     {
         //
         $data = $request->validate([
@@ -134,13 +120,6 @@ class PelatihController extends Controller
         $pelatih->save();
 
         return redirect()->to('/pelatih')->with('success', 'Pelatih Berhasil Diupdate');
-    }
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pelatih $pelatih)
-    {
-        //
     }
 
     /**
@@ -187,7 +166,7 @@ class PelatihController extends Controller
     /**
      * Menampilkan halaman cetak data pelatih
      */
-    public function cetakPelatih()
+    public function cetak()
     {
         $data = [
             'pelatih' => Pelatih::get(),

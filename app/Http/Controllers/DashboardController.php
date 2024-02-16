@@ -32,7 +32,7 @@ class DashboardController extends Controller
     //     return view('Beranda.dashboard');
     // }
 
-    public function indexDashboard(BeritaChart $beritaChart, JadwalChart $jadwalChart, MonthlyUsersChart $userBulananChart, TimChart $timChart)
+    public function dashboard(BeritaChart $beritaChart, JadwalChart $jadwalChart, MonthlyUsersChart $userBulananChart, TimChart $timChart)
     {
         $data = [
             'user' => User::query()->count(),
