@@ -9,6 +9,19 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     //
+
+    public function getUserStatusCount() {
+        $activeUsers = User::where('active', true)->count();
+        $inactiveUsers = User::where('active', false)->count();
+    
+        $data = [
+            'active_users' => $activeUsers,
+            'inactive_users' => $inactiveUsers,
+        ];
+    
+        return $data;
+    }
+
     public function editUsername(Request $request)
     {
         $data = request()->validate([
