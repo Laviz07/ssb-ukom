@@ -60,6 +60,7 @@ Route::get('/profil', [ProfilController::class, 'index']);
 Route::post('/profil/pemain/edit/{id}', [ProfilController::class, 'editPemain']);
 Route::post('/profil/pelatih/edit/{id}', [ProfilController::class, 'editPelatih']);
 
+Route::get('/user-status-count', [UserController::class, 'getUserStatusCount']);
 Route::post('/profil/edit/username/{id}', [UserController::class, 'editUsername']);
 Route::post('/profil/edit/password/{id}', [UserController::class, 'editPassword']);
 Route::post('/profil/edit/foto_profil/{id}', [UserController::class, 'editFotoProfil']);
